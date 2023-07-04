@@ -1,0 +1,330 @@
+<mat-stepper [linear]="false" #stepper>
+    <mat-step [stepControl]="registerForm1.form">
+        <form class="form" #registerForm1="ngForm" novalidate>
+            <ng-template matStepLabel> Fill out Basic Details </ng-template>
+
+            <div class="row mt-4">
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" placeholder="Enter your email" #first_name="ngModel"
+                            appAlphabetsOnly name="userData.first_name" [(ngModel)]="userData.first_name" required />
+                        <mat-error *ngIf="(first_name.touched ) && first_name.errors?.['required']"> First name is
+                            required.
+                        </mat-error>
+                        <mat-error *ngIf="first_name.touched && first_name.errors?.['invalid']"> Please Enter Alphabets
+                            Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput type="text" placeholder="Enter your email" #middle_name="ngModel"
+                            appAlphabetsOnly name="userData.middle_name" [(ngModel)]="userData.middle_name" required />
+                        <mat-error *ngIf="(middle_name.touched ) && middle_name.errors?.['required']"> Middle name is
+                            required.
+                        </mat-error>
+                        <mat-error *ngIf="middle_name.touched && middle_name.errors?.['invalid']"> Please Enter
+                            Alphabets Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" placeholder="Enter your email" #last_name="ngModel" appAlphabetsOnly
+                            name="userData.last_name" [(ngModel)]="userData.last_name" required />
+                        <mat-error *ngIf="(last_name.touched ) && last_name.errors?.['required']"> Last name is
+                            required.
+                        </mat-error>
+                        <mat-error *ngIf="last_name.touched && last_name.errors?.['invalid']"> Please Enter Alphabets
+                            Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <mat-form-field class="w-100 fs-16 mt-4" appearance="outline">
+                <mat-label>Bio</mat-label>
+                <textarea matInput class="form-control" rows="3" name="userData.bio"
+                    [(ngModel)]="userData.bio"></textarea>
+            </mat-form-field>
+
+            <div class="row">
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder="Enter your email" name="userData.email"
+                            aria-describedby="emailHelpId" [(ngModel)]="userData.email" [email]="true" #email="ngModel"
+                            required>
+                        <mat-error *ngIf="(email.touched) && email.errors?.['required']"> Email is required.
+                        </mat-error>
+                        <mat-error *ngIf="(email.touched ) && email.errors?.['email']"> Email is not valid </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="userData.dob" max="{{Allowonly18Plus()}}"
+                            name="userData.dob" #dob="ngModel" required>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="(dob.touched) && dob.errors?.['required']"> Date is required. </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Select Maritual Status</mat-label>
+                        <mat-select name="userData.martialstatus" #martialstatus="ngModel"
+                            [(ngModel)]="userData.martialstatus" required>
+                            <mat-option value="Married">Married </mat-option>
+                            <mat-option value="Single">Single</mat-option>
+                            <mat-option value="Divorced">Divorced</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="(martialstatus.touched ) && martialstatus.errors?.['required']"> Martiual
+                            Status is
+                            required </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <button mat-fab extended color="accent" (click)="registerForm1.form.markAllAsTouched()"
+                style="float: right;" matStepperNext>
+                Next
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="registerForm2.form" label="Fill out your address">
+        <form class="form" #registerForm2="ngForm" novalidate>
+            <div class="row mt-4">
+                <div class="col">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Select Education</mat-label>
+                        <mat-select name="userData.education" #education="ngModel" [(ngModel)]="userData.education"
+                            required>
+                            <mat-option value="unEducated">No Eduacation</mat-option>
+                            <mat-option value="10pass">10th Pass</mat-option>
+                            <mat-option value="12pass">12th Pass</mat-option>
+                            <mat-option value="graduate">Graduate</mat-option>
+                            <mat-option value="pg">Post Graduate</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="(education.touched ) && education.errors?.['required']"> Education Status is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Weight</mat-label>
+                        <input matInput type="number" name="userData.weight" [(ngModel)]="userData.weight"
+                            appNumbersOnly [min]="1" placeholder="weight" #weight="ngModel" required />
+                        <mat-error *ngIf="(weight.touched ) && weight.errors?.['required']"> Weight is required.
+                        </mat-error>
+                        <mat-error *ngIf="weight.touched && weight.errors?.['invalid']"> Please Enter Numbers Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Height</mat-label>
+                        <input matInput type="number" name="userData.height" #height="ngModel" appNumbersOnly
+                            [(ngModel)]="userData.height" placeholder="" required />
+                        <mat-error *ngIf="(height.touched ) && height.errors?.['required']"> Height is required.
+                        </mat-error>
+                        <mat-error *ngIf="height.touched && height.errors?.['invalid']"> Please Enter Numbers Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col col-xl-2 col-md-3 col-sm-2">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Country Code</mat-label>
+                        <input matInput type="text" placeholder="+91" name="userData.country_code"
+                            [(ngModel)]="userData.country_code" #countryCode="ngModel" required appCountryCode>
+                        <mat-error *ngIf="(countryCode.touched ) && countryCode.errors?.['required']">
+                            Country code is required
+                        </mat-error>
+                        <mat-error *ngIf="(countryCode.touched ) && countryCode.errors?.['invalid']">
+                            Country code is not valid
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col col-xl-10 col-md-9 col-sm-10">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Contact Number</mat-label>
+                        <input matInput type="text" placeholder="9328409012" name="userData.contact_number"
+                            appNumbersOnly [(ngModel)]="userData.contact_number" #contactNumber="ngModel" required>
+                        <mat-error *ngIf="(contactNumber.touched ) && contactNumber.errors?.['required']">
+                            Contact Number is required
+                        </mat-error>
+                        <mat-error *ngIf="(contactNumber.touched ) && contactNumber.errors?.['invalid']">
+                            Contact Number is not valid
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <mat-form-field color="accent" appearance="outline">
+                <mat-label>Seeking For</mat-label>
+                <mat-select name="userData.preference" [(ngModel)]="userData.preference" #prefrence="ngModel" required>
+                    <mat-option value="Female">Female</mat-option>
+                    <mat-option value="Male">Male</mat-option>
+                    <mat-option value="Others">Others</mat-option>
+                </mat-select>
+                <mat-error *ngIf="(prefrence.touched ) && prefrence.errors?.['required']">
+                    Your Preference is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Address</mat-label>
+                <textarea matInput rows="3" name="userData.address" [(ngModel)]="userData.address" required
+                    #address="ngModel"></textarea>
+                <mat-error *ngIf="(address.touched ) && address.errors?.['required']">
+                    Address is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>ZipCode</mat-label>
+                <input matInput type="text" name="userData.zip_code" #zipcode="ngModel" [(ngModel)]="userData.zip_code"
+                    aria-describedby="helpId" placeholder="" required appNumbersOnly [minlength]="4">
+                <mat-error *ngIf="(zipcode.touched ) && zipcode.errors?.['required']">
+                    ZipCode is required
+                </mat-error>
+                <mat-error *ngIf="(zipcode.touched ) && zipcode.errors?.['minlength']">
+                    Minmum 4 digit is required
+                </mat-error>
+                <mat-error *ngIf="(zipcode.touched ) && zipcode.errors?.['invalid'] && !zipcode.errors?.['required']">
+                    Please enter numbers only
+                </mat-error>
+            </mat-form-field>
+
+            <div class="d-flex justify-content-end">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="accent" matStepperNext
+                    (click)="registerForm2.form.markAllAsTouched()">Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <form class="form" #registerForm3="ngForm"
+            [appMatchPassword]="['userData.password', 'userData.confirmPassword']" novalidate>
+
+            <mat-form-field color="accent" appearance="outline">
+                <mat-label>Select your Zodiac</mat-label>
+                <mat-select name="userData.zodiac_id" [(ngModel)]="userData.zodiac_id" #zoidac="ngModel" required>
+                    <mat-option value="{{item.id}}" *ngFor="let item of zodiacs">{{item.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="(zoidac.touched ) && zoidac.errors?.['required']">
+                    Zodiac is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Select Ethinicity</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Fruit selection">
+                    <mat-chip-row *ngFor="let item of selectedEthinicities" (removed)="remove(item)">
+                        {{item.name}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + item.name">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                </mat-chip-grid>
+                <input placeholder="New Fruit..." #ethinicityInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let item of ethinicities" [value]="item">
+                        {{item.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Food Preferences</mat-label>
+                <mat-chip-grid #FNDChips aria-label="Fruit selection">
+                    <mat-chip-row *ngFor="let item of SelectedfoodAndDrinks" (removed)="remove(item)">
+                        {{item.name}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + item.name">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                </mat-chip-grid>
+                <input placeholder="New Fruit..." #ethinicityInput [matChipInputFor]="FNDChips" [matAutocomplete]="auto"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let item of foodAndDrinks" [value]="item">
+                        {{item.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Going out Preferences</mat-label>
+                <mat-chip-grid #GoingOutChips aria-label="Fruit selection">
+                    <mat-chip-row *ngFor="let item of SelectedgoingOuts" (removed)="remove(item)">
+                        {{item.name}}
+                        <button matChipRemove [attr.aria-label]="'remove ' + item.name">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                </mat-chip-grid>
+                <input placeholder="New Fruit..." #ethinicityInput [matChipInputFor]="GoingOutChips"
+                    [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let item of goingOuts" [value]="item">
+                        {{item.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" appPasswordPattern
+                    [(ngModel)]="userData.password" name="userData.password" #password="ngModel" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="(password.touched) && password.errors?.['required']"> Password is
+                    required.</mat-error>
+                <mat-error *ngIf="password.touched && password.errors?.['invalidPassword']">
+                    Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                    letter and 1 number
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label> Confirm Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password"
+                    [(ngModel)]="userData.confirmPassword" name="userData.confirmPassword" #confirmPassword="ngModel"
+                    required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide confirmPassword'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error class="text-danger form-text d-block"
+                    *ngIf="(confirmPassword.touched) && confirmPassword.errors?.['required']">
+                    Confirm Password is required
+                </mat-error>
+                <mat-error class="text-danger form-text d-block"
+                    *ngIf="confirmPassword.touched && confirmPassword.errors?.['passwordMismatch']">
+                    Passwords doesnot match
+                </mat-error>
+            </mat-form-field>
+        </form>
+
+        <app-app-auto-complete [allItems]="goingOuts"></app-app-auto-complete>
+
+        <div class="d-flex my-4 justify-content-end">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="accent" (click)="GetUserData(registerForm3)">Reset</button>
+        </div>
+    </mat-step>
+</mat-stepper>
