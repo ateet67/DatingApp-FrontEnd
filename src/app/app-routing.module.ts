@@ -17,10 +17,12 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TooltipsComponent } from './components/tooltips/tooltips.component';
 import { ProductComponent } from './dashboard/dashboard-components/product/product.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent as Profiles } from './pages/dashboard/dashboard/dashboard.component';
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { ChatsComponent } from './pages/dashboard/chats/chats.component';
 
 const routes: Routes = [
   {
@@ -50,11 +52,14 @@ const routes: Routes = [
     // ]
   },
   {
-    path: "components",
+    path: "dashboard",
     component: FullComponent,
     children: [
-      { path: "", redirectTo: "/components/home", pathMatch: "full" },
-      { path: "home", component: DashboardComponent },
+      { path: "", redirectTo: "/dashboard/home", pathMatch: "full" },
+      { path: "home", component: Profiles },
+      { path: "chats", component: ChatsComponent },
+      //below unwanted
+      { path: "home2", component: DashboardComponent },
       { path: "alerts", component: AlertsComponent },
       { path: "forms", component: FormsComponent },
       { path: "table", component: ProductComponent },

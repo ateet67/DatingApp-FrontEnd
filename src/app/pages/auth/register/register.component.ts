@@ -36,6 +36,7 @@ export class RegisterComponent {
   hide: boolean | string = true;
   isLoading: boolean = false;
   otpVeriffication: boolean = false;
+  values: number[] = [1, 2, 3]
 
   otpData = {
     otp: "",
@@ -46,7 +47,7 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.service.getProfessions().subscribe((res: Profession[]) => {
-      console.log(res);
+      // console.log(res);
     });
 
     this.service.getZodiacs().subscribe((res: Zodiac[]) => {
@@ -74,12 +75,7 @@ export class RegisterComponent {
     form.form.markAllAsTouched();
     if (form.form.valid) {
       this.isLoading = true;
-      console.log(moment(this.userData.dob).format('YYYY-MM-DD'));
       this.userData.dob = moment(this.userData.dob).format('YYYY-MM-DD');
-      this.userData.ethicity = this.selectedEthinicities.map(x => x.id ?? 0);
-      this.userData.food_preference = this.foodAndDrinks.filter(e => e.checked).map(x => x.id ?? 0);
-      this.userData.goingout_preference = this.goingOuts.filter(e => e.checked).map(x => x.id ?? 0);
-      console.log(this.userData);
       this.authServivce.registerUser(this.userData).subscribe((data: any) => {
         console.log(data);
         setTimeout(() => {
@@ -139,7 +135,7 @@ export class RegisterComponent {
 
     this.authServivce.verifyOTP(this.otpData).subscribe((data) => {
       if (data['verified']) {
-        this.router.navigate(['/login'])
+        this.router.navigate(['/auth/login'])
       }
     })
   }

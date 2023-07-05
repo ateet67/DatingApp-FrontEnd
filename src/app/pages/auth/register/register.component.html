@@ -45,11 +45,32 @@
                 </div>
             </div>
 
-            <mat-form-field class="w-100 fs-16 mt-4" appearance="outline">
-                <mat-label>Bio</mat-label>
-                <textarea matInput class="form-control" rows="3" name="userData.bio"
-                    [(ngModel)]="userData.bio"></textarea>
-            </mat-form-field>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="w-100 fs-16 mt-4" appearance="outline">
+                        <mat-label>Bio</mat-label>
+                        <textarea matInput class="form-control" rows="3" name="userData.bio"
+                            [(ngModel)]="userData.bio"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 mb-4">
+                    <mat-label>Pick your favorite season</mat-label>
+                    <mat-radio-group [(ngModel)]="userData.gender" name="userData.email" #gender="ngModel">
+                        <mat-radio-button [value]="'Male'">
+                            Male
+                        </mat-radio-button>
+                        <mat-radio-button [value]="'Female'">
+                            Female
+                        </mat-radio-button>
+                        <mat-radio-button [value]="'Other'">
+                            Other
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="(gender.touched) && gender.errors?.['required']"> Gender is required.
+                    </mat-error>
+                </div>
+            </div>
+
 
             <div class="row">
                 <div class="col-xl-4 col-md-4 col-sm-12">
@@ -205,10 +226,13 @@
                 </mat-error>
             </mat-form-field>
 
-            <div class="d-flex justify-content-end">
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-raised-button color="accent" matStepperNext
-                    (click)="registerForm2.form.markAllAsTouched()">Next</button>
+            <div class="d-flex justify-content-end" style="gap:10px">
+                <button mat-fab extended matStepperPrevious class="">Back
+                    <mat-icon>keyboard_arrow_left</mat-icon></button>
+                <button mat-fab extended color="accent" matStepperNext (click)="registerForm2.form.markAllAsTouched()">
+                    Next
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
             </div>
         </form>
     </mat-step>
@@ -227,62 +251,20 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Select Ethinicity</mat-label>
-                <mat-chip-grid #chipGrid aria-label="Fruit selection">
-                    <mat-chip-row *ngFor="let item of selectedEthinicities" (removed)="remove(item)">
-                        {{item.name}}
-                        <button matChipRemove [attr.aria-label]="'remove ' + item.name">
-                            <mat-icon>cancel</mat-icon>
-                        </button>
-                    </mat-chip-row>
-                </mat-chip-grid>
-                <input placeholder="New Fruit..." #ethinicityInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                    <mat-option *ngFor="let item of ethinicities" [value]="item">
-                        {{item.name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+            <app-app-auto-complete *ngIf="ethinicities.length > 0" [allItems]="ethinicities"
+                [placeHolder]="'Search ethinicities...'" [label]="'Select Ethinicity'" [(values)]="userData.ethicity"
+                [appearance]="'outline'">
+            </app-app-auto-complete>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Food Preferences</mat-label>
-                <mat-chip-grid #FNDChips aria-label="Fruit selection">
-                    <mat-chip-row *ngFor="let item of SelectedfoodAndDrinks" (removed)="remove(item)">
-                        {{item.name}}
-                        <button matChipRemove [attr.aria-label]="'remove ' + item.name">
-                            <mat-icon>cancel</mat-icon>
-                        </button>
-                    </mat-chip-row>
-                </mat-chip-grid>
-                <input placeholder="New Fruit..." #ethinicityInput [matChipInputFor]="FNDChips" [matAutocomplete]="auto"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                    <mat-option *ngFor="let item of foodAndDrinks" [value]="item">
-                        {{item.name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+            <app-app-auto-complete *ngIf="foodAndDrinks.length > 0" [allItems]="foodAndDrinks"
+                [placeHolder]="'Search Food preferences...'" [label]="'Food & Drinks Preferences'"
+                [(values)]="userData.food_preference" [appearance]="'outline'">
+            </app-app-auto-complete>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Going out Preferences</mat-label>
-                <mat-chip-grid #GoingOutChips aria-label="Fruit selection">
-                    <mat-chip-row *ngFor="let item of SelectedgoingOuts" (removed)="remove(item)">
-                        {{item.name}}
-                        <button matChipRemove [attr.aria-label]="'remove ' + item.name">
-                            <mat-icon>cancel</mat-icon>
-                        </button>
-                    </mat-chip-row>
-                </mat-chip-grid>
-                <input placeholder="New Fruit..." #ethinicityInput [matChipInputFor]="GoingOutChips"
-                    [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                    <mat-option *ngFor="let item of goingOuts" [value]="item">
-                        {{item.name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+            <app-app-auto-complete *ngIf="goingOuts.length > 0" [allItems]="goingOuts"
+                [placeHolder]="'Search your preferences..'" [label]="'Going out Preferences'"
+                [(values)]="userData.goingout_preference" [appearance]="'outline'">
+            </app-app-auto-complete>
 
             <mat-form-field class="w-100 fs-16" appearance="outline">
                 <mat-label>Password</mat-label>
@@ -318,13 +300,41 @@
                     Passwords doesnot match
                 </mat-error>
             </mat-form-field>
+
         </form>
 
-        <app-app-auto-complete [allItems]="goingOuts"></app-app-auto-complete>
-
         <div class="d-flex my-4 justify-content-end">
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="accent" (click)="GetUserData(registerForm3)">Reset</button>
+            <button mat-fab extended matStepperPrevious class="">Back <mat-icon>keyboard_arrow_left</mat-icon></button>
+            <button mat-fab extended color="accent" matStepperNext (click)="GetUserData(registerForm3)">
+                Send OTP
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Verif OTP</ng-template>
+        <div class="row justify-content-md-center">
+            <div class="col-4">
+                <form class="form d-flex justify-content-center flex-column" #otp="ngForm" novalidate>
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Please check your email</mat-label>
+                        <input matInput type="text" #otpFeild="ngModel" name="otpData.otp" [(ngModel)]="otpData.otp" [required]="true"
+                            appNumbersOnly />
+                        <mat-error class="text-danger form-text d-block"
+                            *ngIf="(otpFeild.touched) && otpFeild.errors?.['required']">
+                            OTP is required
+                        </mat-error>
+                        <mat-error class="text-danger form-text d-block"
+                            *ngIf="(otpFeild.touched ) && otpFeild.errors?.['invalid'] && !otpFeild.errors?.['required']">
+                            Please enter numbers only
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-fab extended color="accent" type="submit" class="mx-auto" matStepperNext (click)="VerifyOtp()">
+                        Verify
+                        <mat-icon>verified_user</mat-icon>
+                    </button>
+                </form>
+            </div>
         </div>
     </mat-step>
 </mat-stepper>

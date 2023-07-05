@@ -1,0 +1,19 @@
+<div [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState($event)"
+    (swipeleft)='startAnimation("swipeleft")' (swiperight)='startAnimation("swiperight")'>
+    <mat-card class="overflow-hidden">
+        <div>
+            <img [src]="users[index].picture" class="w-100" alt="">
+        </div>
+        <mat-card-content>
+            <div>
+                <p class="fs-18 lh-lg fw-medium">
+                    {{users[index].name}}, {{users[index].age}}
+                </p>
+                <p class="op-7">
+                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                </p>
+                <button mat-flat-button color="accent" class="fw-normal mt-4">Learn More</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

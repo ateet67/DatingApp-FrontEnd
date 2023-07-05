@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 import { FormsModule, } from '@angular/forms'
@@ -17,6 +17,8 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { StoreModule } from '@ngrx/store';
+import * as Hammer from "hammerjs";
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 import { HttpClientModule } from "@angular/common/http";
 import { PasswordPatternDirective } from './core/directives/password-pattern.directive';
@@ -31,12 +33,14 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { userReducer } from './core/store/reducers/user.reducers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatInputModule } from '@angular/material/input';
+import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
+import { ChatsComponent } from './pages/dashboard/chats/chats.component';
+import { MyHammerConfig } from './hammer';
 
 
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +55,8 @@ export function tokenGetter() {
     AlphNumericDirective,
     CountryCodeDirective,
     NumbersOnlyDirective,
+    DashboardComponent,
+    ChatsComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,9 +75,15 @@ export function tokenGetter() {
       },
     }),
     StoreModule.forRoot({ user: userReducer }, {}),
-    NgbModule
+    NgbModule,
+    HammerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,7 +11,7 @@ import { TabsComponent } from './tabs/tabs.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { ChipsComponent } from './chips/chips.component';
 import { ProgressComponent } from './progress/progress.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ProgressSnipperComponent } from './progress-snipper/progress-snipper.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
@@ -19,7 +19,8 @@ import { SliderComponent } from './slider/slider.component';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
-import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.component'
+import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.component';
+import { SwipeCardComponent } from './swipe-card/swipe-card.component'
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.
     AlertsComponent,
     GridListComponent,
     TooltipsComponent,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     AlertsComponent,
@@ -59,10 +61,12 @@ import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.
     SliderComponent,
     SlideToggleComponent,
     ButtonsComponent,
-    AppAutoCompleteComponent
+    AppAutoCompleteComponent,
+    SwipeCardComponent
   ],
   declarations: [
-    AppAutoCompleteComponent
+    AppAutoCompleteComponent,
+    SwipeCardComponent
   ]
 })
 export class ComponentsModule {

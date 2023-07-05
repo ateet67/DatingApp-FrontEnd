@@ -1,0 +1,60 @@
+$color_1: #c0c0c0;
+$font-family_1: 'Helvetica', sans-serif;
+$background-color_1: #fff;
+
+.tphoto {
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    top: 15px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border: 1px solid #c0c0c0;
+    padding-bottom: 60px;
+    background-color: $background-color_1;
+    box-shadow: 2px 2px 2px #c0c0c0;
+}
+
+.tphoto img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+
+.tname {
+    padding: 15px;
+    font-size: 20px;
+    font-family: $font-family_1;
+    float: left;
+
+    .age {
+        font-weight: 200;
+    }
+}
+
+.tinfo {
+    font-family: $font-family_1;
+
+    .fa-users {
+        color: $color_1;
+        float: right;
+        position: relative;
+        font-size: 24px;
+        padding: 12px;
+    }
+
+    .fa-book {
+        color: $color_1;
+        float: right;
+        position: relative;
+        font-size: 24px;
+        padding: 12px;
+    }
+}
