@@ -58,3 +58,18 @@ $background-color_1: #fff;
         padding: 12px;
     }
 }
+
+.profileName {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    bottom: 0px;
+    width: 100%;
+    padding-inline: 20px;
+
+    .profession {
+        font-size: 16px !important;
+    }
+}

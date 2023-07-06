@@ -11,7 +11,7 @@ export class AuthGuardService {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (!this.authService.isAuthenticated()) {
-      this.route.navigate(['login']);
+      this.route.navigate(['/auth/login']);
       return false;
     }
     return true;

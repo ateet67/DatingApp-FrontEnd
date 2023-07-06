@@ -10,17 +10,18 @@ $background-color_2: #f0f0f0;
   Tinder Template by Miami
   ************************/
 .tbg {
-	overflow-x: hidden;
-	height: 720px;
 	width: 450px;
 	margin: 0 auto;
 }
+
 .tbgwrap {
 	padding: 10px;
 }
+
 .theader {
 	height: 65px;
 	border-bottom: 1px solid #c0c0c0;
+
 	i.fa-comments {
 		color: $color_1;
 		font-size: 40px;
@@ -29,6 +30,7 @@ $background-color_2: #f0f0f0;
 		padding: 10px 20px;
 		position: relative;
 	}
+
 	i.fa-cog {
 		color: $color_1;
 		font-size: 40px;
@@ -38,14 +40,17 @@ $background-color_2: #f0f0f0;
 		position: relative;
 	}
 }
+
 .tlogo {
 	width: 100px;
 	margin: 0 auto;
 	padding: 10px;
+
 	img {
 		width: 100px;
 	}
 }
+
 .tno {
 	background-color: $background-color_1;
 	height: 120px;
@@ -59,12 +64,14 @@ $background-color_2: #f0f0f0;
 	top: 50px;
 	left: 25px;
 	border: 10px solid #f0f0f0;
+
 	i {
 		color: $color_2;
 		font-size: 80px;
 		padding: 17px 28px;
 	}
 }
+
 .ti {
 	background-color: $background-color_1;
 	height: 50px;
@@ -78,12 +85,14 @@ $background-color_2: #f0f0f0;
 	left: 12px;
 	top: 30px;
 	border: 10px solid #f0f0f0;
+
 	.fa-info {
 		font-size: 23px;
 		padding: 15px 20px;
 		color: $color_3;
 	}
 }
+
 .tyes {
 	background-color: $background-color_1;
 	height: 120px;
@@ -97,12 +106,14 @@ $background-color_2: #f0f0f0;
 	top: 48px;
 	left: 0px;
 	border: 10px solid #f0f0f0;
+
 	i {
 		color: $color_4;
 		font-size: 60px;
 		padding: 35px 30px;
 	}
 }
+
 .credit {
 	width: 400px;
 	height: auto;
@@ -111,6 +122,7 @@ $background-color_2: #f0f0f0;
 	text-align: center;
 	background-color: $background-color_2;
 	padding: 2px 0px;
+
 	a {
 		font-size: 7px;
 		letter-spacing: 5px;
@@ -120,4 +132,30 @@ $background-color_2: #f0f0f0;
 		font-family: $font-family_1;
 		font-style: italic;
 	}
+}
+
+.profileButtons {
+
+	align-items: center;
+	justify-content: space-evenly;
+
+	div {
+		height: 50px;
+		width: 50px;
+		background: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0px 0px 12px gainsboro;
+		border-radius: 50%;
+		cursor: pointer;
+	}
+
+	.likeButton {
+		height: 80px;
+		width: 80px
+	}
+}
+.stackCard{
+	position: absolute;
 }

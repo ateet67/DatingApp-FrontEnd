@@ -37,7 +37,7 @@ export class LoginComponent {
             setTimeout(() => {
               console.log(data);
               this.router.navigateByUrl('/dashboard')
-            }, 1000);
+            }, 500);
           }
         },
         (err: any) => {

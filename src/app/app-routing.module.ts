@@ -23,6 +23,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { ChatsComponent } from './pages/dashboard/chats/chats.component';
+import { AuthGuard } from './core/service/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
   },
   {
     path: "dashboard",
+    // canActivate: [AuthGuard],
     component: FullComponent,
     children: [
       { path: "", redirectTo: "/dashboard/home", pathMatch: "full" },
