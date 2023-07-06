@@ -1,5 +1,5 @@
 import { animate, keyframes, transition, trigger } from '@angular/animations';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as kf from './keyframes';
 import { User } from './user';
 import { Subject } from 'rxjs';
@@ -16,44 +16,19 @@ import { Subject } from 'rxjs';
   ]
 })
 export class SwipeCardComponent {
-  public users: User[] = [{
+  @Input() user: User = {
     "id": 0,
-    "picture": "assets/images/u2.webp",
+    "picture": "",
     "age": 23,
-    "name": "Candace Coffey",
-    "gender": "female"
-  },
-  {
-    "id": 1,
-    "picture": "assets/images/u3.webp",
-    "age": 40,
-    "name": "Katrina Potter",
-    "gender": "female"
-  },
-  {
-    "id": 2,
-    "picture": "assets/images/u4.webp",
-    "age": 35,
-    "name": "Genevieve Hardy",
-    "gender": "female"
-  },
-  {
-    "id": 3,
-    "picture": "assets/images/u2.webp",
-    "age": 30,
-    "name": "Cabrera Jefferson",
-    "gender": "male"
-  },
-  {
-    "id": 4,
-    "picture": "assets/images/u3.webp",
-    "age": 37,
-    "name": "Guadalupe Keith",
-    "gender": "female"
-  }];
-  public index = 0;
+    "name": "",
+    "gender": ""
+  };
+
   @Input()
-  parentSubject: Subject<any> = new Subject();
+  parentSubject!: Subject<any>;
+
+
+  @Output() onSwipeCard = new EventEmitter<number>();
 
 
 
@@ -68,17 +43,18 @@ export class SwipeCardComponent {
     });
   }
 
-  startAnimation(state: any) {
+  startAnimation(state: any, id?: number) {
     console.log(state);
-
     if (!this.animationState) {
       this.animationState = state;
     }
+    setTimeout(() => {
+      id && this.onSwipeCard.emit(id);
+    }, 750);
   }
 
-  resetAnimationState(state: any) {
+  resetAnimationState(id: number) {
     this.animationState = '';
-    this.index++;
   }
 
 
