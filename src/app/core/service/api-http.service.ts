@@ -12,9 +12,6 @@ export class ApiHttpService {
   constructor(private httpClient: HttpClient) {
     this.options = {
       responseType: 'json',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
       withCredentials: true
       // enctype: 'application/x-www-form-urlencoded'
     }
