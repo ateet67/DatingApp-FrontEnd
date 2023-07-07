@@ -46,7 +46,8 @@ export class FullComponent implements OnInit {
     private authservice: AuthService,
     private socketservice: SocketService,
     private socket: Socket,
-    private notificationservice: NotificationService
+    private notificationservice: NotificationService,
+    private router: Router
   ) {
    
 
@@ -93,7 +94,12 @@ export class FullComponent implements OnInit {
       icon: "message-circle",
       menu: "Chats",
     }
-  ]
+  ];
+
+  onLogout() {
+    this.router.navigateByUrl("/");
+    localStorage.clear();
+  }
 
 
   setCountOfNotification() {
