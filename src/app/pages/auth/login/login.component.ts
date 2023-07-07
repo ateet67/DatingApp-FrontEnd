@@ -13,8 +13,8 @@ import { setUser } from 'src/app/core/store/actions/user.actions';
 export class LoginComponent {
 
   loginData = {
-    email: "fhghd@sds.dsd",
-    password: "Sit@321#"
+    email: "bumble8@gmail.com",
+    password: "password123"
   }
 
   isLoading: boolean = false;
@@ -30,8 +30,9 @@ export class LoginComponent {
       this.isLoading = true;
       this.authServivce.login(this.loginData.email, this.loginData.password).subscribe(
         (data: any) => {
+          console.log(data);
           if (data.status) {
-            this.isLoading = false;
+            this.isLoading =false;
             localStorage.setItem("token", data.user.token);
             this.store.dispatch(setUser({ user: data.user }));
             setTimeout(() => {

@@ -37,7 +37,15 @@ import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.compon
 import { ChatsComponent } from './pages/dashboard/chats/chats.component';
 import { MyHammerConfig } from './hammer';
 import { ImagesComponent } from './pages/profile/images/images.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import config from './environments/environment.local';
 
+const socketConfig: SocketIoConfig = {
+	url: config.socketUrl, // socket server url;
+	options: {
+		transports: ['websocket']
+	}
+}
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -78,7 +86,8 @@ export function tokenGetter() {
     }),
     StoreModule.forRoot({ user: userReducer }, {}),
     NgbModule,
-    HammerModule
+    HammerModule,
+    SocketIoModule.forRoot(socketConfig ), 
   ],
   providers: [
     {
