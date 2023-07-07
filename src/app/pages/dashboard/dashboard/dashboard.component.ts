@@ -2,6 +2,8 @@ import { Component, QueryList, ViewChildren, AfterViewInit } from '@angular/core
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { SwipeCardComponent } from 'src/app/components/swipe-card/swipe-card.component';
+import { SocketService } from 'src/app/core/service/SocketServices/socket.service';
+import { UserService } from 'src/app/core/service/UserService/user.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { User as UserModel } from 'src/app/shared/models/user.model';
 
@@ -25,62 +27,70 @@ export class DashboardComponent implements AfterViewInit {
     console.log(this.childrenRef);
   }
 
-  user: User = new UserModel({});
 
-  public users = [{
-    "id": 15,
-    "picture": "assets/images/u2.webp",
-    "age": 23,
-    "name": "Candace Coffey",
-    "gender": "female"
-  },
-  {
-    "id": 1,
-    "picture": "assets/images/u3.webp",
-    "age": 40,
-    "name": "Katrina Potter",
-    "gender": "female"
-  },
-  {
-    "id": 2,
-    "picture": "assets/images/u4.webp",
-    "age": 35,
-    "name": "Genevieve Hardy",
-    "gender": "female"
-  },
-  {
-    "id": 3,
-    "picture": "assets/images/u2.webp",
-    "age": 30,
-    "name": "Cabrera Jefferson",
-    "gender": "male"
-  },
-  {
-    "id": 4,
-    "picture": "assets/images/u3.webp",
-    "age": 37,
-    "name": "Guadalupe Keith",
-    "gender": "female"
-  }];
-
-  constructor(private store: Store<any>) { }
+  // public users = [{
+  //   "id": 15,
+  //   "picture": "assets/images/u2.webp",
+  //   "age": 23,
+  //   "name": "Candace Coffey",
+  //   "gender": "female"
+  // },
+  // {
+  //   "id": 1,
+  //   "picture": "assets/images/u3.webp",
+  //   "age": 40,
+  //   "name": "Katrina Potter",
+  //   "gender": "female"
+  // },
+  // {
+  //   "id": 2,
+  //   "picture": "assets/images/u4.webp",
+  //   "age": 35,
+  //   "name": "Genevieve Hardy",
+  //   "gender": "female"
+  // },
+  // {
+  //   "id": 3,
+  //   "picture": "assets/images/u2.webp",
+  //   "age": 30,
+  //   "name": "Cabrera Jefferson",
+  //   "gender": "male"
+  // },
+  // {
+  //   "id": 4,
+  //   "picture": "assets/images/u3.webp",
+  //   "age": 37,
+  //   "name": "Guadalupe Keith",
+  //   "gender": "female"
+  // }];
+  users!:Array<User>;
+  currentUser!:User;
+  isLoading:boolean = false;
+  constructor(private store: Store<any>,private socketservice:SocketService,private userservice:UserService) { }
 
   ngOnInit() {
     console.info(this.childrenRef);
     // console.log(this.store.select((store: any) => store.user));
     this.store.select('user').subscribe((data) => {
-      this.user = data;
+      this.currentUser = data;
     });
+    this.socketservice.ConnectSocket()
+    this.userservice.GetUsers().subscribe((data) => this.users =data)
     // this.user = this.store.dispatch(getUser());
   }
 
   cardAnimation(value: any) {
-    console.log(this.childrenRef);
+    
     this.childrenRef.first.startAnimation(value, this.childrenRef.first.user.id);
+    console.log( this.childrenRef.first.user.id);
+    
+    this.socketservice.ProfileSwipe( this.childrenRef.first.user.id??0,value==="swiperight")
   }
-
-  CardSwiped(id: any) {
+  
+  CardSwiped(data:any) {
+    const {id,state} = data
+    // this.socketservice.ProfileSwipe( this.childrenRef.first.user.id,value==="swiperight")
     this.users = this.users.filter((p) => p.id !== id)
-    console.log(id);
+    this.socketservice.ProfileSwipe( id,state==="swiperight")
   }
 }

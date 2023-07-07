@@ -1,14 +1,14 @@
-<div [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState(user.id)"
+<div [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState(user.id??0)"
     (swipeleft)='startAnimation("swipeleft",user.id)' (swiperight)='startAnimation("swiperight",user.id)'>
     <mat-card class="overflow-hidden">
         <div>
-            <img [src]="user.picture" class="w-100 noDragable" alt="">
+            <img [src]="user.img?serverUrl+user.img:'http://placekitten.com/g/200/300'"class="noDragable" alt="" width="400px" height="270px">
         </div>
         <div class="profileName">
             <p class="fs-18 lh-lg fw-medium">
-                {{user.name}}
+                {{user.first_name+" "+ user.last_name}}
             </p>
-            <div class="profession"> Age: {{user.age}} </div>
+            <div class="profession"> Age: {{age}} </div>
         </div>
     </mat-card>
 </div>
