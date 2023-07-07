@@ -23,7 +23,8 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { ChatsComponent } from './pages/dashboard/chats/chats.component';
-import { AuthGuard } from './core/service/auth-guard.service';
+import { AuthGuard, ImageGuard } from './core/service/auth-guard.service';
+import { ImagesComponent } from './pages/profile/images/images.component';
 
 const routes: Routes = [
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
   },
   {
     path: "dashboard",
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ImageGuard],
     component: FullComponent,
     children: [
       { path: "", redirectTo: "/dashboard/home", pathMatch: "full" },
@@ -78,6 +79,13 @@ const routes: Routes = [
       { path: "slide-toggle", component: SlideToggleComponent },
       { path: "tooltip", component: TooltipsComponent },
       { path: "button", component: ButtonsComponent },
+    ]
+  },
+  {
+    path: "profile", component: AuthComponent,
+    children: [
+      { path: "", redirectTo: "/profile/images", pathMatch: "full" },
+      { path: "images", component: ImagesComponent },
     ]
   },
   {

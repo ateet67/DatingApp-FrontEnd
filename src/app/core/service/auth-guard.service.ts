@@ -16,7 +16,20 @@ export class AuthGuardService {
     }
     return true;
   }
+
+  canMoveForword(): boolean {
+    let user = this.authService.getuser();
+    if (!user.img) {
+      this.route.navigate(['/profile/images']);
+      return false;
+    }
+    return true;
+  }
 }
 export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
   return inject(AuthGuardService).canActivate(next, state);
+}
+
+export const ImageGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+  return inject(AuthGuardService).canMoveForword();
 }

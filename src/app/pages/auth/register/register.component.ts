@@ -89,42 +89,6 @@ export class RegisterComponent {
     }
   }
 
-  obj2FormData(obj: any, form?: any, namespace?: any) {
-    var fd = form || new FormData();
-    var formKey;
-
-    for (var property in obj) {
-      if (obj.hasOwnProperty(property) && obj[property]) {
-        if (namespace) {
-          formKey = namespace + "[" + property + "]";
-        } else {
-          formKey = property;
-        }
-
-        // if the property is an object, but not a File,
-        // use recursivity.
-        if (
-          typeof obj[property] === "object" &&
-          !(obj[property] instanceof File)
-        ) {
-          this.obj2FormData(obj[property], fd, formKey);
-        } else {
-          // if it's a string or a File object
-          fd.append(formKey, obj[property]);
-        }
-      }
-    }
-
-    return fd;
-  }
-
-  handleFileInput(event: Event) {
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    this.userData.image = fileList?.item(0) || null;
-    console.log(this.obj2FormData(this.userData));
-
-  }
 
   Allowonly18Plus(): string {
     return moment().subtract(18, 'years').format('YYYY-MM-DD');

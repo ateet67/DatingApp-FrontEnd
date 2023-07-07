@@ -36,6 +36,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
 import { ChatsComponent } from './pages/dashboard/chats/chats.component';
 import { MyHammerConfig } from './hammer';
+import { ImagesComponent } from './pages/profile/images/images.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import config from './environments/environment.local';
 
@@ -65,6 +66,7 @@ export function tokenGetter() {
     NumbersOnlyDirective,
     DashboardComponent,
     ChatsComponent,
+    ImagesComponent,
   ],
   imports: [
     BrowserModule,
