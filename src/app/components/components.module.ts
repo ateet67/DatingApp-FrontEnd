@@ -72,7 +72,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     AppAutoCompleteComponent,
     SwipeCardComponent,
     NotificationComponent,
-    NotificationCardComponent
+    NotificationCardComponent,
     ConfirmationDialogComponent
   ]
 })
