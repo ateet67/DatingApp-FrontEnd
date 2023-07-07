@@ -2,26 +2,27 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Socket } from 'ngx-socket-io';  
 import { User } from 'src/app/shared/interfaces/user.type';
+import { AuthService } from '../auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
-  CurrentUser!:User;
-  constructor(private socket: Socket,private store:Store<any>) {
-    
+  constructor(private socket: Socket,private store:Store<any>,private auth:AuthService) {
    }
+   currentUser:any;
   ConnectSocket() {
-    this.store.select('user').subscribe(user=>this.CurrentUser=user)
-    console.log(this.CurrentUser.id);
+    // this.store.select('user').subscribe(user=>this.CurrentUser=user)
+     this.currentUser  = this.auth.getuser()
+    console.log(this.currentUser.id);
     
-    if (this.CurrentUser.id) {
-      this.socket.ioSocket["auth"] = { user_id: this.CurrentUser?.id }
+    if (this.currentUser.id) {
+      this.socket.ioSocket["auth"] = { user_id: this.currentUser.id }
       this.socket.connect()
     }
   }
   ProfileSwipe(user_id: number,swipeType:boolean){
     const ProfileSwipeInfo ={
-      swiped_by:this.CurrentUser?.id ,
+      swiped_by:this.currentUser.id ,
       user_id,
       swipe_type:swipeType?"Right":"Left"
     }

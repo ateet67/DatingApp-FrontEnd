@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { SwipeCardComponent } from 'src/app/components/swipe-card/swipe-card.component';
 import { SocketService } from 'src/app/core/service/SocketServices/socket.service';
 import { UserService } from 'src/app/core/service/UserService/user.service';
+import { AuthService } from 'src/app/core/service/auth.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { User as UserModel } from 'src/app/shared/models/user.model';
 
@@ -24,7 +25,7 @@ export class DashboardComponent implements AfterViewInit {
   parentSubject: Subject<string> = new Subject();
 
   ngAfterViewInit(): void {
-    console.log(this.childrenRef);
+    // console.log(this.childrenRef);
   }
 
 
@@ -64,17 +65,16 @@ export class DashboardComponent implements AfterViewInit {
   //   "gender": "female"
   // }];
   users!:Array<User>;
-  currentUser!:User;
+  currentUser:User = this.authService.getuser() ;
   isLoading:boolean = false;
-  constructor(private store: Store<any>,private socketservice:SocketService,private userservice:UserService) { }
+  constructor(private store: Store<any>,private socketservice:SocketService,private userservice:UserService,private authService:AuthService) { }
 
   ngOnInit() {
     console.info(this.childrenRef);
     // console.log(this.store.select((store: any) => store.user));
-    this.store.select('user').subscribe((data) => {
-      this.currentUser = data;
-    });
-    this.socketservice.ConnectSocket()
+    // this.store.select('user').subscribe((data) => {
+    //   this.currentUser = data;
+    // });
     this.userservice.GetUsers().subscribe((data) => this.users =data)
     // this.user = this.store.dispatch(getUser());
   }

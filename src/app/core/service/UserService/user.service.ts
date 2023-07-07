@@ -18,11 +18,11 @@ export class UserService implements OnInit {
     this.api = new ApiHttpService(http);
   }
   ngOnInit(): void {
-    this.store.select('user').subscribe((users: User) => {this.currentUser = users,console.log(users)})
+    this.store.select('user').subscribe((users: User) => { this.currentUser = users, console.log(users) })
   }
 
-  GetUsers(): Observable<User[]> {
-    return this.api.get('user')
+  GetUsers(id?: number): Observable<User[]> {
+    return this.api.get('user/' + (id ? id : ''))
   }
   GetCurrentUser(): Observable<User> {
     if (!this.currentUser?.id) {
