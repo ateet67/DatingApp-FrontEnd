@@ -23,6 +23,7 @@ import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.
 import { SwipeCardComponent } from './swipe-card/swipe-card.component';
 import { NotificationComponent } from '../pages/notification/notification.component';
 import { NotificationCardComponent } from './notification-card/notification-card.component'
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component'
 
 
 @NgModule({
@@ -64,13 +65,15 @@ import { NotificationCardComponent } from './notification-card/notification-card
     SlideToggleComponent,
     ButtonsComponent,
     AppAutoCompleteComponent,
-    SwipeCardComponent
+    SwipeCardComponent,
+    ConfirmationDialogComponent
   ],
   declarations: [
     AppAutoCompleteComponent,
     SwipeCardComponent,
     NotificationComponent,
     NotificationCardComponent
+    ConfirmationDialogComponent
   ]
 })
 export class ComponentsModule {

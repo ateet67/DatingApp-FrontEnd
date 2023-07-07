@@ -85,6 +85,7 @@ const routes: Routes = [
   },
   {
     path: "profile", component: AuthComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "", redirectTo: "/profile/images", pathMatch: "full" },
       { path: "images", component: ImagesComponent },

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./chats.component.scss']
 })
 export class ChatsComponent {
-
+  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  message = "";
 }

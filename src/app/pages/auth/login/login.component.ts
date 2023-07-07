@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -10,19 +10,21 @@ import { setUser } from 'src/app/core/store/actions/user.actions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginData = {
-    email: "bumble8@gmail.com",
-    password: "password123"
+    email: "fhghd@sds.dsd",
+    password: "Sit@321#"
   }
-
   isLoading: boolean = false;
 
   constructor(private authServivce: AuthService, private store: Store, private router: Router) {
 
   }
 
+  ngOnInit(): void {
+    this.authServivce.isAuthenticated() && this.router.navigateByUrl('/dashboard')
+  }
 
   login(form: NgForm) {
     form.form.markAllAsTouched();
@@ -32,7 +34,7 @@ export class LoginComponent {
         (data: any) => {
           console.log(data);
           if (data.status) {
-            this.isLoading =false;
+            this.isLoading = false;
             localStorage.setItem("token", data.user.token);
             this.store.dispatch(setUser({ user: data.user }));
             setTimeout(() => {
