@@ -1,0 +1,34 @@
+.messageInput {
+    .mat-hint {
+        display: none !important;
+    }
+}
+
+.chatHeader {
+    box-shadow: 0px 12px 10px gainsboro;
+}
+
+.chatContainer {
+    box-shadow: 0px 0px 10px gainsboro;
+    padding: 0px;
+}
+
+::ng-deep .chats {
+    mat-list-option {
+        .mdc-radio {
+            display: none !important;
+        }
+    }
+
+    mat-icon {
+        height: 100% !important;
+        width: 50px !important;
+        margin: 0px !important;
+        align-items: center;
+        display: flex;
+    }
+
+    img {
+        margin-block: auto !important;
+    }
+}

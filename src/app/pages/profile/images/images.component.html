@@ -1,14 +1,20 @@
-<mat-form-field class="columns">
-    <!-- <mat-label *ngIf="selectedFiles; else newFile">{{selectedFiles.item(0).name}}</mat-label> -->
-    <ng-template #newFile>
-        <mat-label>Choose file</mat-label>
-    </ng-template>
-    <input matInput disabled>
-    <button mat-icon-button matSuffix (click)="fileInput.click()">
-        <mat-icon>attach_file</mat-icon>
-    </button>
-    <input hidden (change)="selectFile($event)" [name]="'images'" [multiple]="true" #fileInput type="file" id="file">
-</mat-form-field>
-<div class="">
-
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex flex-wrap pt-5" style="gap:20px">
+            <div class="custom_image_upload" *ngFor="let img of images">
+                <img [src]="img.imgurl" />
+                <div (click)="openDialog(img.id)">
+                    ✖
+                </div>
+            </div>
+            <label class="custom_image_upload">
+                <input type="file" (change)="selectFile($event)" [multiple]="true" id="file"
+                    accept="image/png, image/gif, image/jpeg" />
+                <mat-icon>add_box</mat-icon>
+            </label>
+        </div>
+    </div>
+    <div class="col-12 py-4">
+        <button mat-flat-button color="accent" style="float: right;" [routerLink]="'/dashboard'"> Finish <mat-icon>navigate_next</mat-icon></button>
+    </div>
 </div>

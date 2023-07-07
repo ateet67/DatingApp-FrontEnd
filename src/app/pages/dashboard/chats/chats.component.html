@@ -1,1 +1,33 @@
-<p>chats works!</p>
+<mat-card>
+    <mat-card-content>
+        <div class="row">
+            <div class="col col-sm-12 col-xl-4 col-md-4 chats">
+                <mat-selection-list #shoes [multiple]="false">
+                    <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe" class="px-2">
+                        <mat-icon matListItemIcon><img mat-card-avatar
+                                src="https://material.angular.io/assets/img/examples/shiba2.jpg"></mat-icon>
+                        <div matListItemTitle>{{shoe}}</div>
+                        <div matListItemLine>Last seen: 41m ago</div>
+                    </mat-list-option>
+                </mat-selection-list>
+            </div>
+            <div class="col col-sm-12 col-xl-8 col-md-8 d-flex flex-column justify-content-between chatContainer">
+                <div>
+                    <mat-card-header class="align-items-center chatHeader">
+                        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+                        <mat-card-title>Shiba Inu</mat-card-title>
+                        <mat-card-subtitle>online</mat-card-subtitle>
+                    </mat-card-header>
+                </div>
+                <div>
+                    <mat-form-field class="messageInput">
+                        <input type="text" matInput placeholder="type here.." [(ngModel)]="message" name="message">
+                        <button *ngIf="message" matSuffix mat-icon-button aria-label="Clear" (click)="message=''">
+                            <mat-icon matSuffix>send</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

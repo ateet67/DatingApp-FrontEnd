@@ -18,4 +18,13 @@ export class ImageUploadService {
   uploadImage(data: FormData): Observable<boolean> {
     return this.api.post("profile/images", data);
   }
+
+  getAlImages(): Observable<any> {
+    return this.api.get("user/userImages");
+  }
+
+  removeImage(id: number): Observable<any> {
+    return this.api.delete("user/userImages/" + id)
+  }
+
 }
