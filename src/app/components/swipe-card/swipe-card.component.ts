@@ -18,7 +18,7 @@ import config from 'src/app/environments/environment.local';
     ])
   ]
 })
-export class SwipeCardComponent {
+export class SwipeCardComponent { 
   @Input() user: User =new UserModel({});
 
   @Input()
@@ -27,7 +27,7 @@ export class SwipeCardComponent {
 
   @Output() onSwipeCard = new EventEmitter<number>();
 
-  serverUrl:string =config.socketUrl+"/"
+  serverUrl:string =config.socketUrl
 
 
   animationState: string = '';

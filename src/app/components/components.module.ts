@@ -20,7 +20,9 @@ import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.component';
-import { SwipeCardComponent } from './swipe-card/swipe-card.component'
+import { SwipeCardComponent } from './swipe-card/swipe-card.component';
+import { NotificationComponent } from '../pages/notification/notification.component';
+import { NotificationCardComponent } from './notification-card/notification-card.component'
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import { SwipeCardComponent } from './swipe-card/swipe-card.component'
   ],
   declarations: [
     AppAutoCompleteComponent,
-    SwipeCardComponent
+    SwipeCardComponent,
+    NotificationComponent,
+    NotificationCardComponent
   ]
 })
 export class ComponentsModule {
