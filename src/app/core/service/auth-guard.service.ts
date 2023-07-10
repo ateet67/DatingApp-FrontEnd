@@ -19,6 +19,8 @@ export class AuthGuardService {
 
   canMoveForword(): boolean {
     let user = this.authService.getuser();
+    console.log(user);
+    
     if (!user.img) {
       this.route.navigate(['/profile/images']);
       return false;

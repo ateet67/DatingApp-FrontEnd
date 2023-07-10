@@ -25,13 +25,17 @@ export class NotificationService {
   GetProfileInvitations() {
     const currentUser = this.authservice.getuser()
   }
-  
-  public get GetNotificationCount() : number {
+
+  public get GetNotificationCount(): number {
     return this.NotificationCount
   }
-  
+
   SetNotificationCount(count: number) {
     this.NotificationCount = count
   }
 
+  getInvitations(): Observable<any> {
+    const currentUser = this.authservice.getuser()
+    return this.api.get("invitations/" + currentUser.id);
+  }
 }
