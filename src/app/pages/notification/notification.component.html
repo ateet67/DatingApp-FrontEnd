@@ -4,12 +4,28 @@
         <h3 class="text-muted" *ngIf="profileSwipes&&profileSwipes.swipeList.length===0">
             No Swipes Found
         </h3>
-        <div *ngIf="isloading">
+        <div *ngIf="swipeLoading">
             <mat-spinner></mat-spinner>
         </div>
-        <mat-list *ngIf="!isloading">
+        <mat-list *ngIf="!swipeLoading && profileSwipes.swipeList">
             <app-notification-card *ngFor="let swipes of profileSwipes.swipeList" [type]="'swipe'"
                 [swipeInfo]="swipes"></app-notification-card>
+        </mat-list>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <h1>Profile Likes</h1>
+        <h3 class="text-muted" *ngIf="profileLikes&&profileLikes.likes.length===0">
+            No Likes Found
+        </h3>
+        <div *ngIf="likeLoading">
+            <mat-spinner></mat-spinner>
+        </div>
+        <mat-list *ngIf="!likeLoading && profileLikes.likes">
+            <app-notification-card *ngFor="let likes of profileLikes.likes" [type]="'like'"
+                [swipeInfo]="likes"></app-notification-card>
         </mat-list>
     </div>
 </div>

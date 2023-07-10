@@ -11,6 +11,9 @@ import { SocketService } from 'src/app/core/service/SocketServices/socket.servic
 import { Socket } from 'ngx-socket-io';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CloseButtonComponent } from 'src/app/components/close-button/close-button.component';
+import { SnackbarService } from 'src/app/core/service/snackbar.service';
 
 interface sidebarMenu {
   link: string;
@@ -30,7 +33,7 @@ export class FullComponent implements OnInit {
   today: Date = new Date();
 
   profileSwipes: any;
-  notificationcount: number =this.notificationservice.GetNotificationCount;
+  notificationcount: number = this.notificationservice.GetNotificationCount;
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -47,36 +50,44 @@ export class FullComponent implements OnInit {
     private socketservice: SocketService,
     private socket: Socket,
     private notificationservice: NotificationService,
-    private router: Router
+    private router: Router,
+    private snackBar: SnackbarService,
   ) {
-   
+
 
   }
 
 
   ngOnInit(): void {
     this.socketservice.ConnectSocket()
+
+
     this.socket.on("notifySwipe", (response: any) => {
-      if (response.staus) {
+      console.log(response);
+      if (response.status) {
         this.setCountOfNotification()
+        this.snackBar.ShowSnackBar("Somebody has swiped you profile")
       }
     })
     this.socket.on("notifylike", (response: any) => {
-      if (response.staus) {
+      console.log(response);
+
+      if (response.status) {
         this.setCountOfNotification()
+        this.snackBar.ShowSnackBar("Somebody has Liked you profile")
       }
     })
     this.socket.on("notifyInvitation", (response: any) => {
-      if (response.staus) {
+      if (response.status) {
         this.setCountOfNotification()
+        this.snackBar.ShowSnackBar("You got an invitation")
       }
     })
     this.socket.on("notifyAccepted", (response: any) => {
-      if (response.staus) {
+      if (response.status) {
         this.setCountOfNotification()
       }
     })
-
 
   }
 
@@ -103,12 +114,12 @@ export class FullComponent implements OnInit {
 
 
   setCountOfNotification() {
-    this.notificationcount++
-    this.notificationservice.SetNotificationCount(this.notificationcount)
+    this.notificationcount++;
+    this.notificationservice.SetNotificationCount(this.notificationcount);
   }
   setZeroCount(){
     this.notificationcount=0;
-    this.notificationservice.SetNotificationCount(0)
+    this.notificationservice.SetNotificationCount(0);
   }
 
 
