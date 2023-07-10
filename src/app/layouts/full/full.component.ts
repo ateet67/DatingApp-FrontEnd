@@ -30,7 +30,7 @@ export class FullComponent implements OnInit {
   today: Date = new Date();
 
   profileSwipes: any;
-  notificationcount: number =this.notificationservice.GetNotificationCount;
+  notificationcount: number = this.notificationservice.GetNotificationCount;
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -49,7 +49,7 @@ export class FullComponent implements OnInit {
     private notificationservice: NotificationService,
     private router: Router
   ) {
-   
+
 
   }
 

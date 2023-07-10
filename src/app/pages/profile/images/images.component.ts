@@ -4,6 +4,8 @@ import { UserImages } from 'src/app/shared/interfaces/user-images.type';
 import { Constants } from 'src/app/config/constants';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+import { Store } from '@ngrx/store';
+import { setProfileImage, setUser } from 'src/app/core/store/actions/user.actions';
 
 @Component({
   selector: 'app-images',
@@ -13,7 +15,7 @@ import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dia
 export class ImagesComponent implements OnInit {
 
   images: UserImages[] = [];
-  constructor(private uploadService: ImageUploadService, private dialog: MatDialog) {
+  constructor(private uploadService: ImageUploadService, private dialog: MatDialog, private store: Store) {
 
   }
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class ImagesComponent implements OnInit {
     this.uploadService.getAlImages().subscribe(
       (data: any) => {
         this.images = data.data;
+        this.store.dispatch(setProfileImage({ url: data.data[0].imgurl }));
         this.images.forEach((ele: UserImages) => {
           ele.imgurl = Constants.API_ENDPOINT.replace("/api", "") + ele.imgurl;
         });

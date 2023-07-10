@@ -18,8 +18,8 @@ import config from 'src/app/environments/environment.local';
     ])
   ]
 })
-export class SwipeCardComponent { 
-  @Input() user: User =new UserModel({});
+export class SwipeCardComponent {
+  @Input() user: User = new UserModel({});
 
   @Input()
   parentSubject!: Subject<any>;
@@ -27,7 +27,7 @@ export class SwipeCardComponent {
 
   @Output() onSwipeCard = new EventEmitter<number>();
 
-  serverUrl:string =config.socketUrl
+  serverUrl: string = config.socketUrl
 
 
   animationState: string = '';
@@ -46,7 +46,7 @@ export class SwipeCardComponent {
       this.animationState = state;
     }
     setTimeout(() => {
-      id && this.onSwipeCard.emit({id, state} as any);
+      id && this.onSwipeCard.emit({ id, state } as any);
     }, 750);
   }
 
@@ -54,9 +54,9 @@ export class SwipeCardComponent {
     this.animationState = '';
   }
 
-public get age() : number {
-  return moment().diff(this.user.dob, 'years',false);
-}
+  public get age(): number {
+    return moment().diff(this.user.dob, 'years', false);
+  }
 
 
   ngOnDestroy() {
