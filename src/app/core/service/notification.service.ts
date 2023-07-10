@@ -19,9 +19,8 @@ export class NotificationService {
     return this.api.get('profile/swipelist?type=Right&listtype=intrested')
   }
 
-  GetProfileLikes() {
-    const currentUser = this.authservice.getuser()
-
+  GetProfileLikes(): Observable<any> {
+    return this.api.get('profile/likelist?listtype=intrested')
   }
   GetProfileInvitations() {
     const currentUser = this.authservice.getuser()

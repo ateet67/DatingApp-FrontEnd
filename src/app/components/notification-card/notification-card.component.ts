@@ -16,11 +16,15 @@ export class NotificationCardComponent implements OnInit {
   
   ngOnInit(): void {
     console.log(this.swipeInfo);
-    this.user = this.swipeInfo.intrested_user;
     switch (this.type) {
       case 'swipe':
+        this.user = this.swipeInfo.intrested_user;
         this.description = `Swiped Right to Your Profile`
         break;
+        case 'like':
+          this.user = this.swipeInfo.intrested_liked_user;
+          this.description = `Liked Your Profile`
+          break;
       default:
         break;
     }
