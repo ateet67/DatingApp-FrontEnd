@@ -10,7 +10,7 @@ import { User } from 'src/app/shared/interfaces/user.type';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent {
-@Output() NotificationCountEvent = new EventEmitter()
+  @Output() NotificationCountEvent = new EventEmitter()
 
   constructor(
     private socket: Socket,
@@ -18,27 +18,44 @@ export class NotificationComponent {
   ) {
   }
 
-  profileSwipes: any=null;
-  isloading = true;
-  notificaionCount:number=0
+  profileSwipes: any = null;
+  profileLikes: any = null;
+  swipeLoading = true;
+  likeLoading = true;
+  notificaionCount: number = 0
 
   ngOnInit(): void {
     this.RefreshNotifications()
-    this.notificaion.SetNotificationCount(this.profileSwipes.swipeList.length)
+    this.notificaion.SetNotificationCount(0)
+    console.log(this.profileLikes);
+
     this.socket.on('notifySwipe', (response: any) => {
-      console.log(response);
+      if (response.status) {
+        this.RefreshNotifications()
+      }
+    })
+    this.socket.on('notifylike', (response: any) => {
       if (response.status) {
         this.RefreshNotifications()
       }
     })
   }
+
   RefreshNotifications() {
-    this.isloading = true
+    this.swipeLoading = true
+    this.likeLoading = true
+
     this.notificaion.GetProfileSwipes().subscribe((swipes: any) => {
       this.profileSwipes = swipes
       console.log(this.profileSwipes);
-      this.isloading = false
+      this.swipeLoading = false
+    })
+    this.notificaion.GetProfileLikes().subscribe((likes: any) => {
+      this.profileLikes = likes
+      console.log(this.profileLikes);
+      this.likeLoading = false
     })
   }
+
 
 }

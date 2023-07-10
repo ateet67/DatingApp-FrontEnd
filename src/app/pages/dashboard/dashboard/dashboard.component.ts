@@ -1,10 +1,12 @@
 import { Component, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Socket } from 'ngx-socket-io';
 import { Subject } from 'rxjs';
 import { SwipeCardComponent } from 'src/app/components/swipe-card/swipe-card.component';
 import { SocketService } from 'src/app/core/service/SocketServices/socket.service';
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { AuthService } from 'src/app/core/service/auth.service';
+import { SnackbarService } from 'src/app/core/service/snackbar.service';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { User as UserModel } from 'src/app/shared/models/user.model';
 
@@ -64,10 +66,17 @@ export class DashboardComponent implements AfterViewInit {
   //   "name": "Guadalupe Keith",
   //   "gender": "female"
   // }];
-  users!:Array<User>;
-  currentUser:User = this.authService.getuser() ;
-  isLoading:boolean = false;
-  constructor(private store: Store<any>,private socketservice:SocketService,private userservice:UserService,private authService:AuthService) { }
+  users!: Array<User>;
+  currentUser: User = this.authService.getuser();
+  isLoading: boolean = false;
+  constructor(
+    private store: Store<any>,
+    private socketservice: SocketService,
+    private userservice: UserService,
+    private authService: AuthService,
+    private socket: Socket,
+    private snackbar:SnackbarService
+  ) { }
 
   ngOnInit() {
     console.info(this.childrenRef);
@@ -75,22 +84,35 @@ export class DashboardComponent implements AfterViewInit {
     // this.store.select('user').subscribe((data) => {
     //   this.currentUser = data;
     // });
-    this.userservice.GetUsers().subscribe((data) => this.users =data)
+    this.userservice.GetUsers().subscribe((data) => this.users = data)
     // this.user = this.store.dispatch(getUser());
   }
 
   cardAnimation(value: any) {
-    
+
     this.childrenRef.first.startAnimation(value, this.childrenRef.first.user.id);
-    console.log( this.childrenRef.first.user.id);
-    
-    this.socketservice.ProfileSwipe( this.childrenRef.first.user.id??0,value==="swiperight")
+    console.log(this.childrenRef.first.user.id);
+
+    this.socketservice.ProfileSwipe(this.childrenRef.first.user.id ?? 0, value === "swiperight")
   }
-  
-  CardSwiped(data:any) {
-    const {id,state} = data
+
+  CardSwiped(data: any) {
+    const { id, state } = data
     // this.socketservice.ProfileSwipe( this.childrenRef.first.user.id,value==="swiperight")
     this.users = this.users.filter((p) => p.id !== id)
-    this.socketservice.ProfileSwipe( id,state==="swiperight")
+    this.socketservice.ProfileSwipe(id, state === "swiperight")
+  }
+  likeProfile() {
+    
+    this.socket.emit("profileLike", {
+      likedby: this.currentUser.id,
+      user_id: this.childrenRef.first.user.id,
+      type: "Normalike",
+      dislike: false,
+      createdby: this.currentUser.id,
+      updatedby: this.currentUser.id
+    })
+    this.snackbar.ShowSnackBar("Liked")
+
   }
 }
