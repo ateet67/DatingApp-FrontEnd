@@ -75,11 +75,11 @@ export class DashboardComponent implements AfterViewInit {
     private userservice: UserService,
     private authService: AuthService,
     private socket: Socket,
-    private snackbar:SnackbarService
+    private snackbar: SnackbarService
   ) { }
 
   ngOnInit() {
-    console.info(this.childrenRef);
+    console.info(this.currentUser);
     // console.log(this.store.select((store: any) => store.user));
     // this.store.select('user').subscribe((data) => {
     //   this.currentUser = data;
@@ -100,10 +100,16 @@ export class DashboardComponent implements AfterViewInit {
     const { id, state } = data
     // this.socketservice.ProfileSwipe( this.childrenRef.first.user.id,value==="swiperight")
     this.users = this.users.filter((p) => p.id !== id)
-    this.socketservice.ProfileSwipe(id, state === "swiperight")
+    state === "swiperight" && this.socket.emit('sendInvitation', {
+      "isActive": true,
+      "isAccepted": false,
+      "invited_by": this.currentUser.id,
+      "invited_to": id,
+      "updated_by": this.currentUser.id
+    });
   }
   likeProfile() {
-    
+
     this.socket.emit("profileLike", {
       likedby: this.currentUser.id,
       user_id: this.childrenRef.first.user.id,

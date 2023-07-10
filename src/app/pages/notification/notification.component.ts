@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
+import { UserInvitation } from 'src/app/shared/interfaces/user-invitation.type';
 import { User } from 'src/app/shared/interfaces/user.type';
 
 @Component({
@@ -22,7 +23,8 @@ export class NotificationComponent {
   profileLikes: any = null;
   swipeLoading = true;
   likeLoading = true;
-  notificaionCount: number = 0
+  notificaionCount: number = 0;
+  invitations: UserInvitation[] = [];
 
   ngOnInit(): void {
     this.RefreshNotifications()
@@ -46,7 +48,7 @@ export class NotificationComponent {
     this.likeLoading = true
 
     this.notificaion.GetProfileSwipes().subscribe((swipes: any) => {
-      this.profileSwipes = swipes
+      this.profileSwipes = swipes;
       console.log(this.profileSwipes);
       this.swipeLoading = false
     })
