@@ -29,3 +29,20 @@
         </mat-list>
     </div>
 </div>
+
+<mat-list>
+    <div mat-subheader class="fw-700"><b>Invitaions</b></div>
+    <mat-list-item *ngIf="!invitations || invitations.length == 0">
+        <div matListItemTitle>No more invitations.</div>
+    </mat-list-item>
+    <mat-list-item *ngFor="let inv of invitations">
+        <img matListItemIcon [src]="baseURL+inv.user.img" class="profileImg m-2" />
+        <div matListItemTitle>{{inv.user.first_name}} {{inv.user.last_name}}</div>
+        <div matListItemLine>{{inv.createdAt | date}}</div>
+        <div matListItemMeta>
+            <button mat-stroked-button color="accent" (click)="acceptRequest(inv)">Accept</button>
+            <button mat-stroked-button color="warn" class="m-2" (click)="declineRequest()">Decline</button>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>

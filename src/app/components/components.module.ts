@@ -24,7 +24,8 @@ import { SwipeCardComponent } from './swipe-card/swipe-card.component';
 import { NotificationComponent } from '../pages/notification/notification.component';
 import { NotificationCardComponent } from './notification-card/notification-card.component'
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { CloseButtonComponent } from './close-button/close-button.component'
+import { CloseButtonComponent } from './close-button/close-button.component';
+import { MessagingComponent } from './messaging/messaging.component'
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { CloseButtonComponent } from './close-button/close-button.component'
     ButtonsComponent,
     AppAutoCompleteComponent,
     SwipeCardComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    MessagingComponent
   ],
   declarations: [
     AppAutoCompleteComponent,
@@ -75,7 +77,8 @@ import { CloseButtonComponent } from './close-button/close-button.component'
     NotificationComponent,
     NotificationCardComponent,
     ConfirmationDialogComponent,
-    CloseButtonComponent
+    CloseButtonComponent,
+    MessagingComponent
   ]
 })
 export class ComponentsModule {

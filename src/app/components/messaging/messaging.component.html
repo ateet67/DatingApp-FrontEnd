@@ -1,0 +1,36 @@
+<div>
+    <mat-card-header class="align-items-center chatHeader">
+        <img mat-card-avatar [src]="baseURL+selectedUser.groups.img">
+        <mat-card-title>{{selectedUser.groups.first_name}}</mat-card-title>
+        <mat-card-subtitle>online</mat-card-subtitle>
+    </mat-card-header>
+</div>
+<div class="row">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <div class="col-12" *ngIf="!isLoading">
+        <div class="messages" id="chat">
+            <div class="time">
+                Today at 11:41
+            </div>
+            <div class="message" *ngFor="let msg of allMessages"
+                [ngClass]="currentUserId == msg.sender ?'senderClass':'' ">
+                {{msg.message_text}}
+            </div>
+            <!-- <div class="message">
+                <div class="typing typing-1"></div>
+                <div class="typing typing-2"></div>
+                <div class="typing typing-3"></div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div>
+    <form #messaging="ngForm" novalidate (submit)="sendMessage(messaging)">
+        <mat-form-field class="messageInput">
+            <input type="text" matInput placeholder="type here.." [(ngModel)]="message" name="message">
+            <button type="submit" *ngIf="message" matSuffix mat-icon-button aria-label="Clear">
+                <mat-icon matSuffix>send</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+</div>
