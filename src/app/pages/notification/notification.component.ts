@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { Constants } from 'src/app/config/constants';
 import { UserService } from 'src/app/core/service/UserService/user.service';
+import { AuthService } from 'src/app/core/service/auth.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { UserInvitation } from 'src/app/shared/interfaces/user-invitation.type';
 import { User } from 'src/app/shared/interfaces/user.type';
@@ -16,15 +18,17 @@ export class NotificationComponent {
   constructor(
     private socket: Socket,
     private notificaion: NotificationService,
+    private authService: AuthService
   ) {
   }
 
+  baseURL = Constants.SOCKET_ENDPOINT;
   profileSwipes: any = null;
   profileLikes: any = null;
   swipeLoading = true;
   likeLoading = true;
   notificaionCount: number = 0;
-  invitations: UserInvitation[] = [];
+  invitations: any;
 
   ngOnInit(): void {
     this.RefreshNotifications()
@@ -41,6 +45,19 @@ export class NotificationComponent {
         this.RefreshNotifications()
       }
     })
+    this.getInvitations();
+    this.socket.on("notifyInvitation", (response: any) => {
+      this.getInvitations();
+    })
+    this.socket.on('notifyAccepted', (data: any) => {
+      console.log(data);
+    })
+  }
+
+  getInvitations() {
+    this.notificaion.getInvitations().subscribe((data) => {
+      this.invitations = data.data;
+    });
   }
 
   RefreshNotifications() {
@@ -59,5 +76,24 @@ export class NotificationComponent {
     })
   }
 
+  acceptRequest(val: any) {
+    let currentUser = this.authService.getuser();
+    console.log({
+      "name": `user${val.invited_by}user${currentUser.id}`,
+      "is_active": true,
+      "user_id": currentUser.id,
+      "invited_by": val.invited_by
+    });
 
+    this.socket.emit('requestAccepted', {
+      "name": `user${val.invited_by}user${currentUser.id}`,
+      "is_active": true,
+      "user_id": currentUser.id,
+      "invited_by": val.invited_by
+    });
+  }
+
+  declineRequest() {
+
+  }
 }

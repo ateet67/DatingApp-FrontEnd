@@ -36,6 +36,6 @@ export class NotificationService {
 
   getInvitations(): Observable<any> {
     const currentUser = this.authservice.getuser()
-    return this.api.get("invitations/" + currentUser.id);
+    return this.api.get("invitations");
   }
 }

@@ -1,36 +1,21 @@
 <mat-card>
     <mat-card-content>
         <div class="row">
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
             <div class="col col-sm-12 col-xl-4 col-md-4 chats">
-                <mat-selection-list #chatingUser="ngModel" [(ngModel)]="selectedChatingUser" [multiple]="false">
-                    <mat-list-option *ngFor="let user of users" [value]="user" class="px-2">
-                        <mat-icon matListItemIcon><img mat-card-avatar
-                                src="https://material.angular.io/assets/img/examples/shiba2.jpg"></mat-icon>
-                        <div matListItemTitle>{{user.first_name}} {{user.last_name}}</div>
+                <mat-selection-list #chatingUser="ngModel" [(ngModel)]="selectedChatingUser"
+                    (selectionChange)="selectionChanged()" [multiple]="false" *ngIf="!isLoading">
+                    <mat-list-option *ngFor="let user of friends" [value]="user" class="px-2">
+                        <mat-icon matListItemIcon><img mat-card-avatar [src]="baseURL+user.groups.img"></mat-icon>
+                        <div matListItemTitle>{{user.groups.first_name}} {{user.groups.last_name}}
+                        </div>
                         <div matListItemLine>Last seen: 41m ago</div>
-                        <button (click)="inviteUser(user.id)">Invite</button>
                     </mat-list-option>
                 </mat-selection-list>
             </div>
             <div class="col col-sm-12 col-xl-8 col-md-8 d-flex flex-column justify-content-between chatContainer"
-                *ngIf="selectedChatingUser">
-                <div>
-                    <mat-card-header class="align-items-center chatHeader">
-                        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg">
-                        <mat-card-title>{{selectedChatingUser[0].first_name}}</mat-card-title>
-                        <mat-card-subtitle>online</mat-card-subtitle>
-                    </mat-card-header>
-                </div>
-                <div>
-                    <form #messaging="ngForm" novalidate (submit)="sendMessage(messaging)">
-                        <mat-form-field class="messageInput">
-                            <input type="text" matInput placeholder="type here.." [(ngModel)]="message" name="message">
-                            <button type="submit" *ngIf="message" matSuffix mat-icon-button aria-label="Clear">
-                                <mat-icon matSuffix>send</mat-icon>
-                            </button>
-                        </mat-form-field>
-                    </form>
-                </div>
+                *ngIf="selectedChatingUser && !isLoading">
+                <app-messaging [selectedUser]="selectedChatingUser[0]"></app-messaging>
             </div>
         </div>
     </mat-card-content>
