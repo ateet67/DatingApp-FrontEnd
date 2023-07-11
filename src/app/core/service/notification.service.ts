@@ -11,6 +11,7 @@ export class NotificationService {
 
   api: ApiHttpService;
   NotificationCount: number = 0;
+  ChatNotificationCount: number = 0;
   constructor(http: HttpClient, private authservice: AuthService) {
     this.api = new ApiHttpService(http);
   }
@@ -37,5 +38,12 @@ export class NotificationService {
   getInvitations(): Observable<any> {
     const currentUser = this.authservice.getuser()
     return this.api.get("invitations");
+  }
+
+  public get GetchatNotificationCount():number{
+    return this.ChatNotificationCount
+  }
+  SetChatNotificationCount(count: number) {
+      this.ChatNotificationCount =count
   }
 }

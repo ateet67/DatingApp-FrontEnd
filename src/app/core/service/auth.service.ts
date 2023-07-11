@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { User as UserModel } from 'src/app/shared/models/user.model';
+import { getUser } from '../store/actions/user.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,6 @@ import { User as UserModel } from 'src/app/shared/models/user.model';
 export class AuthService{
 
   api: ApiHttpService;
-  currentUser!: User;
 
   constructor(http: HttpClient, public jwtHelper: JwtHelperService, private store: Store<any>) {
     console.log("cunstructer");
@@ -37,9 +37,12 @@ export class AuthService{
     return !this.jwtHelper.isTokenExpired(token);
   }
 
+     
   public getuser(): any {
-    this.store.select('user').subscribe((user) => {this.currentUser = user})
-    return this.currentUser ?? null;
+    // let currentUser;
+    // this.store.select('user').subscribe((user) => currentUser = user)
+    // return currentUser ?? null;
+    return JSON.parse(localStorage.getItem('user')??"{}")
   }
   
 

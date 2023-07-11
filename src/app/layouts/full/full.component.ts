@@ -35,6 +35,7 @@ export class FullComponent implements  OnInit  {
 
   profileSwipes: any;
   notificationcount: number = this.notificationservice.GetNotificationCount;
+  chatNotificationCount: number = this.notificationservice.GetchatNotificationCount;
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -61,13 +62,13 @@ export class FullComponent implements  OnInit  {
 
 
   ngOnInit(): void {
-    this.store.select('user').subscribe((user) =>{ 
-      this.user$ = user
-      this.userImage = Constants.SOCKET_ENDPOINT+this.user$.img.toString()
-    })
+    // this.store.select('user').subscribe((user) =>{ 
+    //   this.user$ = user
+    //   this.userImage = Constants.SOCKET_ENDPOINT+this.user$.img.toString()
+    // })
     
     
-    // this.user$= this.authservice.getuser()
+    this.user$= this.authservice.getuser()
     this.socketservice.ConnectSocket()
 
 
@@ -97,6 +98,12 @@ export class FullComponent implements  OnInit  {
         this.setCountOfNotification()
       }
     })
+    this.socket.on("recevieMessage", (response: any) => {
+      
+      if (response.status && response.data.sender!==this.user$.id) {
+        this.setChatCountOfNotification()
+      }
+    })
 
   }
 
@@ -119,14 +126,16 @@ export class FullComponent implements  OnInit  {
   onLogout() {
     this.router.navigateByUrl("/");
     localStorage.clear();
-    this.store.dispatch(setUser({user:""}))
-    
   }
 
 
   setCountOfNotification() {
     this.notificationcount++;
     this.notificationservice.SetNotificationCount(this.notificationcount);
+  }
+  setChatCountOfNotification() {
+    this.chatNotificationCount++;
+    this.notificationservice.SetChatNotificationCount(this.chatNotificationCount);
   }
   setZeroCount(){
     this.notificationcount=0;
