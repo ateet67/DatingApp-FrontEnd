@@ -91,7 +91,6 @@ export function tokenGetter() {
     NgbModule,
     HammerModule,
     SocketIoModule.forRoot(socketConfig ), 
-    BrowserAnimationsModule, 
     ToastrModule.forRoot(),
   ],
   providers: [
