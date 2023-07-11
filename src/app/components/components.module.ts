@@ -22,7 +22,6 @@ import { TooltipsComponent } from './tooltips/tooltips.component';
 import { AppAutoCompleteComponent } from './app-auto-complete/app-auto-complete.component';
 import { SwipeCardComponent } from './swipe-card/swipe-card.component';
 import { NotificationComponent } from '../pages/notification/notification.component';
-import { NotificationCardComponent } from './notification-card/notification-card.component'
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { CloseButtonComponent } from './close-button/close-button.component';
 import { MessagingComponent } from './messaging/messaging.component'
@@ -75,12 +74,11 @@ import { MessagingComponent } from './messaging/messaging.component'
     AppAutoCompleteComponent,
     SwipeCardComponent,
     NotificationComponent,
-    NotificationCardComponent,
     ConfirmationDialogComponent,
     CloseButtonComponent,
     MessagingComponent
   ]
 })
 export class ComponentsModule {
-  
- }
+
+}

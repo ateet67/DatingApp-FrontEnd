@@ -48,14 +48,14 @@ export class MessagingComponent implements OnInit {
     this.socket.emit("sendMessage", {
       "group_name": val.group_name,
       "group_id": val.group_id,
-      "sender": this.authService.currentUser.id,
+      "sender": this.currentUserId,
       "message_type": "text",
       "message_text": this.message,
       "attachment_type": "text",
       "attachment_url": null,
       "is_deleted": false,
-      "createdby": this.authService.currentUser.id,
-      "updatedby": this.authService.currentUser.id
+      "createdby": this.currentUserId,
+      "updatedby": this.currentUserId
     })
     this.message = "";
   }

@@ -3,8 +3,12 @@
     <div class="card-body text-center">
         <h4 class="mb-32 text-center">Login</h4>
         <form #loginForm="ngForm" novalidate>
+            test.Prajapati2@example.com
+            bumble8@gmail.com
+            john.smith1@example.com
             <mat-form-field class="w-100 fs-16" appearance="outline">
                 <mat-label>Email</mat-label>
+
                 <input matInput type="email" placeholder="Enter your email" name="loginData.email"
                     aria-describedby="emailHelpId" [(ngModel)]="loginData.email" [email]="true" #email="ngModel"
                     required>
@@ -12,6 +16,7 @@
                 <mat-error *ngIf="(email.touched ) && email.errors?.['email']"> Email is not valid </mat-error>
             </mat-form-field>
 
+            password123<br>
             <mat-form-field class="w-100 fs-16" appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput type="password" placeholder="Enter your password" [(ngModel)]="loginData.password"
@@ -23,10 +28,14 @@
             <button class="w-100" mat-raised-button color="accent" type="submit" [disabled]="isLoading"
                 (click)="login(loginForm)">Login</button>
         </form>
+
         <div class="d-flex justify-content-center text-center">
             <div class="alert" role="alert"><strong>Don't have account!</strong>
                 <br> <a routerLink="/auth/register" class="text-primary alert-link">Click Here</a>
             </div>
+        </div>
+        <div class="alert" role="alert"><strong>Forget Your Password!</strong>
+            <a routerLink="/auth/passwordreset" class="text-primary alert-link">Reset Here</a>
         </div>
     </div>
 </div>

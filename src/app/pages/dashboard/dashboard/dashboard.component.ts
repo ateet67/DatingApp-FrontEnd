@@ -7,6 +7,7 @@ import { SocketService } from 'src/app/core/service/SocketServices/socket.servic
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { SnackbarService } from 'src/app/core/service/snackbar.service';
+import { getUser } from 'src/app/core/store/actions/user.actions';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { User as UserModel } from 'src/app/shared/models/user.model';
 
@@ -79,15 +80,7 @@ export class DashboardComponent implements AfterViewInit {
   ) { }
 
   ngOnInit() {
-    // console.log(this.store.select((store: any) => store.user));
-    // this.store.select('user').subscribe((data) => {
-    //   this.currentUser = data;
-    // });
-    this.userservice.GetUsers().subscribe((data) =>{ 
-      this.users = data;
-      this.isLoading=false
-    })
-    // this.user = this.store.dispatch(getUser());
+    this.currentUser = this.authService.getuser();
   }
 
   cardAnimation(value: any) {
