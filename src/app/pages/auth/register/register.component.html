@@ -110,7 +110,7 @@
                 </div>
             </div>
 
-
+          
             <button mat-fab extended color="accent" (click)="registerForm1.form.markAllAsTouched()"
                 style="float: right;" matStepperNext>
                 Next
@@ -118,6 +118,7 @@
             </button>
         </form>
     </mat-step>
+   
     <mat-step [stepControl]="registerForm2.form" label="Fill out your address">
         <form class="form" #registerForm2="ngForm" novalidate>
             <div class="row mt-4">

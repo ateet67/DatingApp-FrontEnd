@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ToasterService } from 'src/app/core/service/ToasterServices/toaster.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { setUser } from 'src/app/core/store/actions/user.actions';
 
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
   isLoading: boolean = false;
 
-  constructor(private authServivce: AuthService, private store: Store, private router: Router) {
+  constructor(private authServivce: AuthService, private store: Store, private router: Router,private toaster:ToasterService) {
 
   }
 
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
             setTimeout(() => {
               console.log(data);
               this.router.navigateByUrl('/dashboard')
+              this.toaster.Sucess("Success","Logged in successfully")
             }, 500);
           }
         },

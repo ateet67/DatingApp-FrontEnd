@@ -20,3 +20,26 @@ a {
   color: black;
   text-decoration: none;
 }
+
+.notification {
+  position: relative;
+}
+.notification .badge {
+  position: absolute;
+  right: -65%;
+  top: -20%;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  min-width: 10px;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 99999px;
+  background-color: #ef1c1c;
+  color: #ffffff;
+}

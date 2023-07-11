@@ -1,3 +1,4 @@
+import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertsComponent } from './components/alerts/alerts.component';
@@ -96,7 +97,8 @@ const routes: Routes = [
     children: [
       { path: "", redirectTo: "/auth/login", pathMatch: "full" },
       { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent }
+      { path: "register", component: RegisterComponent },
+      { path: "passwordreset", component:ForgetPasswordComponent }
     ]
   },
 

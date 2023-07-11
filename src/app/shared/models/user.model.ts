@@ -43,7 +43,7 @@ export class User implements userType {
     goingout_preference: number[] = [];
 
     constructor(userinfo: any) {
-        this.id = userinfo.id;
+        this.id = userinfo?.id;
         this.email = userinfo.email;
         this.password = userinfo.password;
         this.first_name = userinfo.first_name;

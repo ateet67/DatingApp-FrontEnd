@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="d-flex flex-wrap pt-5" style="gap:20px">
             <div class="custom_image_upload" *ngFor="let img of images">
-                <img [src]="img.imgurl" />
+                <img [src]="baseURL + img.imgurl" />
                 <div (click)="openDialog(img.id)">
                     ✖
                 </div>

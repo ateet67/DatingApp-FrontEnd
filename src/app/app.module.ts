@@ -39,6 +39,8 @@ import { MyHammerConfig } from './hammer';
 import { ImagesComponent } from './pages/profile/images/images.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import config from './environments/environment.local';
+import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
+import { ToastrModule } from 'ngx-toastr';
 
 const socketConfig: SocketIoConfig = {
 	url: config.socketUrl, // socket server url;
@@ -67,6 +69,7 @@ export function tokenGetter() {
     DashboardComponent,
     ChatsComponent,
     ImagesComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +91,8 @@ export function tokenGetter() {
     NgbModule,
     HammerModule,
     SocketIoModule.forRoot(socketConfig ), 
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

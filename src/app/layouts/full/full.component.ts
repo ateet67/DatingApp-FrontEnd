@@ -1,6 +1,6 @@
+import { Component, OnInit,OnDestroy   } from '@angular/core';
 import { Constants } from './../../config/constants';
-import { getUser } from './../../core/store/actions/user.actions';
-import { Component, OnInit } from '@angular/core';
+import { getUser, setUser } from './../../core/store/actions/user.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -26,11 +26,12 @@ interface sidebarMenu {
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.scss']
 })
-export class FullComponent implements OnInit {
+export class FullComponent implements  OnInit  {
 
   search: boolean = false;
-  user$: User = this.authservice.getuser();
+  user$: any;
   today: Date = new Date();
+  userImage:string ='assets/images/user2.webp'
 
   profileSwipes: any;
   notificationcount: number = this.notificationservice.GetNotificationCount;
@@ -41,7 +42,7 @@ export class FullComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
-  serverUrl: string = Constants.SOCKET_ENDPOINT;
+  // serverUrl: string = Constants.SOCKET_ENDPOINT;
 
 
   constructor(
@@ -52,6 +53,7 @@ export class FullComponent implements OnInit {
     private notificationservice: NotificationService,
     private router: Router,
     private snackBar: SnackbarService,
+    private store: Store<any>,
   ) {
 
 
@@ -59,6 +61,13 @@ export class FullComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.store.select('user').subscribe((user) =>{ 
+      this.user$ = user
+      this.userImage = Constants.SOCKET_ENDPOINT+this.user$.img.toString()
+    })
+    
+    
+    // this.user$= this.authservice.getuser()
     this.socketservice.ConnectSocket()
 
 
@@ -110,6 +119,8 @@ export class FullComponent implements OnInit {
   onLogout() {
     this.router.navigateByUrl("/");
     localStorage.clear();
+    this.store.dispatch(setUser({user:""}))
+    
   }
 
 

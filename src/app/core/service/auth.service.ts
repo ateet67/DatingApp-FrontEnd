@@ -1,20 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { ApiHttpService } from './api-http.service';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/shared/interfaces/user.type';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
+import { User as UserModel } from 'src/app/shared/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService{
 
   api: ApiHttpService;
-  currentUser!:User;
+  currentUser!: User;
 
-  constructor(http: HttpClient, public jwtHelper: JwtHelperService,private store:Store<any>) {
+  constructor(http: HttpClient, public jwtHelper: JwtHelperService, private store: Store<any>) {
+    console.log("cunstructer");
     this.api = new ApiHttpService(http);
   }
 
@@ -36,7 +38,12 @@ export class AuthService {
   }
 
   public getuser(): any {
-    this.store.select('user').subscribe((user) => this.currentUser = user)
-    return this.currentUser??null;
+    this.store.select('user').subscribe((user) => {this.currentUser = user})
+    return this.currentUser ?? null;
+  }
+  
+
+  SendResetPasswordLink(email:string): Observable<any> {
+    return this.api.post("auth/passwordreset", { email })
   }
 }

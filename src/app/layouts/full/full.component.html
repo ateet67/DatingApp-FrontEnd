@@ -37,22 +37,23 @@
       <button mat-icon-button class="ms-4 me-4" (click)="search=!search">
         <i-feather name="search" class="mt-n3 text-light-muted feather-base text-dark"></i-feather>
       </button>
-      <div class="ms-auto d-flex align-items-center justify-content-center">
-        <div class="notification px-4 d-flex align-items-center justify-content-center gap-1">
-          <a routerLink="notification" (click)="setZeroCount()" >
+      <div class="ms-auto d-flex align-items-center justify-content-center gap-3">
+        <div class=" d-flex align-items-center justify-content-center">
+          <a routerLink="notification" (click)="setZeroCount()" class="notification">
             <mat-icon>sms
             </mat-icon>
-            <small class="badge bg-danger">{{notificationcount}}</small>
+            <span class="badge">
+              {{notificationcount}}
+            </span>
           </a>
 
         </div>
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center"
           [matMenuTriggerFor]="menu">
           <div class="d-flex align-items-center">
-            <img src="{{user$.img?serverUrl+user$.img:'assets/images/user2.webp'}}" class="rounded-circle" alt=""
-              height="32px" width="32px">
+            <img src="{{user$&&userImage }}" class="rounded-circle" alt="" height="32px" width="32px">
             <span class="fw-light ms-8 text-secondary">Hi,</span>
-            <span class="fw-bold ms-8">{{ user$.first_name}}</span>
+            <span class="fw-bold ms-8">{{ user$?user$.first_name:"Loading"}}</span>
             <i-feather name="chevron-down" class="feather-base"></i-feather>
           </div>
         </button>

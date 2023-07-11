@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { Store } from '@ngrx/store';
 import { setProfileImage, setUser } from 'src/app/core/store/actions/user.actions';
+import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-images',
@@ -14,8 +15,9 @@ import { setProfileImage, setUser } from 'src/app/core/store/actions/user.action
 })
 export class ImagesComponent implements OnInit {
 
+  baseURL = Constants.SOCKET_ENDPOINT;
   images: UserImages[] = [];
-  constructor(private uploadService: ImageUploadService, private dialog: MatDialog, private store: Store) {
+  constructor(private uploadService: ImageUploadService, private dialog: MatDialog, private store: Store,private authservice:AuthService) {
 
   }
   ngOnInit(): void {
@@ -44,9 +46,9 @@ export class ImagesComponent implements OnInit {
       (data: any) => {
         this.images = data.data;
         this.store.dispatch(setProfileImage({ url: data.data[0].imgurl }));
-        this.images.forEach((ele: UserImages) => {
-          ele.imgurl = Constants.API_ENDPOINT.replace("/api", "") + ele.imgurl;
-        });
+        console.log(this.authservice.getuser());
+        
+        localStorage.setItem("user",JSON.stringify(this.authservice.getuser()))
       });
   }
 
