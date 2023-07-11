@@ -81,6 +81,10 @@ export class DashboardComponent implements AfterViewInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getuser();
+     this.userservice.GetUsers().subscribe((data) =>{ 
+      this.users = data;
+      this.isLoading=false
+    })
   }
 
   cardAnimation(value: any) {
