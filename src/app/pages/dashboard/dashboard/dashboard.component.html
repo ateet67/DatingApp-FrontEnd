@@ -2,13 +2,10 @@
     <div class="theader">
         <i class="fa fa-cog" aria-hidden="true"></i>
         <i class="fa fa-comments" aria-hidden="true"></i>
-        <div class="tlogo">
-            <img src="/assets/tinder.svg" alt="Tinder Logo" title="Tinder Logo" />
-        </div>
     </div>
     <div class="tbgwrap">
         <div style="position: relative; height: 270px;width: 400px;margin-inline: auto;">
-            
+            <h3 *ngIf="users.length==0 && !isLoading">No users to show</h3>
             <div *ngFor="let user of users;index as i;first as isFirst" >
                 <app-swipe-card *ngIf="currentUser.id!==user.id"
                 [ngStyle]="{'z-index': users.length-i}" [parentSubject]="parentSubject"

@@ -66,7 +66,7 @@ export class DashboardComponent implements AfterViewInit {
   //   "name": "Guadalupe Keith",
   //   "gender": "female"
   // }];
-  users!: Array<User>;
+  users: Array<User>=[];
   currentUser: User = this.authService.getuser();
   isLoading: boolean = false;
   constructor(
@@ -79,12 +79,14 @@ export class DashboardComponent implements AfterViewInit {
   ) { }
 
   ngOnInit() {
-    console.info(this.currentUser);
     // console.log(this.store.select((store: any) => store.user));
     // this.store.select('user').subscribe((data) => {
     //   this.currentUser = data;
     // });
-    this.userservice.GetUsers().subscribe((data) => this.users = data)
+    this.userservice.GetUsers().subscribe((data) =>{ 
+      this.users = data;
+      this.isLoading=false
+    })
     // this.user = this.store.dispatch(getUser());
   }
 
@@ -98,7 +100,7 @@ export class DashboardComponent implements AfterViewInit {
 
   CardSwiped(data: any) {
     const { id, state } = data
-    // this.socketservice.ProfileSwipe( this.childrenRef.first.user.id,value==="swiperight")
+    this.socketservice.ProfileSwipe(id, state === "swiperight")
     this.users = this.users.filter((p) => p.id !== id)
     state === "swiperight" && this.socket.emit('sendInvitation', {
       "isActive": true,
