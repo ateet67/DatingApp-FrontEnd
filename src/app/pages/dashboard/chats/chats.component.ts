@@ -22,15 +22,12 @@ export class ChatsComponent implements OnInit {
 
   isLoading: boolean = false;
   baseURL = Constants.SOCKET_ENDPOINT;
-  friends: any = [{}];
+  friends: any;
   groupnames: string[] = [];
   selectedChatingUser: any;
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userService.GetUsers().subscribe((data: any) => {
-      this.friends = data;
-    });
     this.groupService.getGroups().subscribe((data: any) => {
       this.friends = data.data;
       this.friends = this.friends
