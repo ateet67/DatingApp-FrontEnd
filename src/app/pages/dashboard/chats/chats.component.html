@@ -4,7 +4,7 @@
             <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
             <div class="col col-sm-12 col-xl-4 col-md-4 chats">
                 <mat-selection-list #chatingUser="ngModel" [(ngModel)]="selectedChatingUser"
-                    (selectionChange)="selectionChanged()" [multiple]="false" *ngIf="!isLoading">
+                    (selectionChange)="selectionChanged()" [multiple]="false" *ngIf="friends && friends.length>0">
                     <mat-list-option *ngFor="let user of friends" [value]="user" class="px-2">
                         <mat-icon matListItemIcon><img mat-card-avatar [src]="baseURL+user.groups.img"></mat-icon>
                         <div matListItemTitle>{{user.groups.first_name}} {{user.groups.last_name}}
