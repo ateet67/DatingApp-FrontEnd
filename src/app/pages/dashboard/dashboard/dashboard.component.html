@@ -13,12 +13,12 @@
                 (onSwipeCard)="CardSwiped($event)"></app-swipe-card>
             </div>
         </div>
-        <div class="d-flex profileButtons">
+        <div class="d-flex profileButtons my-4">
             <div (click)='cardAnimation("swipeleft")'>
                 <img src="/assets/images/close-small.png" />
             </div>
-            <div (click)="likeProfile()" class="likeButton" >
-                <img src="/assets/images/Vector (5).png" />
+            <div (click)="TogglelikeProfile()" class="likeButton" >
+                <img src="{{ToggleLikeFlag?'/assets/images/Vector (5).png':'/assets/images/emtyheart.png'}}" />
             </div>
             <div (click)='cardAnimation("swiperight")'>
                 <img src="/assets/images/Vector (6).png" />

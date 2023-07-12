@@ -32,4 +32,7 @@ export class UserService implements OnInit {
   Getallgroups(): Observable<any> {
     return this.api.get("groups/getAllGroupNames");
   }
+  GetProfileInfo(): Observable<any> {
+    return this.api.get('profile/profileinfo')
+  }
 }

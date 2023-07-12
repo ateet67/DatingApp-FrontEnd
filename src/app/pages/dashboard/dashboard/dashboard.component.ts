@@ -16,7 +16,7 @@ interface cards {
   btn: string;
 }
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-dashboard',  
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -26,7 +26,7 @@ export class DashboardComponent implements AfterViewInit {
   childrenRef!: QueryList<SwipeCardComponent>;
 
   parentSubject: Subject<string> = new Subject();
-
+  ToggleLikeFlag = false
   ngAfterViewInit(): void {
     // console.log(this.childrenRef);
   }
@@ -67,7 +67,7 @@ export class DashboardComponent implements AfterViewInit {
   //   "name": "Guadalupe Keith",
   //   "gender": "female"
   // }];
-  users: Array<User>=[];
+  users: Array<User> = [];
   currentUser: User = this.authService.getuser();
   isLoading: boolean = false;
   constructor(
@@ -81,10 +81,11 @@ export class DashboardComponent implements AfterViewInit {
 
   ngOnInit() {
     this.currentUser = this.authService.getuser();
-     this.userservice.GetUsers().subscribe((data) =>{ 
+    this.userservice.GetUsers().subscribe((data) => {
       this.users = data;
-      this.isLoading=false
+      this.isLoading = false
     })
+
   }
 
   cardAnimation(value: any) {
@@ -107,17 +108,37 @@ export class DashboardComponent implements AfterViewInit {
       "updated_by": this.currentUser.id
     });
   }
-  likeProfile() {
+  TogglelikeProfile() {
+    this.ToggleLikeFlag = !this.ToggleLikeFlag
 
+    if (this.ToggleLikeFlag) {
+      let isLiked = this.childrenRef.first.user.profile_like.find((like) => {
+        return like.likedby === this.currentUser.id
+      })
+      if (!isLiked) {
+        this.childrenRef.first.user.profile_like.push({
+          likedby: this.currentUser.id,
+          user_id: this.childrenRef.first.user.id,
+          type: "Normalike",
+          dislike: this.ToggleLikeFlag,
+          createdby: this.currentUser.id,
+          updatedby: this.currentUser.id
+        });
+      }
+    }
+    else {
+      this.childrenRef.first.user.profile_like.pop()
+    }
     this.socket.emit("profileLike", {
       likedby: this.currentUser.id,
       user_id: this.childrenRef.first.user.id,
       type: "Normalike",
-      dislike: false,
+      dislike: this.ToggleLikeFlag,
       createdby: this.currentUser.id,
       updatedby: this.currentUser.id
     })
-    this.snackbar.ShowSnackBar("Liked")
+
+    // this.snackbar.ShowSnackBar(this.ToggleLikeFlag?"Liked":"")
 
   }
 }

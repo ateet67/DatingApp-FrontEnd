@@ -1,0 +1,116 @@
+<div *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!isLoading">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center px-4">
+            <img [src]="profileInfo.img?baseUrl+profileInfo.img:''" alt="profile image" width="300px" height="200px">
+        </div>
+        <p class="text-muted text-center my-3">
+            {{profileInfo.bio}}
+        </p>
+    </div>
+    <mat-tab-group class="my-5">
+        <mat-tab label="About ">
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50 mt-4">
+                    <h5 class="col-6 label text-start ">
+                        Full Name :-
+                    </h5>
+                    <h5 class="col-6 text-start ">
+                        {{profileInfo.first_name}} {{profileInfo.middle_name}} {{profileInfo.last_name}}
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        age :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{age}}
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        gender :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.gender}}
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        education :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.education}}
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        height :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.height}} cm
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        weight :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.weight}} cm
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        seeking for :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.preference}}
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        address :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.address}}
+                    </h5>
+                </div>
+            </div>
+            <div class="info my-2">
+                <div class="col-6 d-flex w-50">
+                    <h5 class="col-6 label text-start ">
+                        joined on :-
+                    </h5>
+                    <h5 class="col-6 text-start">
+                        {{profileInfo.createdAt.split('T')[0]}}
+                    </h5>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Social links">
+            <div class="info my-2">
+                <h5 *ngIf="profileInfo.social_profiles.length===0">No Social Media account found </h5>
+
+            </div>
+            <div class="info my-2 col-6 text-center" *ngFor="let links of profileInfo.social_profiles">
+                <a mat-button [href]="links.link" target="_blank">{{links.platform_name}}</a>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
