@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Socket } from 'ngx-socket-io';
 import { Constants } from 'src/app/config/constants';
 import { SocketService } from 'src/app/core/service/SocketServices/socket.service';
@@ -25,6 +26,7 @@ export class ChatsComponent implements OnInit {
   friends: any;
   groupnames: string[] = [];
   selectedChatingUser: any;
+  getLastSeen = (val: any) => moment(val).fromNow();
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -37,10 +39,22 @@ export class ChatsComponent implements OnInit {
           group_id: ele.groups.id,
           group_name: ele.groups.name
         });
-      this.groupnames = this.friends.map((e: any) => e.groups.group_name);
-      console.log(this.groupnames);
-      this.socket.emit("userOnline", this.groupnames);
       this.isLoading = false;
+    })
+    this.socket.on("userisOnline", (data: any) => {
+      this.friends.forEach((ele: any) => {
+        if (ele.groups.id == data) {
+          ele.groups.is_online = true
+        }
+      });
+    });
+
+    this.socket.on("userisOffline", (data: any) => {
+      this.friends.forEach((ele: any) => {
+        if (ele.groups.id == data) {
+          ele.groups.is_online = false
+        }
+      });
     })
   }
 
