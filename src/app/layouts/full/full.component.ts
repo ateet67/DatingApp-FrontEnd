@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy   } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Constants } from './../../config/constants';
 import { getUser, setUser } from './../../core/store/actions/user.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -32,9 +32,10 @@ export class FullComponent implements  OnInit  {
   user$: any;
   today: Date = new Date();
   userImage:string ='assets/images/user2.webp'
+  baseUrl =Constants.SOCKET_ENDPOINT;
 
   profileSwipes: any;
-  notificationcount: number = this.notificationservice.GetNotificationCount;
+  notificationcount: number = 0;
   chatNotificationCount: number = this.notificationservice.GetchatNotificationCount;
 
 
@@ -71,11 +72,16 @@ export class FullComponent implements  OnInit  {
     this.user$= this.authservice.getuser()
     this.socketservice.ConnectSocket()
 
+    this.notificationservice.GetNotifications().subscribe((data)=>{
+      this.notificationcount =data.data.length;
+    })
 
     this.socket.on("notifySwipe", (response: any) => {
       console.log(response);
       if (response.status) {
-        this.setCountOfNotification()
+        if (this.router.url !== "/dashboard/notification") {
+          this.setCountOfNotification()
+        }
         this.snackBar.ShowSnackBar("Somebody has swiped you profile")
       }
     })
@@ -83,13 +89,17 @@ export class FullComponent implements  OnInit  {
       console.log(response);
 
       if (response.status) {
-        this.setCountOfNotification()
+        if (this.router.url !== "/dashboard/notification") {
+          this.setCountOfNotification()
+        }
         this.snackBar.ShowSnackBar("Somebody has Liked you profile")
       }
     })
     this.socket.on("notifyInvitation", (response: any) => {
       if (response.status) {
-        this.setCountOfNotification()
+        if (this.router.url !== "/dashboard/notification") {
+          this.setCountOfNotification()
+        }
         this.snackBar.ShowSnackBar("You got an invitation")
       }
     })
@@ -100,7 +110,7 @@ export class FullComponent implements  OnInit  {
     })
     this.socket.on("recevieMessage", (response: any) => {
       
-      if (response.status && response.data.sender!==this.user$.id) {
+      if (response.status && response.data.sender !== this.user$.id && this.router.url !== "/dashboard/chats") {
         this.setChatCountOfNotification()
       }
     })
@@ -137,9 +147,14 @@ export class FullComponent implements  OnInit  {
     this.chatNotificationCount++;
     this.notificationservice.SetChatNotificationCount(this.chatNotificationCount);
   }
-  setZeroCount(){
-    this.notificationcount=0;
+  ResetNotifications() {
+    this.notificationcount = 0;
     this.notificationservice.SetNotificationCount(0);
+    this.socket.emit("sendSeen", this.user$.id)
+  }
+  ResetChatNotification() {
+    this.chatNotificationCount = 0;
+    this.notificationservice.SetChatNotificationCount(this.chatNotificationCount);
   }
 
 
