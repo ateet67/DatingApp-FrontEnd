@@ -27,6 +27,7 @@ import { ChatsComponent } from './pages/dashboard/chats/chats.component';
 import { AuthGuard, ImageGuard } from './core/service/auth-guard.service';
 import { ImagesComponent } from './pages/profile/images/images.component';
 import { NotificationComponent } from './pages/notification/notification.component';
+import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-info.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,7 @@ const routes: Routes = [
       { path: "home", component: Profiles },
       { path: "chats", component: ChatsComponent },
       { path: "notification", component: NotificationComponent },
+      { path: "account", component:ProfileInfoComponent },
       //below unwanted
       { path: "home2", component: DashboardComponent },
       { path: "alerts", component: AlertsComponent },
@@ -90,6 +92,7 @@ const routes: Routes = [
     children: [
       { path: "", redirectTo: "/profile/images", pathMatch: "full" },
       { path: "images", component: ImagesComponent },
+      
     ]
   },
   {

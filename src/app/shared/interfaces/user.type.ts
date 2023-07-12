@@ -39,4 +39,5 @@ export interface User {
     food_preference: number[];
     goingout_preference: number[];
     image: File | null;
+    profile_like:Array<any>
 }

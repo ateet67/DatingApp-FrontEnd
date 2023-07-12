@@ -8,7 +8,10 @@
             <p class="fs-18 lh-lg fw-medium">
                 {{user.first_name+" "+ user.last_name}}
             </p>
-            <div class="profession"> Age: {{age}} </div>
+            <div class="d-flex align-items-center justify-content-around">
+                <div class="profession"> Age: {{age}} </div>
+                <div class="profession"> Profile Likes: {{ user.profile_like.length }} </div>
+            </div>
         </div>
     </mat-card>
 </div>

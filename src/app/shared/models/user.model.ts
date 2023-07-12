@@ -41,6 +41,7 @@ export class User implements userType {
     ethicity: number[] = [];
     food_preference: number[] = [];
     goingout_preference: number[] = [];
+    profile_like: any[] = [];
 
     constructor(userinfo: any) {
         this.id = userinfo?.id;

@@ -30,4 +30,8 @@ export class UserService implements OnInit {
     }
     return this.api.get('user/' + this.currentUser.id)
   }
+
+  GetProfileInfo(): Observable<any> {
+    return this.api.get('profile/profileinfo')
+  }
 }

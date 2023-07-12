@@ -20,6 +20,9 @@ export class SocketService {
       this.socket.connect()
     }
   }
+  DisConnectSocket(){
+    this.socket.disconnect()
+  }
   ProfileSwipe(user_id: number,swipeType:boolean){
     const ProfileSwipeInfo ={
       swiped_by:this.currentUser.id ,
