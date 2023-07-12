@@ -25,6 +25,7 @@ import { NotificationComponent } from '../pages/notification/notification.compon
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { CloseButtonComponent } from './close-button/close-button.component';
 import { MessagingComponent } from './messaging/messaging.component'
+import { ScrollToBottomDirective } from '../core/directives/scroll-to-bottom.directive';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { MessagingComponent } from './messaging/messaging.component'
     AppAutoCompleteComponent,
     SwipeCardComponent,
     ConfirmationDialogComponent,
-    MessagingComponent
+    MessagingComponent,
+    ScrollToBottomDirective
   ],
   declarations: [
     AppAutoCompleteComponent,
@@ -76,7 +78,8 @@ import { MessagingComponent } from './messaging/messaging.component'
     NotificationComponent,
     ConfirmationDialogComponent,
     CloseButtonComponent,
-    MessagingComponent
+    MessagingComponent,
+    ScrollToBottomDirective
   ]
 })
 export class ComponentsModule {

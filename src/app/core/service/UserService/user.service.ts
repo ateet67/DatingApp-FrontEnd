@@ -11,12 +11,10 @@ import { Store } from '@ngrx/store';
 })
 export class UserService implements OnInit {
 
-  api: ApiHttpService;
   currentUser!: User;
 
-  constructor(http: HttpClient, public jwtHelper: JwtHelperService, private store: Store<any>) {
-    this.api = new ApiHttpService(http);
-  }
+  constructor(public jwtHelper: JwtHelperService, private store: Store<any>, private api: ApiHttpService) { }
+
   ngOnInit(): void {
     this.store.select('user').subscribe((users: User) => { this.currentUser = users, console.log(users) })
   }
@@ -31,6 +29,9 @@ export class UserService implements OnInit {
     return this.api.get('user/' + this.currentUser.id)
   }
 
+  Getallgroups(): Observable<any> {
+    return this.api.get("groups/getAllGroupNames");
+  }
   GetProfileInfo(): Observable<any> {
     return this.api.get('profile/profileinfo')
   }

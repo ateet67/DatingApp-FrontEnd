@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 import { Constants } from 'src/app/config/constants';
@@ -19,6 +19,10 @@ export class MessagingComponent implements OnInit {
   message = "";
   allMessages: any;
   isLoading: boolean = true;
+  isOnline: boolean = false;
+  isTyping: boolean = false;
+  @ViewChild('content') content!: ElementRef;
+  timeout: any;
 
   constructor(
     private authService: AuthService,
@@ -26,10 +30,25 @@ export class MessagingComponent implements OnInit {
     private api: ApiHttpService) { }
 
   ngOnInit(): void {
+    this.isOnline = this.selectedUser.groups.is_online || false;
     this.socket.on("recevieMessage", (data: any) => {
-      console.log(data);
-
       this.allMessages.push(data.data);
+      this.scrollTobottom();
+    });
+    this.socket.on("userisOnline", (data: any) => {
+      this.isOnline = true;
+    });
+
+    this.socket.on("userisOffline", (data: any) => {
+      this.isOnline = false;
+    })
+    this.socket.on("typingStart", () => {
+      this.isTyping = true;
+      this.scrollTobottom();
+    })
+    this.socket.on("typingEnd", () => {
+      this.isTyping = false;
+      this.scrollTobottom();
     })
     this.getMessages();
   }
@@ -58,5 +77,24 @@ export class MessagingComponent implements OnInit {
       "updatedby": this.currentUserId
     })
     this.message = "";
+    this.scrollTobottom();
+  }
+
+  scrollTobottom() {
+    setTimeout(() => {
+      let height = this.content.nativeElement.scrollHeight;
+      this.content.nativeElement.scrollTo(0, height);
+    }, 200);
+  }
+
+  onTyping() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    let groupName = this.selectedUser.groups.group_name;
+    this.socket.emit("typingStart", groupName);
+    this.timeout = setTimeout(() => {
+      this.socket.emit("typingEnd", groupName);
+    }, 1000);
   }
 }

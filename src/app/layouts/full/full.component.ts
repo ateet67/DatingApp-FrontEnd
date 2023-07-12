@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CloseButtonComponent } from 'src/app/components/close-button/close-button.component';
 import { SnackbarService } from 'src/app/core/service/snackbar.service';
+import { UserService } from 'src/app/core/service/UserService/user.service';
 
 interface sidebarMenu {
   link: string;
@@ -56,7 +57,8 @@ export class FullComponent implements  OnInit  {
     private router: Router,
     private snackBar: SnackbarService,
     private store: Store<any>,
-  ) {
+    private userService: UserService
+  ) { 
 
 
   }
@@ -67,8 +69,8 @@ export class FullComponent implements  OnInit  {
     //   this.user$ = user
     //   this.userImage = Constants.SOCKET_ENDPOINT+this.user$.img.toString()
     // })
-    
-    
+
+
     this.user$= this.authservice.getuser()
     this.socketservice.ConnectSocket()
 
@@ -114,7 +116,7 @@ export class FullComponent implements  OnInit  {
         this.setChatCountOfNotification()
       }
     })
-
+    this.getOnline();
   }
 
 
@@ -134,8 +136,9 @@ export class FullComponent implements  OnInit  {
   ];
 
   onLogout() {
-    this.router.navigateByUrl("/");
     localStorage.clear();
+    this.socket.disconnect();
+    this.router.navigateByUrl("/");
   }
 
 
@@ -157,5 +160,11 @@ export class FullComponent implements  OnInit  {
     this.notificationservice.SetChatNotificationCount(this.chatNotificationCount);
   }
 
-
+  
+  getOnline() {
+    this.userService.Getallgroups().subscribe((data) => {
+      let groups = data.data.map((e: any) => e.name);
+      this.socket.emit("userOnline", groups);
+    })
+  }
 }
