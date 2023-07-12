@@ -41,6 +41,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import config from './environments/environment.local';
 import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-info.component';
 
 const socketConfig: SocketIoConfig = {
 	url: config.socketUrl, // socket server url;
@@ -70,6 +71,7 @@ export function tokenGetter() {
     ChatsComponent,
     ImagesComponent,
     ForgetPasswordComponent,
+    ProfileInfoComponent,
   ],
   imports: [
     BrowserModule,

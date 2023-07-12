@@ -36,14 +36,18 @@ export class NotificationService {
   }
 
   getInvitations(): Observable<any> {
-    const currentUser = this.authservice.getuser()
+    // const currentUser = this.authservice.getuser()
     return this.api.get("invitations");
   }
 
-  public get GetchatNotificationCount():number{
+  public get GetchatNotificationCount(): number {
     return this.ChatNotificationCount
   }
   SetChatNotificationCount(count: number) {
-      this.ChatNotificationCount =count
+    this.ChatNotificationCount = count
+  }
+ 
+  GetNotifications(): Observable<any> {
+    return this.api.get('user/notifications')
   }
 }
