@@ -56,6 +56,9 @@ export class ChatsComponent implements OnInit {
         }
       });
     })
+    this.socket.on("recevieMessage", (data: any) => {
+      // alert(JSON.stringify(data))
+    })
   }
 
   selectionChanged() {

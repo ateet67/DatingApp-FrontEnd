@@ -8,14 +8,32 @@
 <div class="row">
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
     <div class="col-12">
-        <div class="messages" id="chat" appScrollToBottom #content>
-            <div class="time">
-                Today at 11:41
+        <div class="messages pt-4" id="chat" appScrollToBottom (loadMore)="LoadMoreChat($event)" #content>
+            <div *ngFor="let msg of allMessages;let i = index;let islast = last">
+                <div class="time" *ngIf="dayStamp(msg.createdAt,allMessages[i-1]?.createdAt)"
+                    [innerText]="dayStamp(msg.createdAt, allMessages[i-1]?.createdAt)">
+                </div>
+                <div class="dayStamp" [ngStyle]="{'z-index': allMessages.length-i}">
+                    {{getDayStamp(msg.createdAt)}}
+                </div>
+                <div class="message" [ngClass]="currentUserId == msg.sender ?'senderClass':'' ">
+                    {{msg.message_text}} {{ msg | fireSeen: {currentUserId,groupName:selectedUser.groups.group_name} }}
+                    <div class="msg-time">{{getDateFormat(msg.createdAt)}}</div>
+                </div>
+                <div class="seen"
+                    *ngIf="(currentUserId == msg.sender && msg.is_seen && islast)">
+                    seen {{getLastSeen(msg.seen_at)}}
+                </div>
             </div>
-            <div class="message" *ngFor="let msg of allMessages"
-                [ngClass]="currentUserId == msg.sender ?'senderClass':'' ">
-                {{msg.message_text}}
-            </div>
+            <!-- <ng-template *ngFor="let msg of allMessages;let i = index;">
+                <div class="time"
+                    *ngIf="getDateFormat(allMessages[i-1].createdAt) != getDateFormat(allMessages[i].createdAt)">
+                    Today at 11:41
+                </div>
+                <div class="message" [ngClass]="currentUserId == msg.sender ?'senderClass':'' ">
+                    {{msg.message_text}}
+                </div>
+            </ng-template> -->
             <div class="message" *ngIf="isTyping">
                 <div class="typing typing-1"></div>
                 <div class="typing typing-2"></div>
@@ -28,9 +46,14 @@
     <div class="col-12">
         <form #messaging="ngForm" novalidate (submit)="sendMessage(messaging)">
             <mat-form-field class="messageInput">
+                <button mat-icon-button matIconPrefix [attr.aria-label]="'Hide password'" type="button"
+                    [attr.aria-pressed]="true">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
                 <input type="text" (keydown)="onTyping()" matInput placeholder="type here.." [(ngModel)]="message"
                     name="message">
-                <button type="submit" *ngIf="message" matSuffix mat-icon-button aria-label="Clear">
+                <button [disabled]="!messaging.form.valid" type="submit" *ngIf="message" matSuffix mat-icon-button
+                    aria-label="Clear">
                     <mat-icon matSuffix>send</mat-icon>
                 </button>
             </mat-form-field>
