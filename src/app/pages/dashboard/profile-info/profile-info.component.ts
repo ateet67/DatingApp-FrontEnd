@@ -4,6 +4,7 @@ import { Constants } from 'src/app/config/constants';
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { User } from 'src/app/shared/interfaces/user.type';
+import { ProfileInfo } from 'src/app/shared/models/profileinfo.model';
 
 @Component({
   selector: 'app-profile-info',
@@ -12,7 +13,7 @@ import { User } from 'src/app/shared/interfaces/user.type';
 })
 export class ProfileInfoComponent implements OnInit {
 
-  profileInfo: any;
+  profileInfo!: ProfileInfo;
   isLoading = true;
   baseUrl = Constants.SOCKET_ENDPOINT;
   constructor(
@@ -21,7 +22,7 @@ export class ProfileInfoComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.userservice.GetProfileInfo().subscribe((userinfo) => {
-      this.profileInfo = userinfo.profile;
+      this.profileInfo =new ProfileInfo(userinfo.data ) ;
       this.isLoading = false
     })
   }

@@ -36,4 +36,8 @@ export class ApiHttpService {
     return this.httpClient
       .patch<any>(`${Constants.API_ENDPOINT}/${url}`, data, this.options)
   }
+  put(url: string, data: any): Observable<any> {
+    return this.httpClient
+      .put<any>(`${Constants.API_ENDPOINT}/${url}`, data, this.options)
+  }
 }

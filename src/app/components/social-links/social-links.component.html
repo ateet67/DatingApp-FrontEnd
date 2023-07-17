@@ -1,0 +1,49 @@
+<div class="my-3">
+    <mat-card-header>
+        <mat-label>Add Social Profile
+            <button mat-mini-fab class="mb-3 me-3" type="button" (click)="addSocialProfile()">
+                <mat-icon aria-label="Example icon-button with a heart icon">plus_one</mat-icon>
+            </button>
+        </mat-label>
+       
+    </mat-card-header>
+    <div class="profile mt-3">
+        <div class="row my-2" *ngFor="let profile of userSocialProfile,let i=index">
+            <div class="col-xl-5 col-md-5 col-sm-12 ">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Link</mat-label>
+                    <input matInput type="text" placeholder="Enter profile Link" #link="ngModel" appAlphabetsOnly
+                        (change)="emitValue()" name="userSocialProfile_link_{{i}}"
+                        [(ngModel)]="userSocialProfile[i].link" required />
+                    <mat-error *ngIf="link.touched && link.errors?.['required']">link is
+                        required.
+                    </mat-error>
+                    <mat-error *ngIf="link.touched && link.errors?.['invalid']"> Please Enter Alphabets
+                        Only.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-5 col-md-5 col-sm-12 ">
+                <mat-form-field class="w-100 fs-16" appearance="outline">
+                    <mat-label>Platform Name</mat-label>
+                    <input matInput type="text" placeholder="Enter profile Link" #platformName="ngModel"
+                        (change)="emitValue()" appAlphabetsOnly name="userSocialProfile_platform_{{i}}"
+                        [(ngModel)]="userSocialProfile[i].platform_name" required />
+                    <mat-error *ngIf="(platformName.touched ) && platformName.errors?.['required']"> platformName
+                        name is
+                        required.
+                    </mat-error>
+                    <mat-error *ngIf="platformName.touched && platformName.errors?.['invalid']"> Please Enter
+                        Alphabets
+                        Only.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-xl-2 col-md-2 col-sm-12 ">
+                <button mat-mini-fab class="mb-3 me-3" (click)="removeField(i)"  color="warn">
+                    <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
