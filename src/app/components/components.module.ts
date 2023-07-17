@@ -73,7 +73,7 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     ConfirmationDialogComponent,
     MessagingComponent,
     ScrollToBottomDirective,
-    FireSeenPipe
+    FireSeenPipe,
     SocialLinksComponent
   ],
   declarations: [
@@ -84,7 +84,7 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     CloseButtonComponent,
     MessagingComponent,
     ScrollToBottomDirective,
-    FireSeenPipe
+    FireSeenPipe,
     SocialLinksComponent
   ]
 })
