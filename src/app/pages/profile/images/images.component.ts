@@ -17,7 +17,7 @@ export class ImagesComponent implements OnInit {
 
   baseURL = Constants.SOCKET_ENDPOINT;
   images: UserImages[] = [];
-  constructor(private uploadService: ImageUploadService, private dialog: MatDialog, private store: Store,private authservice:AuthService) {
+  constructor(private uploadService: ImageUploadService, private dialog: MatDialog, private store: Store, private authservice: AuthService) {
 
   }
   ngOnInit(): void {
@@ -46,9 +46,9 @@ export class ImagesComponent implements OnInit {
       (data: any) => {
         this.images = data.data;
         this.store.dispatch(setProfileImage({ url: data.data[0].imgurl }));
-        console.log(this.authservice.getuser());
-        
-        // localStorage.setItem("user",JSON.stringify(this.authservice.getuser()))
+        const user = this.authservice.getuser()
+        user.img = data.data[0].imgurl
+        this.store.dispatch(setUser({user}))
       });
   }
 

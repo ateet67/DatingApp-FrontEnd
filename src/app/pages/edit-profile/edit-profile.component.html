@@ -1,0 +1,243 @@
+<h1> Edit Profile </h1>
+<div class="d-flex w-100 justify-content-center my-5" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+</div>
+<mat-tab-group class="my-5" dynamicHeight dynamicWidth *ngIf="!isLoading">
+    <mat-tab label="Personal Info ">
+        <form class="form py-3" #personalInfoForm="ngForm" novalidate>
+            <div class="row mt-4">
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" placeholder="Enter your name" #first_name="ngModel" appAlphabetsOnly
+                            name="profileInfo.first_name" [(ngModel)]="profileInfo.first_name" required />
+                        <mat-error *ngIf="(first_name.touched ) && first_name.errors?.['required']"> First name is
+                            required.
+                        </mat-error>
+                        <mat-error *ngIf="first_name.touched && first_name.errors?.['invalid']"> Please Enter Alphabets
+                            Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput type="text" placeholder="Enter your email" #middle_name="ngModel"
+                            appAlphabetsOnly name="profileInfo.middle_name" [(ngModel)]="profileInfo.middle_name"
+                            required />
+                        <mat-error *ngIf="(middle_name.touched ) && middle_name.errors?.['required']"> Middle name is
+                            required.
+                        </mat-error>
+                        <mat-error *ngIf="middle_name.touched && middle_name.errors?.['invalid']"> Please Enter
+                            Alphabets Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" placeholder="Enter your email" #last_name="ngModel" appAlphabetsOnly
+                            name="profileInfo.last_name" [(ngModel)]="profileInfo.last_name" required />
+                        <mat-error *ngIf="(last_name.touched ) && last_name.errors?.['required']"> Last name is
+                            required.
+                        </mat-error>
+                        <mat-error *ngIf="last_name.touched && last_name.errors?.['invalid']"> Please Enter Alphabets
+                            Only.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="w-100 fs-16 mt-4" appearance="outline">
+                        <mat-label>Bio</mat-label>
+                        <textarea matInput class="form-control" rows="3" name="profileInfo.bio"
+                            [(ngModel)]="profileInfo.bio"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 mb-4">
+                    <mat-label>Gender</mat-label>
+                    <mat-radio-group [(ngModel)]="profileInfo.gender" name="profileInfo.gender" #gender="ngModel">
+                        <mat-radio-button [value]="'Male'">
+                            Male
+                        </mat-radio-button>
+                        <mat-radio-button [value]="'Female'">
+                            Female
+                        </mat-radio-button>
+                        <mat-radio-button [value]="'Other'">
+                            Other
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="(gender.touched) && gender.errors?.['required']"> Gender is required.
+                    </mat-error>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="profileInfo.dob"
+                            max="{{Allowonly18Plus()}}" name="profileInfo.dob" #dob="ngModel" required>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="(dob.touched) && dob.errors?.['required']"> Date is required. </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Select Maritual Status</mat-label>
+                        <mat-select name="profileInfo.martialstatus" #martialstatus="ngModel"
+                            [(ngModel)]="profileInfo.martialstatus" required>
+                            <mat-option value="Married">Married </mat-option>
+                            <mat-option value="Single">Single</mat-option>
+                            <mat-option value="Divorced">Divorced</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="(martialstatus.touched ) && martialstatus.errors?.['required']"> Martiual
+                            Status is
+                            required </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Seeking For</mat-label>
+                        <mat-select name="profileInfo.preference" [(ngModel)]="profileInfo.preference"
+                            #prefrence="ngModel" required>
+                            <mat-option value="Female">Female</mat-option>
+                            <mat-option value="Male">Male</mat-option>
+                            <mat-option value="Others">Others</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="(prefrence.touched ) && prefrence.errors?.['required']">
+                            Your Preference is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field color="accent" appearance="outline" *ngIf="zodiacs.length>0">
+                        <mat-label>Select your Zodiac</mat-label>
+                        <mat-select name="profileInfo.zodiac_id" [(ngModel)]="profileInfo.zodiac_id" #zoidac="ngModel"
+                            required>
+                            <mat-option [value]="item.id" *ngFor="let item of zodiacs">{{item.name}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="(zoidac.touched ) && zoidac.errors?.['required']">
+                            Zodiac is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-2 col-md-2 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Country Code</mat-label>
+                        <input matInput type="text" placeholder="+91" name="profileInfo.country_code"
+                            [(ngModel)]="profileInfo.country_code" #countryCode="ngModel" required appCountryCode>
+                        <mat-error *ngIf="(countryCode.touched ) && countryCode.errors?.['required']">
+                            Country code is required
+                        </mat-error>
+                        <mat-error *ngIf="(countryCode.touched ) && countryCode.errors?.['invalid']">
+                            Country code is not valid
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-md-4 col-sm-12">
+                    <mat-form-field class="w-100 fs-16" appearance="outline">
+                        <mat-label>Contact Number</mat-label>
+                        <input matInput type="text" placeholder="9328409012" name="profileInfo.contact_number"
+                            appNumbersOnly [(ngModel)]="profileInfo.contact_number" #contactNumber="ngModel" required>
+                        <mat-error *ngIf="(contactNumber.touched ) && contactNumber.errors?.['required']">
+                            Contact Number is required
+                        </mat-error>
+                        <mat-error *ngIf="(contactNumber.touched ) && contactNumber.errors?.['invalid']">
+                            Contact Number is not valid
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>Address</mat-label>
+                <textarea matInput rows="3" name="profileInfo.address" [(ngModel)]="profileInfo.address" required
+                    #address="ngModel"></textarea>
+                <mat-error *ngIf="(address.touched ) && address.errors?.['required']">
+                    Address is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16" appearance="outline">
+                <mat-label>ZipCode</mat-label>
+                <input matInput type="text" name="profileInfo.zip_code" #zipcode="ngModel"
+                    [(ngModel)]="profileInfo.zip_code" aria-describedby="helpId" placeholder="" required appNumbersOnly
+                    [minlength]="4">
+                <mat-error *ngIf="(zipcode.touched ) && zipcode.errors?.['required']">
+                    ZipCode is required
+                </mat-error>
+                <mat-error *ngIf="(zipcode.touched ) && zipcode.errors?.['minlength']">
+                    Minmum 4 digit is required
+                </mat-error>
+                <mat-error *ngIf="(zipcode.touched ) && zipcode.errors?.['invalid'] && !zipcode.errors?.['required']">
+                    Please enter numbers only
+                </mat-error>
+            </mat-form-field>
+
+            <div class="d-flex justify-content-center">
+                <button mat-fab extended color="accent" [disabled]="!personalInfoForm.valid && isLoading"
+                    (click)="PersonalInfoFormSubmit(personalInfoForm)">
+                    Update
+                </button>
+            </div>
+        </form>
+    </mat-tab>
+    <mat-tab label="Prefrences">
+        <form class="form py-3" #preferenceForm="ngForm" novalidate *ngIf="!isLoading">
+            <app-social-links (SocialProfileValue)="setSocialProfile($event)"
+                [userSocialProfile]="profileInfo.social_profiles"></app-social-links>
+            <div class="row">
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <app-app-auto-complete *ngIf="hobbies.length > 0" [allItems]="hobbies"
+                        [placeHolder]="'Search your preferences..'" [label]="'Hobbies'" [(values)]="profileInfo.hobby"
+                        [appearance]="'outline'">
+                    </app-app-auto-complete>
+                </div>
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <app-app-auto-complete *ngIf="professions.length > 0" [allItems]="professions"
+                        [placeHolder]="'Search your preferences..'" [label]="'professions'"
+                        [(values)]="profileInfo.professions" [appearance]="'outline'">
+                    </app-app-auto-complete>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <app-app-auto-complete *ngIf="ethinicities.length > 0" [allItems]="ethinicities"
+                        [placeHolder]="'Search ethinicities...'" [label]="'Select Ethinicity'"
+                        [(values)]="profileInfo.ethicity" [appearance]="'outline'">
+                    </app-app-auto-complete>
+                </div>
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <app-app-auto-complete *ngIf="foodAndDrinks.length > 0" [allItems]="foodAndDrinks"
+                        [placeHolder]="'Search Food preferences...'" [label]="'Food & Drinks Preferences'"
+                        [(values)]="profileInfo.food_prefrences" [appearance]="'outline'">
+                    </app-app-auto-complete>
+                </div>
+            </div>
+            <app-app-auto-complete *ngIf="goingOuts.length > 0" [allItems]="goingOuts"
+                [placeHolder]="'Search your preferences..'" [label]="'Going out Preferences'"
+                [(values)]="profileInfo.goingout_preference" [appearance]="'outline'">
+            </app-app-auto-complete>
+
+            <div class="d-flex justify-content-center">
+                <button mat-fab extended color="accent" [disabled]="!preferenceForm.valid && socialProfiles.length===0 "
+                    (click)="UpdatePrefrences(preferenceForm)">
+                    Update Preferences
+                </button>
+            </div>
+        </form>
+    </mat-tab>
+    <mat-tab label="Photos">
+        <div class="my-3">
+            <app-images></app-images>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -14,8 +14,8 @@ import { setUser } from 'src/app/core/store/actions/user.actions';
 export class LoginComponent implements OnInit {
 
   loginData = {
-    email: "bumble8@gmail.com",
-    password: "password123"
+    email: "",
+    password: ""
   }
   isLoading: boolean = false;
 

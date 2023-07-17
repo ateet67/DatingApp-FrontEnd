@@ -20,7 +20,7 @@ import { StoreModule } from '@ngrx/store';
 import * as Hammer from "hammerjs";
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { PasswordPatternDirective } from './core/directives/password-pattern.directive';
 import { MatchPasswordDirective } from './core/directives/match-password.directive';
 import { ValidateUserNameDirective } from './core/directives/validate-user-name.directive';
@@ -42,9 +42,12 @@ import config from './environments/environment.local';
 import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-info.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { HttpinterceptorInterceptor } from './core/interceptors/httpinterceptor.interceptor';
+import { Constants } from './config/constants';
 
 const socketConfig: SocketIoConfig = {
-	url: config.socketUrl, // socket server url;
+	url:Constants.SOCKET_ENDPOINT, // socket server url;
 	options: {
 		transports: ['websocket']
 	}
@@ -72,6 +75,7 @@ export function tokenGetter() {
     ImagesComponent,
     ForgetPasswordComponent,
     ProfileInfoComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +103,11 @@ export function tokenGetter() {
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpinterceptorInterceptor ,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
