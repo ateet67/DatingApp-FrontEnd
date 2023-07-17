@@ -26,6 +26,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { CloseButtonComponent } from './close-button/close-button.component';
 import { MessagingComponent } from './messaging/messaging.component'
 import { ScrollToBottomDirective } from '../core/directives/scroll-to-bottom.directive';
+import { FireSeenPipe } from '../core/pipes/fire-seen.pipe';
 import { SocialLinksComponent } from './social-links/social-links.component';
 
 
@@ -72,6 +73,7 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     ConfirmationDialogComponent,
     MessagingComponent,
     ScrollToBottomDirective,
+    FireSeenPipe
     SocialLinksComponent
   ],
   declarations: [
@@ -82,6 +84,7 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     CloseButtonComponent,
     MessagingComponent,
     ScrollToBottomDirective,
+    FireSeenPipe
     SocialLinksComponent
   ]
 })
