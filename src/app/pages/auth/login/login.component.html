@@ -3,9 +3,6 @@
     <div class="card-body text-center">
         <h4 class="mb-32 text-center">Login</h4>
         <form #loginForm="ngForm" novalidate>
-            test.Prajapati2@example.com
-            bumble8@gmail.com
-            john.smith1@example.com
             <mat-form-field class="w-100 fs-16" appearance="outline">
                 <mat-label>Email</mat-label>
 
@@ -15,8 +12,6 @@
                 <mat-error *ngIf="(email.touched) && email.errors?.['required']"> Email is required. </mat-error>
                 <mat-error *ngIf="(email.touched ) && email.errors?.['email']"> Email is not valid </mat-error>
             </mat-form-field>
-
-            password123<br>
             <mat-form-field class="w-100 fs-16" appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput type="password" placeholder="Enter your password" [(ngModel)]="loginData.password"

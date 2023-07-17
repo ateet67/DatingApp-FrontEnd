@@ -196,7 +196,7 @@
                 <mat-select name="userData.preference" [(ngModel)]="userData.preference" #prefrence="ngModel" required>
                     <mat-option value="Female">Female</mat-option>
                     <mat-option value="Male">Male</mat-option>
-                    <mat-option value="Others">Others</mat-option>
+                    <mat-option value="Other">Other</mat-option>
                 </mat-select>
                 <mat-error *ngIf="(prefrence.touched ) && prefrence.errors?.['required']">
                     Your Preference is required

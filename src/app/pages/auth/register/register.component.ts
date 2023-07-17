@@ -76,6 +76,9 @@ export class RegisterComponent {
     if (form.form.valid) {
       this.isLoading = true;
       this.userData.dob = moment(this.userData.dob).format('YYYY-MM-DD');
+      this.userData.ethicity = this.addCustomFieldToArrayOfObject(this.userData.ethicity, "ethnicity_id", "id")
+      this.userData.food_preference = this.addCustomFieldToArrayOfObject(this.userData.food_preference, "food_drink_id", "id")
+      this.userData.goingout_preference = this.addCustomFieldToArrayOfObject(this.userData.goingout_preference, "goingout_id", "id")
       this.authServivce.registerUser(this.userData).subscribe((data: any) => {
         console.log(data);
         setTimeout(() => {
@@ -115,6 +118,8 @@ export class RegisterComponent {
       this.selectedEthinicities.splice(index, 1);
     }
   }
-
+  addCustomFieldToArrayOfObject(arr: Array<any>, fieldName: string, arrayField: any) {
+    return arr.length > 0 ? arr.map(ele => Object.assign(ele, { [fieldName]: ele[arrayField] })) : []
+  }
 
 }

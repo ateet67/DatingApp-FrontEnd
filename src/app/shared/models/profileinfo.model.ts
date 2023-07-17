@@ -1,6 +1,12 @@
+import { Ethnicity } from "../interfaces/ethnicity.type";
+import { FoodAndDrinks } from "../interfaces/food-and-drinks.type";
+import { GoingOut } from "../interfaces/going-out.type";
+import { Hobby } from "../interfaces/hobby.type";
+import { Profession } from "../interfaces/profession.type";
+import { UserSocialProfile } from "../interfaces/user-social-profile.type";
 import { User as userType } from "../interfaces/user.type";
 
-export class User implements userType {
+export class ProfileInfo  {
     id?: number;
     first_name: string = '';
     middle_name: string = '';
@@ -17,7 +23,7 @@ export class User implements userType {
     country_code: string = '';
     contact_number: string = '';
     preference: string = '';
-    location: string = '1234657';
+    location: string = '';
     address: string = '';
     otp: string = '';
     zip_code: string = '';
@@ -38,10 +44,22 @@ export class User implements userType {
     jwttoken: string = "";
     tokencreateddate: Date = new Date();
     token: string = "";
-    ethicity: number[] = [];
-    food_preference: number[] = [];
-    goingout_preference: number[] = [];
+    ethicity: any[] = [];
+    food_prefrences: any[] = [];
+    goingout_preference: any[] = [];
+    professions: any[] = []
+    hobby: any[] = []
     profile_like: any[] = [];
+    likeList: any[] = [];
+    swipeList: any[] = [];
+    blockList: any[] = [];
+    social_profiles!: Array<UserSocialProfile> 
+    user_ethnicity!: Array<Ethnicity> 
+    user_food_preference!: Array<FoodAndDrinks> 
+    user_profession!: Array<Profession> 
+    user_goingout_preference!: Array<GoingOut> 
+    user_hobby!: Array<Hobby> 
+
 
     constructor(userinfo: any) {
         this.id = userinfo?.id;
@@ -60,7 +78,7 @@ export class User implements userType {
         this.country_code = userinfo.country_code;
         this.contact_number = userinfo.contact_number;
         this.preference = userinfo.preference;
-        this.location = userinfo.location??"132465";
+        this.location = userinfo.location;
         this.address = userinfo.address;
         this.otp = userinfo.otp;
         this.zip_code = userinfo.zip_code;
@@ -68,7 +86,7 @@ export class User implements userType {
         this.is_deleted = userinfo.is_deleted;
         this.is_otp_verified = userinfo.is_otp_verified;
         this.dob = userinfo.dob;
-        this.zodiac_id = userinfo.zodiac_id;
+        this.zodiac_id = userinfo.zodiac.id;
         this.lastforgetpasswordsend = userinfo.lastforgetpasswordsend;
         this.lastresetpassword = userinfo.lastresetpassword;
         this.img = userinfo.img;
@@ -80,5 +98,16 @@ export class User implements userType {
         this.jwttoken = userinfo.jwttoken;
         this.tokencreateddate = userinfo.tokencreateddate;
         this.token = userinfo.token;
-     }
-}   
+        this.likeList = userinfo.profile_like
+        this.swipeList = userinfo.profile_swipe
+        this.blockList = userinfo.user_blocklist
+        this.hobby = userinfo.user_hobbies
+        this.professions = userinfo.professions
+        this.social_profiles = userinfo.social_profiles
+        this.ethicity = userinfo.ethnicities_prefrences
+        this.food_prefrences=userinfo.food_prefrences
+        this.professions=userinfo.professions
+        this.goingout_preference=userinfo.goingout_prefrences
+        this.hobby=userinfo.user_hobbies
+    }
+}
