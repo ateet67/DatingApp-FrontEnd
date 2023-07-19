@@ -6,7 +6,7 @@
 
     <div class="p-16">
       <div class="mb-16">
-        <span class="ms-16 fw-medium fs-26"> Dating App </span>
+        <!-- <span class="ms-16 fw-medium fs-26"> Daisy </span> -->
       </div>
 
       <div class="pt-8">
@@ -29,6 +29,16 @@
             </ng-template>
           </li>
         </ul>
+        <ng-template [ngxPermissionsOnly]="['admin']">
+          <div mat-subheader class="p-2 my-2 text-bold"> Admin</div>
+          <div class="list-group mb-8" *ngFor="let sidenav of adminBar">
+            <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
+              class="sidebar-menu fs-16 w-100 d-flex align-items-center " [routerLinkActive]="routerActive">
+              <i-feather name="{{ sidenav.icon }}" class="feather-base me-16"></i-feather>
+              <span class="ps-4">{{ sidenav.menu }}</span>
+            </a>
+          </div>
+        </ng-template>
       </div>
 
 
@@ -61,7 +71,8 @@
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center"
           [matMenuTriggerFor]="menu">
           <div class="d-flex align-items-center">
-            <img [src]="user$.img ? baseUrl+user$.img:userImage " class="rounded-circle" alt="" height="32px" width="32px">
+            <img [src]="user$.img ? baseUrl+user$.img:userImage " class="rounded-circle" alt="" height="32px"
+              width="32px">
             <span class="fw-light ms-8 text-secondary">Hi,</span>
             <span class="fw-bold ms-8">{{ user$?user$.first_name:"Loading"}}</span>
             <i-feather name="chevron-down" class="feather-base"></i-feather>
@@ -92,7 +103,7 @@
       </div>
     </div>
 
-    
+
 
   </mat-sidenav-content>
 

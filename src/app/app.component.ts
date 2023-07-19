@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +8,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 export class AppComponent implements OnInit {
   title = 'Daisy';
 
-  constructor(private permissionsService: NgxPermissionsService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    const perm = ["EDITOR"];
-
-    this.permissionsService.loadPermissions(perm);
-  }
+  ngOnInit(): void { }
 }

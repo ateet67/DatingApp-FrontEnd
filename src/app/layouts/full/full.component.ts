@@ -1,26 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Constants } from './../../config/constants';
-import { getUser, setUser } from './../../core/store/actions/user.actions';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Store, select } from '@ngrx/store';
 import { AuthService } from 'src/app/core/service/auth.service';
-import { User } from 'src/app/shared/interfaces/user.type';
 import { SocketService } from 'src/app/core/service/SocketServices/socket.service';
 import { Socket } from 'ngx-socket-io';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CloseButtonComponent } from 'src/app/components/close-button/close-button.component';
 import { SnackbarService } from 'src/app/core/service/snackbar.service';
 import { UserService } from 'src/app/core/service/UserService/user.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 interface sidebarMenu {
   link: string;
   icon: string;
   menu: string;
-  children?: any
 }
 
 @Component({
@@ -57,8 +52,8 @@ export class FullComponent implements OnInit {
     private notificationservice: NotificationService,
     private router: Router,
     private snackBar: SnackbarService,
-    private store: Store<any>,
-    private userService: UserService
+    private userService: UserService,
+    private permissionsService: NgxPermissionsService
   ) {
 
 
@@ -66,10 +61,9 @@ export class FullComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.store.select('user').subscribe((user) =>{ 
-    //   this.user$ = user
-    //   this.userImage = Constants.SOCKET_ENDPOINT+this.user$.img.toString()
-    // })
+    let user = this.authservice.getuser();
+    const perm = [user.role.name];
+    this.permissionsService.loadPermissions(perm);
 
 
     this.user$ = this.authservice.getuser()
@@ -134,16 +128,24 @@ export class FullComponent implements OnInit {
       icon: "message-circle",
       menu: "Chats",
     },
+  ];
+  adminBar: sidebarMenu[] = [
     {
       link: "/admin/prefrences",
-      icon: "user",
-      menu: "Admin",
+      icon: "list",
+      menu: "Preferences",
+    },
+    {
+      link: "/admin/userList",
+      icon: "users",
+      menu: "Users",
     }
-  ];
+  ]
 
   onLogout() {
     localStorage.clear();
     this.socket.disconnect();
+    this.permissionsService.flushPermissions();
     this.router.navigateByUrl("/");
   }
 
