@@ -77,15 +77,15 @@ button:disabled {
 }
 
 .toast-top-center {
-    bottom: 0;
+    bottom: 10px;
     margin: 0 auto;
     right: 0;
     left: 0;
     width: 100%;
 }
 
-.toast-bottom-center {
-    bottom: 1%;
+  .toast-bottom-center {
+    bottom: 10px;
     margin: 0 auto;
     right: 0;
     left: 0;
@@ -106,3 +106,6 @@ button:disabled {
 .scrollable-grid ::-webkit-scrollbar {
     width: 0.2em !important;
 }
+  .badge.bg-primary {
+    background-color: #03c9d7 !important;
+  }

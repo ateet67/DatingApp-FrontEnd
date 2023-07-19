@@ -16,10 +16,10 @@ import { GoingOut } from 'src/app/shared/interfaces/going-out.type';
 import { Hobby } from 'src/app/shared/interfaces/hobby.type';
 import { Profession } from 'src/app/shared/interfaces/profession.type';
 import { UserSocialProfile } from 'src/app/shared/interfaces/user-social-profile.type';
-import { User } from 'src/app/shared/interfaces/user.type';
 import { Zodiac } from 'src/app/shared/interfaces/zodiac.type';
 import { ProfileInfo } from 'src/app/shared/models/profileinfo.model';
 import { User as UserModel } from 'src/app/shared/models/user.model';
+import { ToasterPosition } from 'src/app/core/enums/ToasterPoitions';
 
 @Component({
   selector: 'app-edit-profile',
@@ -47,10 +47,10 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private userservice: UserService,
     private customservice: CustomService,
-    private toast: ToasterService,
     private router: Router,
     private store: Store<any>,
     private auth: AuthService,
+    private toast: ToasterService,
   ) { }
   ngOnInit(): void {
 
@@ -96,7 +96,7 @@ export class EditProfileComponent implements OnInit {
       this.userservice.UpdatePersonalInfo(this.profileInfo).subscribe((data: any) => {
         this.isLoading = false
         if (data.status) {
-          this.toast.Sucess("Successfull", "Your Profile has been updated Sucesfully");
+          this.toast.Sucess("Successfull", "Your Profile has been updated Sucesfully", ToasterPosition.topCenter);
           this.store.dispatch(setUser({ user: new UserModel(data.data) }));
         } else {
           this.toast.Error("Error", "There is some error updating your profile information! Plz try again after some time!")
@@ -120,12 +120,39 @@ export class EditProfileComponent implements OnInit {
     console.log("user_food_preference", this.profileInfo.food_prefrences)
 
 
-    this.userservice.UpdateEthnicity(this.profileInfo.ethicity).subscribe(this.ShowSucess, this.ShowError)
-    this.userservice.UpdateProfession(this.profileInfo.professions).subscribe(this.ShowSucess, this.ShowError)
-    this.userservice.UpdateHobby(this.profileInfo.hobby).subscribe(this.ShowSucess, this.ShowError)
-    this.userservice.UpdateGoingout(this.profileInfo.goingout_preference).subscribe(this.ShowSucess, this.ShowError)
-    this.userservice.UpdateSocialProfile(this.profileInfo.social_profiles).subscribe(this.ShowSucess, this.ShowError)
-    this.userservice.UpdateFoodanddrink(this.profileInfo.food_prefrences).subscribe(this.ShowSucess, this.ShowError)
+    this.userservice.UpdateEthnicity(this.profileInfo.ethicity).subscribe((data) => data, (error) => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.Error("There is some error", "Plz try again")
+    })
+    this.userservice.UpdateProfession(this.profileInfo.professions).subscribe((data) => data, (error) => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.Error("There is some error", "Plz try again")
+    })
+    this.userservice.UpdateHobby(this.profileInfo.hobby).subscribe((data) => data, (error) => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.Error("There is some error", "Plz try again")
+    })
+    this.userservice.UpdateGoingout(this.profileInfo.goingout_preference).subscribe((data) => data, (error) => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.Error("There is some error", "Plz try again")
+    })
+    this.userservice.UpdateSocialProfile(this.profileInfo.social_profiles).subscribe((data) => data, (error) => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.Error("There is some error", "Plz try again")
+    })
+    this.userservice.UpdateFoodanddrink(this.profileInfo.food_prefrences).subscribe(() => {
+      this.isLoading = false
+      this.toast.Sucess("Sucessfull", "Updated", ToasterPosition.topRight)
+    }, (error) => {
+      console.log(error);
+      this.isLoading = false;
+      this.toast.Error("There is some error", "Plz try again")
+    })
   }
 
   Allowonly18Plus(): string {
@@ -139,14 +166,7 @@ export class EditProfileComponent implements OnInit {
     console.log(error);
 
     this.isLoading = false
-    // this.toast.Error("there is some error", "try again later")
-  }
-  ShowSucess(data: any) {
-    console.log("sucess",data);
-    
-    this.isLoading = false
-
-    // this.toast.Sucess("Sucessfull", "Updated")
+    this.toast.Error("there is some error", "try again later")
   }
   addCustomFieldToArrayOfObject(arr: Array<any>, fieldName: string, arrayField: any) {
     return arr.length > 0 ? arr.map(ele => Object.assign(ele, { [fieldName]: ele[arrayField] })) : []

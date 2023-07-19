@@ -48,7 +48,7 @@ export class ImagesComponent implements OnInit {
         this.store.dispatch(setProfileImage({ url: data.data[0].imgurl }));
         const user = this.authservice.getuser()
         user.img = data.data[0].imgurl
-        this.store.dispatch(setUser({user}))
+        this.store.dispatch(setUser({ user: user }))
       });
   }
 

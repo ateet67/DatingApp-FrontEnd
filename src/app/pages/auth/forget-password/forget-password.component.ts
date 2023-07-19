@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToasterPosition } from 'src/app/core/enums/ToasterPoitions';
 import { ToasterService } from 'src/app/core/service/ToasterServices/toaster.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 
@@ -30,7 +31,7 @@ export class ForgetPasswordComponent {
       this.authServivce.SendResetPasswordLink(this.resetPasswordData.email)
         .subscribe((response: any) => {
           console.log(response);
-          this.toast.Sucess("SucessFull", "Password reset link send to email")
+          this.toast.Sucess("SucessFull", "Password reset link send to email",ToasterPosition.topCenter)
           this.isLoading = false
           this.isSubmitted = true;
           this.router.navigateByUrl('/auth/login')

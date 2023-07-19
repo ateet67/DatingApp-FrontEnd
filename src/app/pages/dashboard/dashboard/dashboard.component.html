@@ -18,7 +18,7 @@
                 <img src="/assets/images/close-small.png" />
             </div>
             <div (click)="TogglelikeProfile()" class="likeButton" >
-                <img src="{{ToggleLikeFlag?'/assets/images/Vector (5).png':'/assets/images/emtyheart.png'}}" />
+                <img [src]="ToggleLikeFlag?'/assets/images/Vector (5).png':'/assets/images/emtyheart.png'" />
             </div>
             <div (click)='cardAnimation("swiperight")'>
                 <img src="/assets/images/Vector (6).png" />

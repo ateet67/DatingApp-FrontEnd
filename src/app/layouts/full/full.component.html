@@ -14,11 +14,11 @@
           <li class="list-group mb-8" *ngFor="let sidenav of sidebarMenu">
             <!-- if the link is for dashboard chats  -->
             <a *ngIf="sidenav.icon==='message-circle' ;else normallink" matRipple [matRippleColor]="'#f7f8f443'"
-              routerLink="{{ sidenav.link }}" class="sidebar-menu fs-16 w-100 d-flex align-items-center "
+              [routerLink]="sidenav.link" class="sidebar-menu fs-16 w-100 d-flex align-items-center "
               [routerLinkActive]="routerActive" (click)="ResetChatNotification()">
-              <i-feather name="{{ sidenav.icon }}" class="feather-base me-16"></i-feather> <span class="ps-4">{{
+              <i-feather [name]="sidenav.icon" class="feather-base me-16"></i-feather> <span class="ps-4">{{
                 sidenav.menu }}</span>
-              <span class="badge bg-primary ms-2" *ngIf="chatNotificationCount>0">{{chatNotificationCount}}</span>
+              <span class="badge bg-info ms-2" *ngIf="chatNotificationCount>0">{{chatNotificationCount}}</span>
             </a>
             <ng-template #normallink>
               <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
