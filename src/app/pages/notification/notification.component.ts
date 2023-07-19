@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/core/service/auth.service';
 import { NotificationService } from 'src/app/core/service/notification.service';
 import { UserInvitation } from 'src/app/shared/interfaces/user-invitation.type';
 import { User } from 'src/app/shared/interfaces/user.type';
+import * as $ from 'jquery'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification',
@@ -18,7 +20,8 @@ export class NotificationComponent {
   constructor(
     private socket: Socket,
     private notificaion: NotificationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
   }
 
@@ -29,6 +32,7 @@ export class NotificationComponent {
   likeLoading = true;
   notificaionCount: number = 0;
   invitations: any;
+  startChatingButton :any
 
   ngOnInit(): void {
     this.RefreshNotifications()
@@ -76,14 +80,9 @@ export class NotificationComponent {
     })
   }
 
-  acceptRequest(val: any) {
+  acceptRequest(val: any, event: any) {
     let currentUser = this.authService.getuser();
-    console.log({
-      "name": `user${val.invited_by}user${currentUser.id}`,
-      "is_active": true,
-      "user_id": currentUser.id,
-      "invited_by": val.invited_by
-    });
+
 
     this.socket.emit('requestAccepted', {
       "name": `user${val.invited_by}user${currentUser.id}`,
@@ -91,9 +90,16 @@ export class NotificationComponent {
       "user_id": currentUser.id,
       "invited_by": val.invited_by
     });
+
+    $(event.target).parents("#action_buttons").remove()
+    this.startChatingButton = true
+
+  }
+  redirectToChat() {
+    this.router.navigateByUrl('/dashboard/chats')
   }
 
-  declineRequest() {
-
+  declineRequest(event: any) {
+    $(event.target).parents("#action_buttons").remove()
   }
 }

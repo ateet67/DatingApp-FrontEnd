@@ -6,7 +6,6 @@ export const userStore = JSON.parse(localStorage.getItem('user') || '{}') || {};
 export const userReducer = createReducer(
     userStore,
     on(setUser, (state: any, action: any) => {
-        console.log(action.user);
         localStorage.setItem('user', JSON.stringify(action.user))
         return {
             ...state,
@@ -15,6 +14,7 @@ export const userReducer = createReducer(
     }),
     on(getUser, (state) => state),
     on(setProfileImage, (state: any, action: any) => {
+        
         return {
             ...state,
             img: action.url

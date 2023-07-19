@@ -8,6 +8,7 @@ import { SocketService } from 'src/app/core/service/SocketServices/socket.servic
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { GroupService } from 'src/app/core/service/group.service';
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-chats',
@@ -19,6 +20,7 @@ export class ChatsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private groupService: GroupService,
+    private authservice: AuthService,
     private socket: Socket) { }
 
   isLoading: boolean = false;
@@ -26,19 +28,25 @@ export class ChatsComponent implements OnInit {
   friends: any;
   groupnames: string[] = [];
   selectedChatingUser: any;
+  unseenChatCountArray: any[] = []
+  chatUnseenCount: number = 0;
+  currentUser = this.authservice.getuser()
   getLastSeen = (val: any) => moment(val).fromNow();
 
   ngOnInit(): void {
     this.isLoading = true;
     this.groupService.getGroups().subscribe((data: any) => {
       this.friends = data.data;
+      this.unseenChatCountArray = data.chatcount
       this.friends = this.friends
         .filter((ele: any) => ele.groups != null)
         .filter((ele: any) => ele.groups = {
           ...ele.groups.users[0],
           group_id: ele.groups.id,
-          group_name: ele.groups.name
+          group_name: ele.groups.name,
+          useenCount: this.unseenChatCountArray.find((chat) => chat.group_id === ele.groups.id)?.count ?? null
         });
+
       this.isLoading = false;
     })
     this.socket.on("userisOnline", (data: any) => {
@@ -57,7 +65,11 @@ export class ChatsComponent implements OnInit {
       });
     })
     this.socket.on("recevieMessage", (data: any) => {
-      // alert(JSON.stringify(data))
+      if (data.status && data.data.sender !== this.currentUser.id && this.selectedChatingUser && this.selectedChatingUser[0].group_id !== data.data.group_id) {
+        let currentNotification = Number($(`#unseenCount_${data.data.group_id}`).text())
+        $(`#unseenCount_${data.data.group_id}`).text(currentNotification + 1)
+      }
+
     })
   }
 
@@ -66,5 +78,8 @@ export class ChatsComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
     }, 300);
+  }
+  setUnseenCountToZero(groupid: any) {
+    $(`#unseenCount_${groupid}`).empty()
   }
 }
