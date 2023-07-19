@@ -28,7 +28,8 @@ export class MessagingComponent implements OnInit, OnDestroy {
   timeout: any;
   per_page: number = 20;
   page: number = 1;
-  getDateFormat = (val: any) => moment(val).format('DD-MM-YYYY hh:mm A');
+  totalPages: number = 1
+  getDateFormat = (val: any) => moment(val).format('hh:mm A');
   getLastSeen = (val: any) => moment(val).fromNow();
   getDayStamp = (val: any) => moment(val).format("DD-MM-YYYY");
 
@@ -68,12 +69,9 @@ export class MessagingComponent implements OnInit, OnDestroy {
       }
     })
     this.socket.on("msgSeen", (data: any) => {
-      console.log(data, this.selectedUser.groups);
-
       if (this.selectedUser.groups.group_id == data.group_id) {
         this.isMsgSeen = true;
         this.allMessages[this.allMessages.length - 1] = data;
-        console.log(this.allMessages[this.allMessages.length - 1], data);
       }
     })
     this.getMessages();
@@ -83,13 +81,15 @@ export class MessagingComponent implements OnInit, OnDestroy {
   }
 
   getMessages(per_page?: number, page?: number) {
-    this.api.post("conversation", { group_id: this.selectedUser.groups.group_id, page: page ?? 1, per_page: per_page ?? 20 }).subscribe((data: any) => {
-      console.log(data);
-      this.allMessages = [...data.data.reverse(), ...this.allMessages];
-      // this.allMessages = this.allMessages.map((obj : any) => ({ ...obj, date: new Date(obj.createdAt).toLocaleDateString() }))
-      this.isLoading = false;
-    })
-    console.log(this.allMessages);
+    if ((page ?? 1) <= this.totalPages) {
+
+      this.api.post("conversation", { group_id: this.selectedUser.groups.group_id, page: page ?? 1, per_page: per_page ?? 20 }).subscribe((data: any) => {
+        this.totalPages = data.totalPages
+        this.allMessages = [...data.data.reverse(), ...this.allMessages];
+        // this.allMessages = this.allMessages.map((obj : any) => ({ ...obj, date: new Date(obj.createdAt).toLocaleDateString() }))
+        this.isLoading = false;
+      })
+    }
 
   }
 
@@ -141,8 +141,6 @@ export class MessagingComponent implements OnInit, OnDestroy {
   }
 
   seenMessage = (msg: any) => {
-    console.log(msg);
-
     // if (this.currentUserId != msg.sender && !msg.is_seen) {
     //   this.socket.emit("msgSeen", { msg: msg, groupName: this.selectedUser.groups.group_name });
     // }

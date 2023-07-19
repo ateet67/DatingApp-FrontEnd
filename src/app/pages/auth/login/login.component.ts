@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ToasterPosition } from 'src/app/core/enums/ToasterPoitions';
 import { ToasterService } from 'src/app/core/service/ToasterServices/toaster.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { setUser } from 'src/app/core/store/actions/user.actions';
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
             setTimeout(() => {
               console.log(data);
               this.router.navigateByUrl('/dashboard')
-              this.toaster.Sucess("Success","Logged in successfully")
+              this.toaster.Sucess("Success","Logged in successfully",ToasterPosition.topRight)
             }, 500);
           }
         },

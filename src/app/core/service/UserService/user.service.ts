@@ -38,6 +38,12 @@ export class UserService implements OnInit {
     return this.api.get('profile/profileinfo');
   }
 
+  GetSwipeList():Observable<any>{
+    return this.api.get("profile/swipelist")
+  }
+  GetLikeList():Observable<any>{
+    return this.api.get("profile/likelist")
+  }
 
 
 

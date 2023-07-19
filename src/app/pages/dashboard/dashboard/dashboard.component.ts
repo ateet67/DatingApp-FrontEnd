@@ -1,9 +1,11 @@
-import { Component, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, QueryList, ViewChildren, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Socket } from 'ngx-socket-io';
 import { Subject } from 'rxjs';
 import { SwipeCardComponent } from 'src/app/components/swipe-card/swipe-card.component';
+import { ToasterPosition } from 'src/app/core/enums/ToasterPoitions';
 import { SocketService } from 'src/app/core/service/SocketServices/socket.service';
+import { ToasterService } from 'src/app/core/service/ToasterServices/toaster.service';
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { SnackbarService } from 'src/app/core/service/snackbar.service';
@@ -16,7 +18,7 @@ interface cards {
   btn: string;
 }
 @Component({
-  selector: 'app-dashboard',  
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -27,46 +29,6 @@ export class DashboardComponent implements AfterViewInit {
 
   parentSubject: Subject<string> = new Subject();
   ToggleLikeFlag = false
-  ngAfterViewInit(): void {
-    // console.log(this.childrenRef);
-  }
-
-
-  // public users = [{
-  //   "id": 15,
-  //   "picture": "assets/images/u2.webp",
-  //   "age": 23,
-  //   "name": "Candace Coffey",
-  //   "gender": "female"
-  // },
-  // {
-  //   "id": 1,
-  //   "picture": "assets/images/u3.webp",
-  //   "age": 40,
-  //   "name": "Katrina Potter",
-  //   "gender": "female"
-  // },
-  // {
-  //   "id": 2,
-  //   "picture": "assets/images/u4.webp",
-  //   "age": 35,
-  //   "name": "Genevieve Hardy",
-  //   "gender": "female"
-  // },
-  // {
-  //   "id": 3,
-  //   "picture": "assets/images/u2.webp",
-  //   "age": 30,
-  //   "name": "Cabrera Jefferson",
-  //   "gender": "male"
-  // },
-  // {
-  //   "id": 4,
-  //   "picture": "assets/images/u3.webp",
-  //   "age": 37,
-  //   "name": "Guadalupe Keith",
-  //   "gender": "female"
-  // }];
   users: Array<User> = [];
   currentUser: User = this.authService.getuser();
   isLoading: boolean = false;
@@ -76,14 +38,18 @@ export class DashboardComponent implements AfterViewInit {
     private userservice: UserService,
     private authService: AuthService,
     private socket: Socket,
-    private snackbar: SnackbarService
+    private toast:ToasterService
   ) { }
+
+  ngAfterViewInit(): void {
+  }
 
   ngOnInit() {
     this.currentUser = this.authService.getuser();
-    this.userservice.GetUsers().subscribe((data) => {
+    this.userservice.GetUsers().subscribe((data: any) => {
       this.users = data;
       this.isLoading = false
+      this.SetLikeDislike(this.users[0])
     })
 
   }
@@ -94,6 +60,7 @@ export class DashboardComponent implements AfterViewInit {
     console.log(this.childrenRef.first.user.id);
 
     this.socketservice.ProfileSwipe(this.childrenRef.first.user.id ?? 0, value === "swiperight")
+
   }
 
   CardSwiped(data: any) {
@@ -107,8 +74,12 @@ export class DashboardComponent implements AfterViewInit {
       "invited_to": id,
       "updated_by": this.currentUser.id
     });
+    const currentIndex = Array.from(this.users).findIndex((user: any) => user.id === id);
+    this.SetLikeDislike(this.users[currentIndex + 1])
   }
   TogglelikeProfile() {
+    console.log("swiped afyer");
+
     this.ToggleLikeFlag = !this.ToggleLikeFlag
 
     if (this.ToggleLikeFlag) {
@@ -140,5 +111,13 @@ export class DashboardComponent implements AfterViewInit {
 
     // this.snackbar.ShowSnackBar(this.ToggleLikeFlag?"Liked":"")
 
+  }
+  SetLikeDislike(user: User) {
+    if (user && user.profile_like.some((like: any) => like.likedby === this.currentUser.id)) {
+      this.ToggleLikeFlag = true
+    }
+    else {
+      this.ToggleLikeFlag = false
+    }
   }
 }

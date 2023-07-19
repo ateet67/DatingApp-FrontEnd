@@ -38,9 +38,16 @@
         <img matListItemIcon [src]="baseURL+inv.user.img" class="profileImg m-2" />
         <div matListItemTitle>{{inv.user.first_name}} {{inv.user.last_name}}</div>
         <div matListItemLine>{{inv.createdAt | date}}</div>
-        <div matListItemMeta>
-            <button mat-stroked-button color="accent" (click)="acceptRequest(inv)">Accept</button>
-            <button mat-stroked-button color="warn" class="m-2" (click)="declineRequest()">Decline</button>
+        <div matListItemMeta id="action_buttons" *ngIf="startChatingButton">
+            <button mat-flat-button extended color="accent" (click)="redirectToChat()">
+                Start Messaging
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+        
+        <div matListItemMeta id="action_buttons">
+            <button mat-stroked-button color="accent" (click)="acceptRequest(inv,$event)">Accept</button>
+            <button mat-stroked-button color="warn" class="m-2" (click)="declineRequest($event)">Decline</button>
         </div>
     </mat-list-item>
     <mat-divider></mat-divider>
