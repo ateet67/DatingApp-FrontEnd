@@ -1,13 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { AdminService } from 'src/app/core/service/admin.service';
-import { ApiHttpService } from 'src/app/core/service/api-http.service';
-import { Profession } from 'src/app/shared/interfaces/profession.type';
-import { CellClickedEvent, ColDef, GridReadyEvent, GridApi, RowSelectedEvent } from 'ag-grid-community';
+import { ColDef, GridReadyEvent, GridApi, RowSelectedEvent } from 'ag-grid-community';
 import * as moment from 'moment';
-import { CustomService } from 'src/app/core/service/custom.service';
 import { ToasterService } from 'src/app/core/service/ToasterServices/toaster.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ToasterPosition } from 'src/app/core/enums/ToasterPoitions';
 
 @Component({
   selector: 'app-add-new-preference',
@@ -27,7 +25,7 @@ export class AddNewPreferenceComponent {
       headerCheckboxSelection: false,
       checkboxSelection: true,
     },
-    { field: 'id', headerName: 'Id', sort:'desc' },
+    { field: 'id', headerName: 'Id', sort: 'desc' },
     {
       field: 'name',
       headerName: 'Name',
@@ -59,10 +57,10 @@ export class AddNewPreferenceComponent {
     this.adminService.addNewPrefrences(`admin/${this.name}/`, { name: this.searchQuery }).subscribe(
       (data: any) => {
         this.searchQuery = "";
-        this.toast.Sucess("Suceess", "Item added successfully", 2000);
+        this.toast.Sucess("Suceess", "Item added successfully", ToasterPosition.topLeft, 2000);
         this.getGirdData();
       }, (err: any) => {
-        this.toast.Error("Failed...", "Can't add. Please try again later", 2000);
+        this.toast.Error("Failed...", "Can't add. Please try again later", ToasterPosition.topLeft, 2000);
       });
   }
 
@@ -73,11 +71,11 @@ export class AddNewPreferenceComponent {
         this.gridApi.getSelectedRows().forEach((ele: any) => {
           this.adminService.deleteItem(`admin/${this.name}/${ele.id}/`).subscribe((data: any) => {
             this.searchQuery = "";
-            this.toast.Sucess("Suceess", "Item deleted successfully", 2000);
+            this.toast.Sucess("Suceess", "Item deleted successfully", ToasterPosition.topLeft, 2000);
             this.getGirdData();
             this.disableDelete = true;
           }, (err: any) => {
-            this.toast.Error("Failed...", "Can't delete. Please try again later", 2000);
+            this.toast.Error("Failed...", "Can't delete. Please try again later", ToasterPosition.topLeft, 2000);
           })
         })
       }
