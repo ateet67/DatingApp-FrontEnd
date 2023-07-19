@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <div class="d-flex flex-wrap pt-5" style="gap:20px">
+        <div class="d-flex flex-wrap pt-5" style="row-gap: 15px;justify-content: space-around;">
             <div class="custom_image_upload" *ngFor="let img of images">
                 <img [src]="baseURL + img.imgurl" />
                 <div (click)="openDialog(img.id)">
@@ -15,6 +15,7 @@
         </div>
     </div>
     <div class="col-12 py-4">
-        <button mat-flat-button color="accent" style="float: right;" [routerLink]="'/dashboard'"> Finish <mat-icon>navigate_next</mat-icon></button>
+        <button mat-flat-button color="accent" style="float: right;" [routerLink]="'/dashboard'"> Finish
+            <mat-icon>navigate_next</mat-icon></button>
     </div>
 </div>

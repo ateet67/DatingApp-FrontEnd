@@ -24,7 +24,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { PasswordPatternDirective } from './core/directives/password-pattern.directive';
 import { MatchPasswordDirective } from './core/directives/match-password.directive';
 import { ValidateUserNameDirective } from './core/directives/validate-user-name.directive';
-import { AlphabetsOnlyDirective } from './core/directives/alphabets-only.directive';
 import { AlphNumericDirective } from './core/directives/alph-numeric.directive';
 import { CountryCodeDirective } from './core/directives/country-code.directive';
 import { NumbersOnlyDirective } from './core/directives/numbers-only.directive';
@@ -45,12 +44,16 @@ import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-inf
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { HttpinterceptorInterceptor } from './core/interceptors/httpinterceptor.interceptor';
 import { Constants } from './config/constants';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { PrefrencesComponent } from './pages/admin/prefrences/prefrences.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { UserlistComponent } from './pages/admin/userlist/userlist.component';
 
 const socketConfig: SocketIoConfig = {
-	url:Constants.SOCKET_ENDPOINT, // socket server url;
-	options: {
-		transports: ['websocket']
-	}
+  url: Constants.SOCKET_ENDPOINT, // socket server url;
+  options: {
+    transports: ['websocket']
+  }
 }
 
 export function tokenGetter() {
@@ -66,7 +69,6 @@ export function tokenGetter() {
     PasswordPatternDirective,
     MatchPasswordDirective,
     ValidateUserNameDirective,
-    AlphabetsOnlyDirective,
     AlphNumericDirective,
     CountryCodeDirective,
     NumbersOnlyDirective,
@@ -76,12 +78,15 @@ export function tokenGetter() {
     ForgetPasswordComponent,
     ProfileInfoComponent,
     EditProfileComponent,
+    PrefrencesComponent,
+    UserlistComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     MatInputModule,
     HttpClientModule,
+    AgGridModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FeatherModule.pick(allIcons),
@@ -96,8 +101,9 @@ export function tokenGetter() {
     StoreModule.forRoot({ user: userReducer }, {}),
     NgbModule,
     HammerModule,
-    SocketIoModule.forRoot(socketConfig ), 
+    SocketIoModule.forRoot(socketConfig),
     ToastrModule.forRoot(),
+    NgxPermissionsModule.forRoot(),
   ],
   providers: [
     {
@@ -106,7 +112,7 @@ export function tokenGetter() {
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpinterceptorInterceptor ,
+      useClass: HttpinterceptorInterceptor,
       multi: true
     }
   ],

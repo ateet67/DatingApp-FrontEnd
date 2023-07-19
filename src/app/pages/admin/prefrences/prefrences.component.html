@@ -1,0 +1,17 @@
+<mat-accordion [multi]="true">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6" *ngFor="let item of items">
+            <mat-expansion-panel expandedHeight="500px" class="mb-4">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{item.label}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <app-add-new-preference [label]="item.label" [name]="item.name"></app-add-new-preference>
+
+            </mat-expansion-panel>
+        </div>
+    </div>
+</mat-accordion>

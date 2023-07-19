@@ -20,6 +20,7 @@ interface sidebarMenu {
   link: string;
   icon: string;
   menu: string;
+  children?: any
 }
 
 @Component({
@@ -27,13 +28,13 @@ interface sidebarMenu {
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.scss']
 })
-export class FullComponent implements  OnInit  {
+export class FullComponent implements OnInit {
 
   search: boolean = false;
   user$: any;
   today: Date = new Date();
-  userImage:string ='assets/images/user2.webp'
-  baseUrl =Constants.SOCKET_ENDPOINT;
+  userImage: string = 'assets/images/user2.webp'
+  baseUrl = Constants.SOCKET_ENDPOINT;
 
   profileSwipes: any;
   notificationcount: number = 0;
@@ -58,7 +59,7 @@ export class FullComponent implements  OnInit  {
     private snackBar: SnackbarService,
     private store: Store<any>,
     private userService: UserService
-  ) { 
+  ) {
 
 
   }
@@ -71,11 +72,11 @@ export class FullComponent implements  OnInit  {
     // })
 
 
-    this.user$= this.authservice.getuser()
+    this.user$ = this.authservice.getuser()
     this.socketservice.ConnectSocket()
 
-    this.notificationservice.GetNotifications().subscribe((data)=>{
-      this.notificationcount =data.data.length;
+    this.notificationservice.GetNotifications().subscribe((data) => {
+      this.notificationcount = data.data.length;
     })
 
     this.socket.on("notifySwipe", (response: any) => {
@@ -111,7 +112,7 @@ export class FullComponent implements  OnInit  {
       }
     })
     this.socket.on("recevieMessage", (response: any) => {
-      
+
       if (response.status && response.data.sender !== this.user$.id && this.router.url !== "/dashboard/chats") {
         this.setChatCountOfNotification()
       }
@@ -132,6 +133,11 @@ export class FullComponent implements  OnInit  {
       link: "/dashboard/chats",
       icon: "message-circle",
       menu: "Chats",
+    },
+    {
+      link: "/admin/prefrences",
+      icon: "user",
+      menu: "Admin",
     }
   ];
 
@@ -160,7 +166,7 @@ export class FullComponent implements  OnInit  {
     this.notificationservice.SetChatNotificationCount(this.chatNotificationCount);
   }
 
-  
+
   getOnline() {
     this.userService.Getallgroups().subscribe((data) => {
       let groups = data.data.map((e: any) => e.name);
