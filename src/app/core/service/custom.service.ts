@@ -21,7 +21,7 @@ export class CustomService {
   }
 
   getProfessions(): Observable<Profession[]> {
-    return this.api.get("get/professions/");
+    return this.api.get("get/profession/");
   }
 
   getZodiacs(): Observable<Zodiac[]> {
@@ -29,18 +29,18 @@ export class CustomService {
   }
 
   getGoingOuts(): Observable<GoingOut[]> {
-    return this.api.get("get/goingouts/");
+    return this.api.get("get/goingout/");
   }
 
   getFoodAndDrinks(): Observable<FoodAndDrinks[]> {
-    return this.api.get("get/foodanddrinks/");
+    return this.api.get("get/foodanddrink/");
   }
 
   getEthinicities(): Observable<Ethnicity[]> {
-    return this.api.get("get/ethnicities/");
+    return this.api.get("get/ethnicity/");
   }
 
   getHobbies(): Observable<Hobby[]> {
-    return this.api.get("get/hobbies/");
+    return this.api.get("get/hobby/");
   }
 }

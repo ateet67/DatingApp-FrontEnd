@@ -17,6 +17,6 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   onConfirmClcik() {
-    this.dialogRef.close({ id: this.id })
+    this.dialogRef.close({ id: this.id, closeType: 'confirm' })
   }
 }

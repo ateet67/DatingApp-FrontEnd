@@ -28,8 +28,12 @@ import { MessagingComponent } from './messaging/messaging.component'
 import { ScrollToBottomDirective } from '../core/directives/scroll-to-bottom.directive';
 import { FireSeenPipe } from '../core/pipes/fire-seen.pipe';
 import { SocialLinksComponent } from './social-links/social-links.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { AddNewPreferenceComponent } from './add-new-preference/add-new-preference.component';
+import { AlphabetsOnlyDirective } from '../core/directives/alphabets-only.directive';
+import { AgGridModule } from 'ag-grid-angular';
 
-
+     
 @NgModule({
   imports: [
     CommonModule,
@@ -51,7 +55,8 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     GridListComponent,
     TooltipsComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgGridModule,
   ],
   exports: [
     AlertsComponent,
@@ -74,7 +79,10 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     MessagingComponent,
     ScrollToBottomDirective,
     FireSeenPipe,
-    SocialLinksComponent
+    SocialLinksComponent,
+    NgxPermissionsModule,
+    AddNewPreferenceComponent,
+    AlphabetsOnlyDirective
   ],
   declarations: [
     AppAutoCompleteComponent,
@@ -85,7 +93,9 @@ import { SocialLinksComponent } from './social-links/social-links.component';
     MessagingComponent,
     ScrollToBottomDirective,
     FireSeenPipe,
-    SocialLinksComponent
+    SocialLinksComponent,
+    AddNewPreferenceComponent,
+    AlphabetsOnlyDirective
   ]
 })
 export class ComponentsModule {

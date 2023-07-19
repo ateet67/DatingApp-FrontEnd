@@ -29,33 +29,13 @@ import { ImagesComponent } from './pages/profile/images/images.component';
 import { NotificationComponent } from './pages/notification/notification.component';
 import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-info.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { PrefrencesComponent } from './pages/admin/prefrences/prefrences.component';
 
 const routes: Routes = [
   {
     path: "",
     redirectTo: "/auth/login",
     pathMatch: "full",
-    // component: FullComponent,
-    // children: [
-    //   { path: "", redirectTo: "/home", pathMatch: "full" },
-    //   { path: "home", component: DashboardComponent },
-    //   { path: "alerts", component: AlertsComponent },
-    //   { path: "forms", component: FormsComponent },
-    //   { path: "table", component: ProductComponent },
-    //   { path: "grid-list", component: GridListComponent },
-    //   { path: "menu", component: MenuComponent },
-    //   { path: "tabs", component: TabsComponent },
-    //   { path: "expansion", component: ExpansionComponent },
-    //   { path: "chips", component: ChipsComponent },
-    //   { path: "progress", component: ProgressComponent },
-    //   { path: "toolbar", component: ToolbarComponent },
-    //   { path: "progress-snipper", component: ProgressSnipperComponent },
-    //   { path: "snackbar", component: SnackbarComponent },
-    //   { path: "slider", component: SliderComponent },
-    //   { path: "slide-toggle", component: SlideToggleComponent },
-    //   { path: "tooltip", component: TooltipsComponent },
-    //   { path: "button", component: ButtonsComponent },
-    // ]
   },
   {
     path: "dashboard",
@@ -104,6 +84,13 @@ const routes: Routes = [
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
       { path: "passwordreset", component:ForgetPasswordComponent }
+    ]
+  },
+  {
+    path: "admin", component: FullComponent,
+    children: [
+      { path: "", redirectTo: "/admin/prefrences", pathMatch: "full" },
+      { path: "prefrences", component: PrefrencesComponent },
     ]
   },
 

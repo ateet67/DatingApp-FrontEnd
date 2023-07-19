@@ -1,5 +1,5 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
+<h1 mat-dialog-title>{{data.title ?? 'confirm'}}</h1>
+<div mat-dialog-content style="min-width: 400px;">{{data.content ?? 'Are you sure?'}}</div>
 <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close>Close</button>
     <button mat-raised-button color="warn" (click)="onConfirmClcik()">Confim</button>

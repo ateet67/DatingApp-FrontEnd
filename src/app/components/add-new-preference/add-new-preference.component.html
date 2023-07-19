@@ -1,0 +1,31 @@
+<form novalidate #newItemForm="ngForm">
+    <div class="row">
+        <div class="col-10">
+            <mat-form-field class="w-100 fs-16">
+                <input matInput appAlphabetsOnly type="text" [(ngModel)]="searchQuery" #itemControl="ngModel"
+                    name="qury" placeholder="search.." (input)="onFilterTextBoxChanged()">
+            </mat-form-field>
+        </div>
+        <div class="col-2 pt-2">
+            <button mat-raised-button extended color="primary" type="submit" (click)="Add()"
+                [disabled]="(!(searchQuery.length > 3) && !disableAdd)" class="w-100 h-50">
+                Add
+            </button>
+        </div>
+        <div class="col-12">
+            <mat-progress-bar mode="query" *ngIf="isLoading"></mat-progress-bar>
+            <div class="scrollable-grid">
+                <ag-grid-angular style="width: 100%;flex:1 1 auto" class="ag-theme-material" [columnDefs]="columnDefs"
+                    [cacheQuickFilter]="true" [pagination]="true" [paginationPageSize]="10"
+                    [defaultColDef]="defaultColDef" [rowData]="allItems" [rowSelection]="'multiple'"
+                    [animateRows]="true" (gridReady)="onGridReady($event)" (rowSelected)="onRowSelected($event)">
+                </ag-grid-angular>
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+            <button mat-raised-button color="warn" type="button" [disabled]="disableDelete" (click)="deleteClick()">
+                Delete
+            </button>
+        </div>
+    </div>
+</form>
