@@ -30,6 +30,7 @@ import { NotificationComponent } from './pages/notification/notification.compone
 import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-info.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { PrefrencesComponent } from './pages/admin/prefrences/prefrences.component';
+import { UserlistComponent } from './pages/admin/userlist/userlist.component';
 
 const routes: Routes = [
   {
@@ -46,8 +47,8 @@ const routes: Routes = [
       { path: "home", component: Profiles },
       { path: "chats", component: ChatsComponent },
       { path: "notification", component: NotificationComponent },
-      { path: "account", component:ProfileInfoComponent },
-      { path: "edit-profile", component: EditProfileComponent},
+      { path: "account", component: ProfileInfoComponent },
+      { path: "edit-profile", component: EditProfileComponent },
       //below unwanted
       { path: "home2", component: DashboardComponent },
       { path: "alerts", component: AlertsComponent },
@@ -74,7 +75,7 @@ const routes: Routes = [
     children: [
       { path: "", redirectTo: "/profile/images", pathMatch: "full" },
       { path: "images", component: ImagesComponent },
-      
+
     ]
   },
   {
@@ -83,7 +84,7 @@ const routes: Routes = [
       { path: "", redirectTo: "/auth/login", pathMatch: "full" },
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
-      { path: "passwordreset", component:ForgetPasswordComponent }
+      { path: "passwordreset", component: ForgetPasswordComponent }
     ]
   },
   {
@@ -91,6 +92,7 @@ const routes: Routes = [
     children: [
       { path: "", redirectTo: "/admin/prefrences", pathMatch: "full" },
       { path: "prefrences", component: PrefrencesComponent },
+      { path: "userList", component: UserlistComponent },
     ]
   },
 

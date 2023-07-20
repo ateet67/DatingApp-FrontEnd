@@ -1,1 +1,7 @@
-<p>userlist works!</p>
+<div class="scrollable-grid">
+    <ag-grid-angular style="width: 100%;flex:1 1 auto" class="ag-theme-material" [columnDefs]="columnDefs"
+        [cacheQuickFilter]="true" [pagination]="true" [paginationPageSize]="10" [defaultColDef]="defaultColDef"
+        [rowData]="allItems" [rowSelection]="'multiple'" [animateRows]="true" (gridReady)="onGridReady($event)"
+        (rowSelected)="onRowSelected($event)">
+    </ag-grid-angular>
+</div>
