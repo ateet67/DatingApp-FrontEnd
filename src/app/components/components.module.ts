@@ -32,6 +32,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { AddNewPreferenceComponent } from './add-new-preference/add-new-preference.component';
 import { AlphabetsOnlyDirective } from '../core/directives/alphabets-only.directive';
 import { AgGridModule } from 'ag-grid-angular';
+import { ImageRendererComponent } from './CellRenderer/image-renderer/image-renderer.component';
 
      
 @NgModule({
@@ -95,7 +96,8 @@ import { AgGridModule } from 'ag-grid-angular';
     FireSeenPipe,
     SocialLinksComponent,
     AddNewPreferenceComponent,
-    AlphabetsOnlyDirective
+    AlphabetsOnlyDirective,
+    ImageRendererComponent
   ]
 })
 export class ComponentsModule {
