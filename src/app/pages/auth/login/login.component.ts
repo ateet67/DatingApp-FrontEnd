@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   }
   isLoading: boolean = false;
 
-  constructor(private authServivce: AuthService, private store: Store, private router: Router,private toaster:ToasterService) {
+  constructor(private authServivce: AuthService, private store: Store, private router: Router, private toaster: ToasterService) {
 
   }
 
@@ -34,23 +34,20 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       this.authServivce.login(this.loginData.email, this.loginData.password).subscribe(
         (data: any) => {
-          console.log(data);
           if (data.status) {
             this.isLoading = false;
             localStorage.setItem("token", data.user.token);
             this.store.dispatch(setUser({ user: data.user }));
             setTimeout(() => {
-              console.log(data);
               this.router.navigateByUrl('/dashboard')
-              this.toaster.Sucess("Success","Logged in successfully",ToasterPosition.topRight)
+              this.toaster.Sucess("Success", "Logged in successfully", ToasterPosition.topRight)
             }, 500);
           }
         },
         (err: any) => {
           this.isLoading = false;
           setTimeout(() => {
-            console.log(err.error);
-            this.toaster.Error("Login failed","Your credentials are wrong")
+            this.toaster.Error("Error", err.error.message ?? "Something went wrong!!", ToasterPosition.topRight)
           }, 1000);
         })
     }
