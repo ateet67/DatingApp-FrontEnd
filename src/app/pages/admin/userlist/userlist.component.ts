@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent, RowSelectedEvent } from 'ag-grid-community';
 import * as moment from 'moment';
+import { ImageRendererComponent } from 'src/app/components/CellRenderer/image-renderer/image-renderer.component';
 import { AdminService } from 'src/app/core/service/admin.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class UserlistComponent implements OnInit {
       headerCheckboxSelection: false,
       checkboxSelection: true,
     },
-    { field: 'id', headerName: 'Id', sort: 'desc' },
+    { field: 'img', headerName: '', cellRenderer: ImageRendererComponent, filter: false, maxWidth: 50 },
     {
       field: 'first_name',
       headerName: 'First Name',
@@ -60,6 +61,8 @@ export class UserlistComponent implements OnInit {
     },
     {
       field: "is_online",
+      checkboxSelection: false,
+      showDisabledCheckboxes: false,
       headerName: "Online/Offline",
       valueFormatter: (val: any) => val ? 'Online' : 'Offline'
     },
@@ -70,9 +73,9 @@ export class UserlistComponent implements OnInit {
   gridApi!: GridApi;
   defaultColDef: ColDef = {
     sortable: true,
-    filter: true,
-    flex: 1,
+    filter: false,
     resizable: true,
+    headerClass: 'text-center'
   };
 
   constructor(private adminService: AdminService) { }
