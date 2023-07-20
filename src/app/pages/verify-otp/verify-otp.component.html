@@ -1,0 +1,63 @@
+<form class="form d-flex justify-content-center flex-column" #otp="ngForm" novalidate *ngIf="!otpVerified">
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Please check your email</mat-label>
+        <input matInput type="text" #otpFeild="ngModel" name="otpData.otp" [(ngModel)]="otpData.otp" [required]="true"
+            appNumbersOnly />
+        <mat-error class="text-danger form-text d-block"
+            *ngIf="(otpFeild.touched) && otpFeild.errors?.['required']">
+            OTP is required
+        </mat-error>
+        <mat-error class="text-danger form-text d-block"
+            *ngIf="(otpFeild.touched ) && otpFeild.errors?.['invalid'] && !otpFeild.errors?.['required']">
+            Please enter numbers only
+        </mat-error>
+    </mat-form-field>
+    <button mat-fab extended color="accent" type="submit" class="mx-auto" 
+    [disabled]="!otp.valid"
+     (click)="VerifyOtp()">
+        Verify
+        <mat-icon>verified_user</mat-icon>
+    </button>
+</form>
+
+<form *ngIf="otpVerified" #passwordForm="ngForm"
+ [appMatchPassword]="['passwordData.password', 'passwordData.confirmPassword']">
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" appPasswordPattern
+            [(ngModel)]="passwordData.password" name="passwordData.password" #password="ngModel" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="(password.touched) && password.errors?.['required']"> Password is
+            required.</mat-error>
+        <mat-error *ngIf="password.touched && password.errors?.['invalidPassword']">
+            Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+            letter and 1 number
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label> Confirm Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password"
+            [(ngModel)]="passwordData.confirmPassword" name="passwordData.confirmPassword" #confirmPassword="ngModel"
+            required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide confirmPassword'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error class="text-danger form-text d-block"
+            *ngIf="(confirmPassword.touched) && confirmPassword.errors?.['required']">
+            Confirm Password is required
+        </mat-error>
+        <mat-error class="text-danger form-text d-block"
+            *ngIf="confirmPassword.touched && confirmPassword.errors?.['passwordMismatch']">
+            Passwords doesnot match
+        </mat-error>
+    </mat-form-field>
+    <button mat-fab extended color="accent" type="submit" class="mx-auto"  (click)="ChangePassword()">
+        Change Password
+        <mat-icon>verified_user</mat-icon>
+    </button>
+</form>

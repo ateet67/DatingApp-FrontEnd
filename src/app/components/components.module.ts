@@ -83,9 +83,10 @@ import { ImageRendererComponent } from './CellRenderer/image-renderer/image-rend
     SocialLinksComponent,
     NgxPermissionsModule,
     AddNewPreferenceComponent,
-    AlphabetsOnlyDirective
+    AlphabetsOnlyDirective,
   ],
   declarations: [
+
     AppAutoCompleteComponent,
     SwipeCardComponent,
     NotificationComponent,

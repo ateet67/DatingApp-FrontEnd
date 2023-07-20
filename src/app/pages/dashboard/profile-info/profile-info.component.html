@@ -1,196 +1,88 @@
 <div *ngIf="isLoading">
     <mat-spinner></mat-spinner>
 </div>
-<mat-tab-group dynamicHeight dynamicWidth class="my-5" *ngIf="!isLoading && profileInfo">
-    <mat-tab label="About ">
-        <div class="my-2">
-            <div class="col-6 d-flex w-50 mt-4">
-                <h5 class="col-6 label text-start ">
-                    email :-
-                </h5>
-                <h5 class="col-6 text-start ">
-                    {{profileInfo.email}}
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50 ">
-                <h5 class="col-6 label text-start ">
-                    Full Name :-
-                </h5>
-                <h5 class="col-6 text-start ">
-                    {{profileInfo.first_name}} {{profileInfo.middle_name}} {{profileInfo.last_name}}
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    age :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{age}}
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    gender :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{profileInfo.gender}}
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    education :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{profileInfo.education}}
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    height :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{profileInfo.height}} cm
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    weight :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{profileInfo.weight}} cm
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    seeking for :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{profileInfo.preference}}
-                </h5>
-            </div>
-        </div>
-        <div class="info my-2">
-            <div class="col-6 d-flex w-50">
-                <h5 class="col-6 label text-start ">
-                    address :-
-                </h5>
-                <h5 class="col-6 text-start">
-                    {{profileInfo.address}}
-                </h5>
-            </div>
-        </div>
-        <!-- <div class="info my-2">
-                <div class="col-6 d-flex w-50">
-                    <h5 class="col-6 label text-start ">
-                        joined on :-
-                    </h5>
-                    <h5 class="col-6 text-start">
-                        {{profileInfo.createdAt.split('T')[0]}}
-                    </h5>
-                </div>
-            </div> -->
-    </mat-tab>
-    <mat-tab label="Social links">
-        <div class="info my-4 text-center">
-            <h5 *ngIf="social_links.length===0">No Social Media account found </h5>
-        </div>
-        <div class="d-flex w-100 justify-content-center">
+<mat-card *ngIf="!isLoading && profileInfo">
 
-            <ul class="my-4 info d-flex">
-                <li *ngFor="let link of social_links" class="mx-2">
-                    <a [href]="link.link" target="_blank">
-                        <img matListItemIcon [src]="link.icon" class="profileImg" />
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </mat-tab>
-    <mat-tab label="Likes">
-        <div class="info my-4 text-center">
-            <h4 *ngIf="likedList.length===0">You havent liked any profiles </h4>
-        </div>
-        <mat-list>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 col-6" *ngFor="let like of likedList">
-                    <!-- <ma -->
-                    <mat-card class="overflow-hidden">
-                        <div>
-                            <img mat-card-image
-                                [src]="like.liked_user.img?baseUrl+like.liked_user.img:'http://placekitten.com/g/300/300'"
-                                alt="UserImage" class="w-100" height="300px" width="300px">
-                        </div>
-                        <mat-card-content>
-                            <div>
-                                <p class="fs-18 lh-lg fw-medium">
-                                    {{like.liked_user.first_name}}
-                                    {{like.liked_user.last_name}}
-                                    <br>
-                                    <small class="text-muted">{{countage(like.liked_user.dob)}} ,
-                                        {{like.liked_user.gender}} </small>
-                                </p>
-                                <p class="op-7">
-                                    {{like.liked_user.bio}}
-                                </p>
-                                <button mat-flat-button color="accent" class="fw-normal mt-4"
-                                    [routerLink]="'/userprofile/'+like.liked_user.id">
-                                    View Profile
-                                </button>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
+    <header class="my-3">
+        <div class="container">
+            <div class="profile">
+                <div class="profile-image">
+                    <img [src]="profileInfo.img?baseUrl+profileInfo.img:'http://placekitten.com/g/300/300'" alt="" width="100%">
                 </div>
-            </div>
-        </mat-list>
-    </mat-tab>
-    <mat-tab label="Swipes">
-        <div class="info my-4 text-center">
-            <h4 *ngIf="swipedList.length===0">No swipes </h4>
-        </div>
-        <mat-list>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 col-6" *ngFor="let swipe of swipedList">
-                    <mat-card class="overflow-hidden text-white {{swipe.swipe_type=='Right'?'bg-success':'bg-danger'}}">
-                        <div>
-                            <img mat-card-image
-                                [src]="swipe.swiped_user.img?baseUrl+swipe.swiped_user.img:'http://placekitten.com/g/200/300'"
-                                alt="UserImage" class="w-100" height="300px" width="300px">
-                        </div>
+                <div class="profile-user-settings">
+                    <h1 class="profile-user-name">{{profileInfo.first_name}} {{profileInfo.last_name}}</h1>
+                    <h3>
+                        <span class="text-muted">{{age}} , {{profileInfo.gender}}</span>
+                    </h3>
+                </div>
+                <div class="profile-stats">
+                    <ul class="ps-0">
+                        <li><span class="profile-stat-count">{{profileLikeCount}}</span> likes</li>
+                        <li><span class="profile-stat-count">0</span> superlikes</li>
+                    </ul>
+                </div>
 
-                        <mat-card-content>
-                            <p class="fs-18 lh-lg fw-medium">
-                                {{swipe.swiped_user.first_name}}
-                                {{swipe.swiped_user.last_name}}
-                                <br>
-                                <small class="text-muted">
-                                    {{countage(swipe.swiped_user.dob)}}
-                                    {{swipe.swiped_user.gender}}
-                                </small>
-                            </p>
-                            <p class="op-7">
-                                {{swipe.swiped_user.bio}}
-                            </p>
-                            <button mat-flat-button color="accent" class="fw-normal mt-4"
-                                [routerLink]="'/userprofile/'+swipe.swiped_user.id">
-                                View Profile
-                            </button>
-                        </mat-card-content>
-                    </mat-card>
+                <div class="profile-bio">
+                    <p>{{profileInfo.bio}}</p>
+                </div>
+                <div class="d-flex w-100 justify-content-center align-items-center">
+                    <ul class=" info mt-3 d-flex ps-0">
+                        <li *ngFor="let link of social_links" class="mx-2">
+                            <a [href]="link.link" target="_blank">
+                                <img [src]="link.icon" class="" width="40px" />
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </mat-list>
-    </mat-tab>
-</mat-tab-group>
+            <div class="row px-4 ">
+                <div class="col-lg-4 mt-2" *ngIf="profileInfo.food_prefrences.length>0">
+                    <h3 class="">Food Prefrences</h3>
+                    <div class="d-flex  align-items-center">
+                        <span class="badge me-2 bg-primary rounded-pill "
+                            *ngFor="let item of profileInfo.food_prefrences">{{item.name}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-2" *ngIf="profileInfo.goingout_preference.length>0">
+                    <h3 class="">Places Likes to go</h3>
+                    <div class="d-flex  align-items-center">
+                        <span class="badge me-2 bg-primary rounded-pill "
+                            *ngFor="let item of profileInfo.goingout_preference">{{item.name}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-2" *ngIf="profileInfo.hobby.length>0">
+                    <h3 class="">Hobbies</h3>
+                    <div class="d-flex  align-items-center">
+                        <span class="badge me-2 bg-primary rounded-pill "
+                            *ngFor="let item of profileInfo.hobby">{{item.name}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-2" *ngIf="profileInfo.professions.length>0">
+                    <h3 class="">Professions</h3>
+                    <div class="d-flex  align-items-center">
+                        <span class="badge me-2 bg-primary rounded-pill "
+                            *ngFor="let item of profileInfo.professions">{{item.name}}</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-2" *ngIf="profileInfo.ethicity.length>0">
+                    <h3 class="">Ehnicity</h3>
+                    <div class="d-flex  align-items-center">
+                        <span class="badge me-2 bg-primary rounded-pill "
+                            *ngFor="let item of profileInfo.ethicity">{{item.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<mat-divider></mat-divider>
+    <main class="my-3">
+        <h1 *ngIf="profileInfo.user_images.length===0">No images </h1>
+        <div class="container row">
+            <div class="gallery col-lg-4" *ngFor="let image of profileInfo.user_images">
+                <div class="gallery-item" tabindex="0">
+                    <img [src]="baseUrl+image.imgurl" class="gallery-image rounded-1" alt="userImage">
+                </div>
+            </div>
+        </div>
+    </main>
+</mat-card>
