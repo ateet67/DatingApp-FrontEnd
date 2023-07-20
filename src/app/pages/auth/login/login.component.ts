@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           setTimeout(() => {
             console.log(err.error);
+            this.toaster.Error("Login failed","Your credentials are wrong")
           }, 1000);
         })
     }

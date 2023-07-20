@@ -53,12 +53,8 @@ export class ProfileInfo  {
     likeList: any[] = [];
     swipeList: any[] = [];
     blockList: any[] = [];
-    social_profiles!: Array<UserSocialProfile> 
-    user_ethnicity!: Array<Ethnicity> 
-    user_food_preference!: Array<FoodAndDrinks> 
-    user_profession!: Array<Profession> 
-    user_goingout_preference!: Array<GoingOut> 
-    user_hobby!: Array<Hobby> 
+    social_profiles: Array<UserSocialProfile> 
+    user_images:any[]=[]
 
 
     constructor(userinfo: any) {
@@ -98,7 +94,7 @@ export class ProfileInfo  {
         this.jwttoken = userinfo.jwttoken;
         this.tokencreateddate = userinfo.tokencreateddate;
         this.token = userinfo.token;
-        this.likeList = userinfo.profile_like
+        this.profile_like = userinfo.profile_like
         this.swipeList = userinfo.profile_swipe
         this.blockList = userinfo.user_blocklist
         this.hobby = userinfo.user_hobbies
@@ -109,5 +105,6 @@ export class ProfileInfo  {
         this.professions=userinfo.professions
         this.goingout_preference=userinfo.goingout_prefrences
         this.hobby=userinfo.user_hobbies
+        this.user_images =userinfo.user_image
     }
 }

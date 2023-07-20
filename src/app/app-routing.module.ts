@@ -31,6 +31,7 @@ import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-inf
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { PrefrencesComponent } from './pages/admin/prefrences/prefrences.component';
 import { UserlistComponent } from './pages/admin/userlist/userlist.component';
+import { VerifyOtpComponent } from './pages/verify-otp/verify-otp.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
       { path: "notification", component: NotificationComponent },
       { path: "account", component: ProfileInfoComponent },
       { path: "edit-profile", component: EditProfileComponent },
+      { path: "changepassword", component: VerifyOtpComponent },
       //below unwanted
       { path: "home2", component: DashboardComponent },
       { path: "alerts", component: AlertsComponent },

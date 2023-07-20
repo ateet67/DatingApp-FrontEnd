@@ -11,7 +11,7 @@ import { getUser } from '../store/actions/user.actions';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService{
+export class AuthService {
 
   api: ApiHttpService;
 
@@ -23,7 +23,9 @@ export class AuthService{
   registerUser(userData: User): Observable<User> {
     return this.api.post("auth/register", userData);
   }
-
+  sendOtp(email: string): Observable<any> {
+    return this.api.post('auth/sendotp', { email })
+  }
   verifyOTP(otpData: any): Observable<{ [key: string]: boolean }> {
     return this.api.post("auth/verifyotp", otpData);
   }
@@ -31,22 +33,25 @@ export class AuthService{
   login(email: string, password: string): Observable<User> {
     return this.api.post("auth/login", { email, password });
   }
+  passwordReset(password: string,email:string) {
+    return this.api.post("auth/passwordreset/reset", { password,email })
+  }
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-     
+
   public getuser(): any {
     // let currentUser;
     // this.store.select('user').subscribe((user) => currentUser = user)
     // return currentUser ?? null;
-    return JSON.parse(localStorage.getItem('user')??"{}")
+    return JSON.parse(localStorage.getItem('user') ?? "{}")
   }
-  
 
-  SendResetPasswordLink(email:string): Observable<any> {
+
+  SendResetPasswordLink(email: string): Observable<any> {
     return this.api.post("auth/passwordreset", { email })
   }
 }

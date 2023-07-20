@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { Socket } from 'ngx-socket-io';
 import { Constants } from 'src/app/config/constants';
 import { UserService } from 'src/app/core/service/UserService/user.service';
 import { AuthService } from 'src/app/core/service/auth.service';
@@ -19,13 +20,16 @@ export class ProfileInfoComponent implements OnInit {
   likedList: any = []
   swipedList: any = []
   social_links: any = []
+  profileLikeCount = 0;
   constructor(
     private userservice: UserService,
     private auth: AuthService,
+    private socket: Socket,
   ) { }
   ngOnInit(): void {
     this.userservice.GetProfileInfo().subscribe((userinfo) => {
       this.profileInfo = new ProfileInfo(userinfo.data);
+      this.profileLikeCount =this.profileInfo.profile_like.length
       this.social_links = this.profileInfo.social_profiles.map((ele) => {
         return {
           ...ele,
@@ -39,6 +43,15 @@ export class ProfileInfoComponent implements OnInit {
     this.userservice.GetSwipeList().subscribe((swipes) => {
       this.swipedList = swipes.swipeList
       this.isLoading = false
+    })
+
+    this.socket.on("notifylike", (likeinfo: any) => {
+      if (likeinfo.status && likeinfo.data) {
+        this.profileLikeCount++
+      } else {
+        this.profileLikeCount--
+      }
+
     })
   }
 

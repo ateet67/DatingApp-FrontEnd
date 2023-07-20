@@ -25,7 +25,7 @@ export class CustomService {
   }
 
   getZodiacs(): Observable<Zodiac[]> {
-    return this.api.get("get/zoidacs/");
+    return this.api.get("get/zodiac/");
   }
 
   getGoingOuts(): Observable<GoingOut[]> {

@@ -83,7 +83,7 @@ export class RegisterComponent {
         console.log(data);
         setTimeout(() => {
           this.isLoading = false;
-          if (data.otpToken) {
+          if (data.otpToken) {  
             this.otpData.otptoken = data.otpToken;
             this.otpVeriffication = true;
           }

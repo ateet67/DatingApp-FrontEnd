@@ -17,18 +17,13 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { StoreModule } from '@ngrx/store';
-import * as Hammer from "hammerjs";
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { PasswordPatternDirective } from './core/directives/password-pattern.directive';
-import { MatchPasswordDirective } from './core/directives/match-password.directive';
 import { ValidateUserNameDirective } from './core/directives/validate-user-name.directive';
 import { AlphNumericDirective } from './core/directives/alph-numeric.directive';
 import { CountryCodeDirective } from './core/directives/country-code.directive';
 import { NumbersOnlyDirective } from './core/directives/numbers-only.directive';
 import { JwtModule } from '@auth0/angular-jwt';
-// import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { userReducer } from './core/store/reducers/user.reducers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatInputModule } from '@angular/material/input';
@@ -37,7 +32,6 @@ import { ChatsComponent } from './pages/dashboard/chats/chats.component';
 import { MyHammerConfig } from './hammer';
 import { ImagesComponent } from './pages/profile/images/images.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import config from './environments/environment.local';
 import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileInfoComponent } from './pages/dashboard/profile-info/profile-info.component';
@@ -48,6 +42,9 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { PrefrencesComponent } from './pages/admin/prefrences/prefrences.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { UserlistComponent } from './pages/admin/userlist/userlist.component';
+import { PasswordPatternDirective } from './core/directives/password-pattern.directive';
+import { MatchPasswordDirective } from './core/directives/match-password.directive';
+import { VerifyOtpComponent } from './pages/verify-otp/verify-otp.component';
 
 const socketConfig: SocketIoConfig = {
   url: Constants.SOCKET_ENDPOINT, // socket server url;
@@ -66,8 +63,6 @@ export function tokenGetter() {
     LoginComponent,
     RegisterComponent,
     AuthComponent,
-    PasswordPatternDirective,
-    MatchPasswordDirective,
     ValidateUserNameDirective,
     AlphNumericDirective,
     CountryCodeDirective,
@@ -80,6 +75,9 @@ export function tokenGetter() {
     EditProfileComponent,
     PrefrencesComponent,
     UserlistComponent,
+    PasswordPatternDirective,
+    MatchPasswordDirective,
+    VerifyOtpComponent
   ],
   imports: [
     BrowserModule,

@@ -32,6 +32,9 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { AddNewPreferenceComponent } from './add-new-preference/add-new-preference.component';
 import { AlphabetsOnlyDirective } from '../core/directives/alphabets-only.directive';
 import { AgGridModule } from 'ag-grid-angular';
+import { VerifyOtpComponent } from '../pages/verify-otp/verify-otp.component';
+import { MatchPasswordDirective } from '../core/directives/match-password.directive';
+import { PasswordPatternDirective } from '../core/directives/password-pattern.directive';
 
      
 @NgModule({
@@ -57,6 +60,8 @@ import { AgGridModule } from 'ag-grid-angular';
     FormsModule,
     ReactiveFormsModule,
     AgGridModule,
+    // PasswordPatternDirective,
+    // MatchPasswordDirective,
   ],
   exports: [
     AlertsComponent,
@@ -82,9 +87,10 @@ import { AgGridModule } from 'ag-grid-angular';
     SocialLinksComponent,
     NgxPermissionsModule,
     AddNewPreferenceComponent,
-    AlphabetsOnlyDirective
+    AlphabetsOnlyDirective,
   ],
   declarations: [
+
     AppAutoCompleteComponent,
     SwipeCardComponent,
     NotificationComponent,
@@ -95,7 +101,7 @@ import { AgGridModule } from 'ag-grid-angular';
     FireSeenPipe,
     SocialLinksComponent,
     AddNewPreferenceComponent,
-    AlphabetsOnlyDirective
+    AlphabetsOnlyDirective,
   ]
 })
 export class ComponentsModule {
